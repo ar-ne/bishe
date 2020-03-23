@@ -1,7 +1,7 @@
 import CommonService from './common-service'
 import Dc from '../commands/dc'
 import ServiceConfig from '../config.d/service-control.config'
-import {resolve} from "path";
+import {resolve} from 'path'
 
 export default class DockerComposeService extends CommonService {
   protected cwd: string;

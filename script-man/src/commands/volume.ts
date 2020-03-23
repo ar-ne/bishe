@@ -143,7 +143,7 @@ export default class Volume extends Command {
         'Create Time': v.CreatedAt,
         Name: v.Name,
         'Docker-Compose Project': v.Labels && Volume.dcp in v.Labels ? v.Labels[Volume.dcp] : '',
-      }))
+      })),
     )
     if (args.action !== ACTION.ls) {
       targets.forEach(v => {

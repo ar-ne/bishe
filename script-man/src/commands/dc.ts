@@ -28,8 +28,8 @@ export default class Dc extends Command {
     buildImage: flags.boolean({
       char: 'b',
       description: '--build when up',
-      default: false
-    })
+      default: false,
+    }),
   }
 
   static args = [

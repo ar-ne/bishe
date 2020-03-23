@@ -4,7 +4,7 @@ import {existsSync} from 'fs'
 import ServiceConfig from '../config.d/service-control.config'
 import CommonService from '../service/common-service'
 import Config from '../config'
-import Log from "../log";
+import Log from '../log'
 
 export enum ACTION {
   start = 'start', stop = 'stop', restart = 'restart', ls = 'ls', status = 'status'

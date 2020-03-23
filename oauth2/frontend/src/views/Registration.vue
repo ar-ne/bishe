@@ -6,27 +6,27 @@
             </h4>
             <el-form :model="form" :rules="rule" ref="form">
                 <el-form-item prop="username">
-                    <label slot="label" class="prompt-text">用户名<span class="star-sym">*</span></label>
-                    <el-input v-model="form.username" clearable placeholder="请输入内容"></el-input>
+                    <label class="prompt-text" slot="label">用户名<span class="star-sym">*</span></label>
+                    <el-input clearable placeholder="请输入内容" v-model="form.username"></el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <label slot="label" class="prompt-text">密码<span class="star-sym">*</span></label>
-                    <el-input v-model="form.password" type="password" clearable
-                              placeholder="请输入内容"></el-input>
+                    <label class="prompt-text" slot="label">密码<span class="star-sym">*</span></label>
+                    <el-input clearable placeholder="请输入内容" type="password"
+                              v-model="form.password"></el-input>
                 </el-form-item>
                 <el-form-item prop="passwordConfirm">
-                    <label slot="label" class="prompt-text">确认密码<span class="star-sym">*</span></label>
-                    <el-input v-model="form.passwordConfirm" type="password" clearable
-                              placeholder="请输入内容"></el-input>
+                    <label class="prompt-text" slot="label">确认密码<span class="star-sym">*</span></label>
+                    <el-input clearable placeholder="请输入内容" type="password"
+                              v-model="form.passwordConfirm"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" class="sign-in" @click="submitForm('form')">
+                    <el-button @click="submitForm('form')" class="sign-in" type="primary">
                         注册
                     </el-button>
                 </el-form-item>
             </el-form>
             <div style="margin: 1rem 0 0.5rem;text-align: left">
-                <router-link to="/forget" id="fp">Forget password?</router-link>
+                <router-link id="fp" to="/forget">Forget password?</router-link>
             </div>
         </el-card>
     </div>
@@ -64,7 +64,7 @@
         this.$refs[forName].validate(valid => {
           if (!valid) {
             this.$message.error('请按说明填写表单')
-            return
+
           }
         })
       },
