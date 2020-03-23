@@ -1,0 +1,10 @@
+*.log
+*.tar
+/.nyc_output
+/dist
+/lib
+/package-lock.json
+/tmp
+node_modules
+.idea/workspace.xml
+.idea/vcs.xml

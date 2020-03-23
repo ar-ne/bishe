@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  postgres:
+    ports:
+      - 5432:5432
+
+  pgadmin4:
+    image: dpage/pgadmin4:latest
+    networks:
+      - backend-database
+    ports:
+      - 80:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: e
+      PGADMIN_DEFAULT_PASSWORD: e
+    volumes:
+      - pgadmin4-data:/var/lib/pgadmin
+
+  # oauth2-frontend:
+  #   build: 
+  #     dockerfile: Dockerfile.dev
+
+volumes:
+  pgadmin4-data:

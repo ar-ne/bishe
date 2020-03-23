@@ -1,0 +1,17 @@
+{
+  "name": "code",
+  "version": "1.0.0",
+  "main": "None",
+  "license": "MIT",
+  "scripts": {
+    "submodule": "git submodule update --init --recursive",
+    "install": "yarn submodule && cd script-man && yarn",
+    "uninstall": "cd script-man && yarn uninstall"
+  },
+  "private": true,
+  "workspaces": [
+    "script-man",
+    "oauth2/frontend",
+    "oauth2/backend"
+  ]
+}

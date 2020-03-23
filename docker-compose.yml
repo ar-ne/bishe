@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  postgres:
+    image: postgres:alpine
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    networks:
+      - backend-database
+    environment:
+      POSTGRES_PASSWORD: e
+  
+  # oauth2-frontend:
+  #   build: 
+  #     context: ./oauth2/oauth2-frontend
+
+networks:
+  backend-database:
+  frontend:
+
+volumes:
+  postgres-data:

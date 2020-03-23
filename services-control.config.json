@@ -1,0 +1,9 @@
+[
+  {
+    "name": "rap2",
+    "type": "docker-compose",
+    "options": {
+      "cwd": "rap2"
+    }
+  }
+]

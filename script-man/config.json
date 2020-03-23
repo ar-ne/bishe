@@ -1,0 +1,10 @@
+{
+  "config_file": {
+    "service-control": "services-control.config.json",
+    "docker-compose": "docker-compose.config.json",
+    "volume": "docker-volume.config.json"
+  },
+  "const": {
+    "docker-compose-project": "com.docker.compose.project"
+  }
+}

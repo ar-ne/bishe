@@ -1,0 +1,66 @@
+{
+  "name": "script-man",
+  "description": "Script manager",
+  "version": "0.0.0",
+  "author": "Arne @arnesacnussem",
+  "bin": {
+    "scma": "./bin/run"
+  },
+  "bugs": "https://github.com/arnesacnussem/script-man/issues",
+  "dependencies": {
+    "@oclif/command": "^1",
+    "@oclif/config": "^1",
+    "@oclif/plugin-help": "^2",
+    "@types/dockerode": "^2.5.24",
+    "@types/lodash": "^4.14.149",
+    "chalk": "^3.0.0",
+    "dockerode": "^3.1.0",
+    "execa": "^4.0.0",
+    "lodash": "^4.17.15",
+    "tslib": "^1"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1",
+    "@types/node": "^10",
+    "eslint": "^5.13",
+    "eslint-config-oclif": "^3.1",
+    "eslint-config-oclif-typescript": "^0.1",
+    "globby": "^10",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8",
+    "typescript": "^3.3"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "files": [
+    "/bin",
+    "/lib",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "homepage": "https://github.com/arnesacnussem/script-man",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "scma",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "arnesacnussem/script-man",
+  "scripts": {
+    "postpack": "rimraf oclif.manifest.json",
+    "posttest": "eslint . --ext .ts --config .eslintrc",
+    "prepack": "rimraf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "test": "echo NO TESTS",
+    "version": "oclif-dev readme && git add README.md",
+    "install": "yarn link",
+    "uninstall": "yarn unlink"
+  },
+  "types": "lib/index.d.ts"
+}
