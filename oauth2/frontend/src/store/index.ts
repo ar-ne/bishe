@@ -1,11 +1,16 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { Notification } from '~/store/notification';
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
-    state: {},
-    mutations: {},
-    actions: {},
-    modules: {}
-})
+export const modules = {
+  notification: Notification,
+};
+// import Vuex from 'vuex';
+// import { Notification } from '~/store/notification';
+//
+// const store = () =>
+//   new Vuex.Store({
+//     modules: {
+//       notification: Notification,
+//     },
+//   });
+//
+// export default store;

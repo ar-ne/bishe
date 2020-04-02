@@ -1,0 +1,8 @@
+{
+  "semi": true,
+  "trailingComma": "all",
+  "arrowParens": "always",
+  "vueIndentScriptAndStyle": true,
+  "jsxBracketSameLine": true,
+  "singleQuote": true
+}

@@ -2,20 +2,75 @@ version: "3.7"
 
 services:
   postgres:
-    image: postgres:alpine
+    build:
+      context: ./docker/docker-postgresql-multiple-databases-master
     volumes:
       - postgres-data:/var/lib/postgresql
     networks:
-      - backend-database
+      - database
+      - hydra
     environment:
-      POSTGRES_PASSWORD: e
-  
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_MULTIPLE_DATABASES=${POSTGRES_MULTIPLE_DATABASES}
   # oauth2-frontend:
-  #   build: 
+  #   build:
   #     context: ./oauth2/oauth2-frontend
 
+  hydra-migrate:
+    restart: "no"
+    image: ${IMAGE_HYDRA}
+    depends_on:
+      - postgres
+    networks:
+      - hydra
+    command: migrate sql --yes ${DSN}
+
+  hydra:
+    restart: always
+    image: ${IMAGE_HYDRA}
+    depends_on:
+      - hydra-migrate
+    networks:
+      - hydra
+    ports:
+      - 4444:4444
+    environment:
+      - SECRETS_SYSTEM=${SECRETS_SYSTEM}
+      - DSN=${DSN}
+      - URLS_SELF_ISSUER=${URLS_SELF_ISSUER}
+      - URLS_CONSENT=${URLS_CONSENT}
+      - URLS_LOGIN=${URLS_LOGIN}
+
+  oauth2backend:
+    restart: always
+    build:
+      context: ./oauth2/backend
+    # ports: 
+    #   - ${OB_PORT}:${OB_PORT}
+    networks:
+      - hydra
+      - database
+      - frontend
+    environment:
+      - PORT=${OB_PORT}
+      - HOST=${OB_HOST}
+      - FRONT_ROOT=${OB_FRONT_ROOT}
+      - HYDRA_ADMIN_URL=${OB_HYDRA_ADMIN_URL}
+      - NODE_TLS_REJECT_UNAUTHORIZED=${OB_NODE_TLS_REJECT_UNAUTHORIZED}
+      - SSO_MODE=${OB_SSO_MODE}
+
+  oauth2frontend:
+    restart: always
+    build:
+      context: ./oauth2/frontend
+    networks:
+      - frontend
+    ports: 
+      - 80:80
+
 networks:
-  backend-database:
+  database:
+  hydra:
   frontend:
 
 volumes:

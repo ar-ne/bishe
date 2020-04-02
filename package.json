@@ -12,6 +12,8 @@
   "workspaces": [
     "script-man",
     "oauth2/frontend",
-    "oauth2/backend"
+    "oauth2/backend",
+    "exam/backend",
+    "exam/frontend"
   ]
 }
