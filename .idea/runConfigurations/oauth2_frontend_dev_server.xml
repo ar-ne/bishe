@@ -3,10 +3,13 @@
     <package-json value="$PROJECT_DIR$/oauth2/frontend/package.json" />
     <command value="run" />
     <scripts>
-      <script value="serve" />
+      <script value="dev" />
     </scripts>
     <node-interpreter value="project" />
-    <envs />
+    <envs>
+      <env name="HYDRA_ADMIN_URL" value="fdg" />
+      <env name="PORT" value="3001" />
+    </envs>
     <method v="2" />
   </configuration>
 </component>

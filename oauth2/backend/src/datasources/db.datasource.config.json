@@ -1,0 +1,10 @@
+{
+  "name": "DB",
+  "connector": "postgresql",
+  "url": "",
+  "host": "postgres",
+  "port": 5432,
+  "user": "oauth2",
+  "password": "oauth2",
+  "database": "oauth2"
+}

@@ -1,6 +1,13 @@
 <component name="ProjectDictionaryState">
   <dictionary name="Arne">
     <words>
+      <w>axios</w>
+      <w>csurf</w>
+      <w>dotenv</w>
+      <w>nestjs</w>
+      <w>nuxtjs</w>
+      <w>openapi</w>
+      <w>postgresql</w>
       <w>scma</w>
       <w>scripthost</w>
       <w>subprocess</w>

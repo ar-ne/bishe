@@ -1,0 +1,389 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "backend - backend",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "paths": {
+    "/consent": {
+      "post": {
+        "x-controller-name": "ConsentController",
+        "x-operation-name": "postSlash",
+        "tags": [
+          "ConsentController"
+        ],
+        "parameters": [{
+          "name": "x-application-requesting",
+          "in": "header",
+          "schema": {
+            "type": "boolean"
+          }
+        }],
+        "responses": {
+          "default": {
+            "description": "Consent请求的结果",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "body",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "errorDescription": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "redirect": {
+                      "type": "string",
+                      "nullable": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "title": "body",
+                "properties": {
+                  "challenge": {
+                    "title": "challenge",
+                    "type": "string",
+                    "nullable": false
+                  },
+                  "submit": {
+                    "title": "submit",
+                    "type": "boolean",
+                    "nullable": false
+                  },
+                  "scope": {
+                    "title": "scope",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "nullable": false
+                  },
+                  "remember": {
+                    "title": "remember",
+                    "type": "boolean",
+                    "nullable": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "ConsentController.postSlash"
+      },
+      "get": {
+        "x-controller-name": "ConsentController",
+        "x-operation-name": "getSlash",
+        "tags": [
+          "ConsentController"
+        ],
+        "responses": {
+          "302": {
+            "description": "重定向到前端或由hydra决定的重定向地址"
+          },
+          "default": {
+            "description": "前端发起请求时返回consent detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "detail",
+                  "properties": {
+                    "acr": {
+                      "title": "acr",
+                      "type": "string"
+                    },
+                    "challenge": {
+                      "title": "challenge",
+                      "type": "string"
+                    },
+                    "client": {
+                      "title": "client",
+                      "type": "object"
+                    },
+                    "context": {
+                      "title": "context",
+                      "type": "object"
+                    },
+                    "loginChallenge": {
+                      "title": "loginChallenge",
+                      "type": "string"
+                    },
+                    "loginSessionId": {
+                      "title": "loginSessionId",
+                      "type": "string"
+                    },
+                    "oidcContext": {
+                      "title": "oidcContext",
+                      "type": "object"
+                    },
+                    "requestUrl": {
+                      "title": "requestUrl",
+                      "type": "string"
+                    },
+                    "requestedAccessTokenAudience": {
+                      "title": "requestedAccessTokenAudience",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "requestedScope": {
+                      "title": "requestedScope",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "skip": {
+                      "title": "skip",
+                      "type": "boolean"
+                    },
+                    "subject": {
+                      "title": "subject",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [{
+            "name": "consent_challenge",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "x-application-requesting",
+            "in": "header",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "operationId": "ConsentController.getSlash"
+      }
+    },
+    "/login": {
+      "post": {
+        "x-controller-name": "LoginController",
+        "x-operation-name": "postSlash",
+        "tags": [
+          "LoginController"
+        ],
+        "responses": {
+          "default": {
+            "description": "如果success字段的值为false，则说明身份认证不通过，并且会同时返回一个message字段表示原因，否则应包含redirect字段",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "表示认证是否成功"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "认证失败时的消息"
+                    },
+                    "redirect": {
+                      "type": "string",
+                      "description": "认证成功时的重定向位置"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "post请求应包括用户名密码以及challenge和是否记住登录",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "nullable": false
+                  },
+                  "password": {
+                    "type": "string",
+                    "nullable": false
+                  },
+                  "challenge": {
+                    "type": "string",
+                    "nullable": false
+                  },
+                  "remember": {
+                    "type": "boolean",
+                    "nullable": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [{
+          "name": "x-application-requesting",
+          "in": "header",
+          "schema": {
+            "type": "boolean"
+          }
+        }],
+        "operationId": "LoginController.postSlash"
+      },
+      "get": {
+        "x-controller-name": "LoginController",
+        "x-operation-name": "getSlash",
+        "tags": [
+          "LoginController"
+        ],
+        "responses": {
+          "default": {
+            "description": "重定向到登陆页面或从hydra返回的地址",
+            "headers": {
+              "Location": {
+                "description": "重定向目标地址",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [{
+          "name": "login_challenge",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }],
+        "operationId": "LoginController.getSlash"
+      }
+    },
+    "/logout": {
+      "post": {
+        "x-controller-name": "LogoutController",
+        "x-operation-name": "postSlash",
+        "tags": [
+          "LogoutController"
+        ],
+        "responses": {
+          "default": {
+            "description": "Logout操作的结果"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "challenge": {
+                    "type": "string",
+                    "nullable": false
+                  },
+                  "submit": {
+                    "type": "boolean",
+                    "nullable": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "LogoutController.postSlash"
+      },
+      "get": {
+        "x-controller-name": "LogoutController",
+        "x-operation-name": "getSlash",
+        "tags": [
+          "LogoutController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return value of LogoutController.getSlash"
+          }
+        },
+        "parameters": [{
+          "name": "logout_challenge",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }],
+        "operationId": "LogoutController.getSlash"
+      }
+    },
+    "/ping": {
+      "get": {
+        "x-controller-name": "PingController",
+        "x-operation-name": "ping",
+        "tags": [
+          "PingController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ping Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "PingResponse",
+                  "properties": {
+                    "greeting": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "headers": {
+                      "type": "object",
+                      "properties": {
+                        "Content-Type": {
+                          "type": "string"
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "PingController.ping"
+      }
+    }
+  },
+  "servers": [{
+    "url": "http://localhost:3333"
+  }],
+  "components": {
+    "schemas": {}
+  }
+}
