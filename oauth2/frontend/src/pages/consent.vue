@@ -56,7 +56,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn :disabled="consent.wait" @click="submit" color="warning">
+        <v-btn :disabled="consent.wait" color="warning" @click="submit">
           取消
           <v-icon>mdi-close-thick</v-icon>
         </v-btn>

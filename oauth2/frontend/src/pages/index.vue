@@ -40,7 +40,12 @@
 </template>
 
 <script>
-  import { extend, setInteractionMode, ValidationObserver, ValidationProvider } from 'vee-validate';
+  import {
+    extend,
+    setInteractionMode,
+    ValidationObserver,
+    ValidationProvider,
+  } from 'vee-validate';
   import { required } from 'vee-validate/dist/rules';
   import { LoginControllerApi } from '../generated/openapi';
   import { apiConfig } from '../api-config';
