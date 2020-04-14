@@ -2,34 +2,24 @@ version: "3.7"
 
 services:
   postgres:
+    restart: always
     build:
       context: ./docker/docker-postgresql-multiple-databases-master
     volumes:
-      - postgres-data:/var/lib/postgresql
+      - postgres-data:/var/lib/postgresql/data
     networks:
       - database
       - hydra
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_MULTIPLE_DATABASES=${POSTGRES_MULTIPLE_DATABASES}
-  # oauth2-frontend:
-  #   build:
-  #     context: ./oauth2/oauth2-frontend
-
-  hydra-migrate:
-    restart: "no"
-    image: ${IMAGE_HYDRA}
-    depends_on:
-      - postgres
-    networks:
-      - hydra
-    command: migrate sql --yes ${DSN}
 
   hydra:
     restart: always
-    image: ${IMAGE_HYDRA}
+    build:
+      context: ./docker/hydra
     depends_on:
-      - hydra-migrate
+      - postgres
     networks:
       - hydra
     ports:
@@ -40,12 +30,15 @@ services:
       - URLS_SELF_ISSUER=${URLS_SELF_ISSUER}
       - URLS_CONSENT=${URLS_CONSENT}
       - URLS_LOGIN=${URLS_LOGIN}
+      - SERVE_PUBLIC_CORS_ALLOWED_ORIGINS=${HYDRA_CORS_ALLOWED_ORIGINS}
 
   oauth2backend:
     restart: always
+    depends_on:
+      - postgres
     build:
-      context: ./oauth2/backend
-    # ports: 
+      context: ./oauth2/oauth2backend
+    # ports:
     #   - ${OB_PORT}:${OB_PORT}
     networks:
       - hydra
@@ -62,11 +55,29 @@ services:
   oauth2frontend:
     restart: always
     build:
-      context: ./oauth2/frontend
+      context: ./oauth2/oauth2frontend
     networks:
       - frontend
-    ports: 
+    ports:
       - 80:80
+
+  exam-front:
+    restart: always
+    build:
+      context: ./exam/exam-front
+    networks:
+      - frontend
+    ports:
+      - 3000:3000
+
+  exam-back:
+    depends_on:
+      - postgres
+    restart: always
+    networks:
+      - database
+    build:
+      context: ./exam/exam-back
 
 networks:
   database:

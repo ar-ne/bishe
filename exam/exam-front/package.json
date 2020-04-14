@@ -1,0 +1,46 @@
+{
+  "name": "exam-front",
+  "version": "1.0.0",
+  "description": "My awe-inspiring Nuxt.js project",
+  "author": "Arne",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "generate": "nuxt-ts generate",
+    "start": "nuxt-ts start",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "gen": "openapi-generator generate -g typescript-axios -i ../exam-back/openapi.json -c generator.config.json -o ./src/generated/openapi"
+  },
+  "dependencies": {
+    "@mdi/font": "^5.0.45",
+    "@nuxt/cli": "^2.12.2",
+    "@nuxt/typescript-runtime": "^0.4.0",
+    "@nuxtjs/auth": "^4.9.0",
+    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/dotenv": "^1.4.0",
+    "@nuxtjs/pwa": "^3.0.0-0",
+    "@openapitools/openapi-generator-cli": "^1.0.12-4.3.0",
+    "@types/nuxtjs__auth": "^4.8.4",
+    "monaco-editor": "^0.20.0",
+    "monaco-editor-webpack-plugin": "^1.9.0",
+    "nuxt": "^2.0.0",
+    "socket.io-client": "^2.3.0",
+    "vee-validate": "^3.2.5",
+    "vue": "^2.6.11",
+    "vue-socket.io-extended": "^4.0.1",
+    "vuetify": "^2.2.21",
+    "vuetify-markdown-editor": "^2.0.0",
+    "vuetify-toast-snackbar": "^0.6.1",
+    "vuex-module-decorators": "^0.16.1"
+  },
+  "devDependencies": {
+    "@nuxt/typescript-build": "^0.6.0",
+    "@nuxtjs/eslint-config-typescript": "^1.0.0",
+    "@nuxtjs/eslint-module": "^1.0.0",
+    "@nuxtjs/vuetify": "^1.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^6.1.0",
+    "eslint-plugin-nuxt": ">=0.4.2"
+  }
+}

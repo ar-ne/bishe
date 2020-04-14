@@ -1,0 +1,59 @@
+{
+  "name": "oauth2frontend",
+  "version": "1.0.0",
+  "description": "My superb Nuxt.js project",
+  "author": "Arne",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "generate": "nuxt-ts generate",
+    "start": "nuxt-ts start",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore . --fix",
+    "gen": "openapi-generator generate --generate-alias-as-model -g typescript-axios -o ./src/generated/openapi -i ./openapi.json -c openapi-generator.json"
+  },
+  "lint-staged": {
+    "*.{js,vue}": "yarn lint",
+    "*.{css,vue}": "stylelint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "@mdi/font": "^5.0.45",
+    "@mdi/js": "^5.0.45",
+    "@nuxt/cli": "^2.12.2",
+    "@nuxt/typescript-runtime": "^0.4.0",
+    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/pwa": "^3.0.0-0",
+    "@openapitools/openapi-generator-cli": "^1.0.12-4.3.0",
+    "nuxt": "^2.0.0",
+    "nuxt-property-decorator": "^2.5.1",
+    "vee-validate": "^3.2.5",
+    "vue": "^2.6.11",
+    "vue-template-compiler": "^2.6.11",
+    "vuex": "^3.1.3",
+    "vuex-module-decorators": "^0.16.1",
+    "webpack": "^4.42.1"
+  },
+  "devDependencies": {
+    "@nuxt/typescript-build": "^0.6.0",
+    "@nuxtjs/eslint-config-typescript": "^1.0.0",
+    "@nuxtjs/eslint-module": "^1.0.0",
+    "@nuxtjs/stylelint-module": "^3.1.0",
+    "@nuxtjs/vuetify": "^1.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-nuxt": ">=0.4.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-unicorn": "^18.0.1",
+    "husky": "^4.0.0",
+    "lint-staged": "^10.0.0",
+    "prettier": "^1.19.1",
+    "stylelint": "^10.1.0"
+  }
+}

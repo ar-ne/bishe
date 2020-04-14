@@ -11,9 +11,10 @@
   "private": true,
   "workspaces": [
     "script-man",
-    "oauth2/frontend",
-    "oauth2/backend",
-    "exam/backend",
-    "exam/frontend"
+    "oauth2/oauth2frontend",
+    "oauth2/oauth2backend",
+    "exam/exam-back",
+    "exam/exam-front",
+    "exam/exam-ws"
   ]
 }

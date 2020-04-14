@@ -4,6 +4,7 @@
       <w>axios</w>
       <w>csurf</w>
       <w>dotenv</w>
+      <w>markdownit</w>
       <w>nestjs</w>
       <w>nuxtjs</w>
       <w>openapi</w>
@@ -11,6 +12,8 @@
       <w>scma</w>
       <w>scripthost</w>
       <w>subprocess</w>
+      <w>userinfo</w>
+      <w>workbox</w>
     </words>
   </dictionary>
 </component>

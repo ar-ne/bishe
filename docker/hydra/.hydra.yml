@@ -1,0 +1,37 @@
+log:
+  level: error
+  format: json
+
+serve:
+  public:
+    port: 4444
+    cors:
+      enabled: true
+      allowed_origins:
+        - https://localhost:3000
+      allowed_methods:
+        - DELETE
+        - HEAD
+        - PUT
+        - CONNECT
+        - GET
+        - POST
+      allow_credentials: true
+      max_age: 91103184
+      debug: false
+
+  admin:
+    port: 4445
+    cors:
+      enabled: false
+
+tls:
+
+
+
+urls:
+  self:
+    issuer: https://localhost:4444/
+    public: https://localhost:4444/
+
+  error: http://localhost/error

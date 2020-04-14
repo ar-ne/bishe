@@ -1,0 +1,2016 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "exam-back",
+    "version": "1.0.0",
+    "description": "",
+    "contact": {}
+  },
+  "paths": {
+    "/answers/count": {
+      "get": {
+        "x-controller-name": "AnswerController",
+        "x-operation-name": "count",
+        "tags": [
+          "AnswerController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Answer model count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "loopback.Count",
+                  "properties": {
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Answer.WhereFilter",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "AnswerController.count"
+      }
+    },
+    "/answers/{id}": {
+      "put": {
+        "x-controller-name": "AnswerController",
+        "x-operation-name": "replaceById",
+        "tags": [
+          "AnswerController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Answer PUT success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Answer"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "AnswerController.replaceById"
+      },
+      "patch": {
+        "x-controller-name": "AnswerController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "AnswerController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Answer PATCH success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnswerPartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "AnswerController.updateById"
+      },
+      "get": {
+        "x-controller-name": "AnswerController",
+        "x-operation-name": "findById",
+        "tags": [
+          "AnswerController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Answer model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnswerWithRelations"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Answer.Filter",
+                  "properties": {
+                    "offset": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "example": 100
+                    },
+                    "skip": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "order": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "fields": {
+                      "title": "Answer.Fields",
+                      "type": "object",
+                      "properties": {
+                        "question": {
+                          "type": "boolean"
+                        },
+                        "id": {
+                          "type": "boolean"
+                        },
+                        "content": {
+                          "type": "boolean"
+                        },
+                        "user": {
+                          "type": "boolean"
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "AnswerController.findById"
+      },
+      "delete": {
+        "x-controller-name": "AnswerController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "AnswerController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Answer DELETE success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "AnswerController.deleteById"
+      }
+    },
+    "/answers": {
+      "post": {
+        "x-controller-name": "AnswerController",
+        "x-operation-name": "create",
+        "tags": [
+          "AnswerController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Answer model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Answer"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewAnswer"
+              }
+            }
+          }
+        },
+        "operationId": "AnswerController.create"
+      },
+      "patch": {
+        "x-controller-name": "AnswerController",
+        "x-operation-name": "updateAll",
+        "tags": [
+          "AnswerController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Answer PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "loopback.Count",
+                  "properties": {
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Answer.WhereFilter",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnswerPartial"
+              }
+            }
+          }
+        },
+        "operationId": "AnswerController.updateAll"
+      },
+      "get": {
+        "x-controller-name": "AnswerController",
+        "x-operation-name": "find",
+        "tags": [
+          "AnswerController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of Answer model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AnswerWithRelations"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Answer.Filter",
+                  "properties": {
+                    "offset": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "example": 100
+                    },
+                    "skip": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "order": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "where": {
+                      "title": "Answer.WhereFilter",
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "fields": {
+                      "title": "Answer.Fields",
+                      "type": "object",
+                      "properties": {
+                        "question": {
+                          "type": "boolean"
+                        },
+                        "id": {
+                          "type": "boolean"
+                        },
+                        "content": {
+                          "type": "boolean"
+                        },
+                        "user": {
+                          "type": "boolean"
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "AnswerController.find"
+      }
+    },
+    "/ping": {
+      "get": {
+        "x-controller-name": "PingController",
+        "x-operation-name": "ping",
+        "tags": [
+          "PingController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ping Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "PingResponse",
+                  "properties": {
+                    "greeting": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "headers": {
+                      "type": "object",
+                      "properties": {
+                        "Content-Type": {
+                          "type": "string"
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "PingController.ping"
+      }
+    },
+    "/questions/count": {
+      "get": {
+        "x-controller-name": "QuestionController",
+        "x-operation-name": "count",
+        "tags": [
+          "QuestionController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Question model count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "loopback.Count",
+                  "properties": {
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Question.WhereFilter",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "QuestionController.count"
+      }
+    },
+    "/questions/{id}": {
+      "put": {
+        "x-controller-name": "QuestionController",
+        "x-operation-name": "replaceById",
+        "tags": [
+          "QuestionController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Question PUT success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Question"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "QuestionController.replaceById"
+      },
+      "patch": {
+        "x-controller-name": "QuestionController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "QuestionController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Question PATCH success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionPartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "QuestionController.updateById"
+      },
+      "get": {
+        "x-controller-name": "QuestionController",
+        "x-operation-name": "findById",
+        "tags": [
+          "QuestionController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Question model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionWithRelations"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Question.Filter",
+                  "properties": {
+                    "offset": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "example": 100
+                    },
+                    "skip": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "order": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "fields": {
+                      "title": "Question.Fields",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "boolean"
+                        },
+                        "title": {
+                          "type": "boolean"
+                        },
+                        "author": {
+                          "type": "boolean"
+                        },
+                        "score": {
+                          "type": "boolean"
+                        },
+                        "brief": {
+                          "type": "boolean"
+                        },
+                        "detail": {
+                          "type": "boolean"
+                        },
+                        "examples": {
+                          "type": "boolean"
+                        },
+                        "examination": {
+                          "type": "boolean"
+                        },
+                        "templateName": {
+                          "type": "boolean"
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "QuestionController.findById"
+      },
+      "delete": {
+        "x-controller-name": "QuestionController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "QuestionController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Question DELETE success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "QuestionController.deleteById"
+      }
+    },
+    "/questions": {
+      "post": {
+        "x-controller-name": "QuestionController",
+        "x-operation-name": "create",
+        "tags": [
+          "QuestionController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Question model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Question"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewQuestion"
+              }
+            }
+          }
+        },
+        "operationId": "QuestionController.create"
+      },
+      "patch": {
+        "x-controller-name": "QuestionController",
+        "x-operation-name": "updateAll",
+        "tags": [
+          "QuestionController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Question PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "loopback.Count",
+                  "properties": {
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Question.WhereFilter",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionPartial"
+              }
+            }
+          }
+        },
+        "operationId": "QuestionController.updateAll"
+      },
+      "get": {
+        "x-controller-name": "QuestionController",
+        "x-operation-name": "find",
+        "tags": [
+          "QuestionController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of Question model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QuestionWithRelations"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Question.Filter",
+                  "properties": {
+                    "offset": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "example": 100
+                    },
+                    "skip": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "order": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "where": {
+                      "title": "Question.WhereFilter",
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "fields": {
+                      "title": "Question.Fields",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "boolean"
+                        },
+                        "title": {
+                          "type": "boolean"
+                        },
+                        "author": {
+                          "type": "boolean"
+                        },
+                        "score": {
+                          "type": "boolean"
+                        },
+                        "brief": {
+                          "type": "boolean"
+                        },
+                        "detail": {
+                          "type": "boolean"
+                        },
+                        "examples": {
+                          "type": "boolean"
+                        },
+                        "examination": {
+                          "type": "boolean"
+                        },
+                        "templateName": {
+                          "type": "boolean"
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "QuestionController.find"
+      }
+    },
+    "/records/count": {
+      "get": {
+        "x-controller-name": "RecordController",
+        "x-operation-name": "count",
+        "tags": [
+          "RecordController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Record model count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "loopback.Count",
+                  "properties": {
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Record.WhereFilter",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "RecordController.count"
+      }
+    },
+    "/records/{id}": {
+      "put": {
+        "x-controller-name": "RecordController",
+        "x-operation-name": "replaceById",
+        "tags": [
+          "RecordController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Record PUT success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Record"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "RecordController.replaceById"
+      },
+      "patch": {
+        "x-controller-name": "RecordController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "RecordController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Record PATCH success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordPartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "RecordController.updateById"
+      },
+      "get": {
+        "x-controller-name": "RecordController",
+        "x-operation-name": "findById",
+        "tags": [
+          "RecordController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Record model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecordWithRelations"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Record.Filter",
+                  "properties": {
+                    "offset": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "example": 100
+                    },
+                    "skip": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "order": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "fields": {
+                      "title": "Record.Fields",
+                      "type": "object",
+                      "properties": {
+                        "answerID": {
+                          "type": "boolean"
+                        },
+                        "startTime": {
+                          "type": "boolean"
+                        },
+                        "endTime": {
+                          "type": "boolean"
+                        },
+                        "timeline": {
+                          "type": "boolean"
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "RecordController.findById"
+      },
+      "delete": {
+        "x-controller-name": "RecordController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "RecordController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Record DELETE success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "RecordController.deleteById"
+      }
+    },
+    "/records": {
+      "post": {
+        "x-controller-name": "RecordController",
+        "x-operation-name": "create",
+        "tags": [
+          "RecordController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Record model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Record"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewRecord"
+              }
+            }
+          }
+        },
+        "operationId": "RecordController.create"
+      },
+      "patch": {
+        "x-controller-name": "RecordController",
+        "x-operation-name": "updateAll",
+        "tags": [
+          "RecordController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Record PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "loopback.Count",
+                  "properties": {
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Record.WhereFilter",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordPartial"
+              }
+            }
+          }
+        },
+        "operationId": "RecordController.updateAll"
+      },
+      "get": {
+        "x-controller-name": "RecordController",
+        "x-operation-name": "find",
+        "tags": [
+          "RecordController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of Record model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RecordWithRelations"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Record.Filter",
+                  "properties": {
+                    "offset": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "example": 100
+                    },
+                    "skip": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "order": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "where": {
+                      "title": "Record.WhereFilter",
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "fields": {
+                      "title": "Record.Fields",
+                      "type": "object",
+                      "properties": {
+                        "answerID": {
+                          "type": "boolean"
+                        },
+                        "startTime": {
+                          "type": "boolean"
+                        },
+                        "endTime": {
+                          "type": "boolean"
+                        },
+                        "timeline": {
+                          "type": "boolean"
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "RecordController.find"
+      }
+    },
+    "/templates/count": {
+      "get": {
+        "x-controller-name": "TemplateController",
+        "x-operation-name": "count",
+        "tags": [
+          "TemplateController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Template model count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "loopback.Count",
+                  "properties": {
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Template.WhereFilter",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "TemplateController.count"
+      }
+    },
+    "/templates/{id}": {
+      "put": {
+        "x-controller-name": "TemplateController",
+        "x-operation-name": "replaceById",
+        "tags": [
+          "TemplateController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Template PUT success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Template"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "TemplateController.replaceById"
+      },
+      "patch": {
+        "x-controller-name": "TemplateController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "TemplateController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Template PATCH success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TemplatePartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "TemplateController.updateById"
+      },
+      "get": {
+        "x-controller-name": "TemplateController",
+        "x-operation-name": "findById",
+        "tags": [
+          "TemplateController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Template model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateWithRelations"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Template.Filter",
+                  "properties": {
+                    "offset": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "example": 100
+                    },
+                    "skip": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "order": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "fields": {
+                      "title": "Template.Fields",
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "boolean"
+                        },
+                        "content": {
+                          "type": "boolean"
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "TemplateController.findById"
+      },
+      "delete": {
+        "x-controller-name": "TemplateController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "TemplateController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Template DELETE success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "TemplateController.deleteById"
+      }
+    },
+    "/templates": {
+      "post": {
+        "x-controller-name": "TemplateController",
+        "x-operation-name": "create",
+        "tags": [
+          "TemplateController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Template model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Template"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewTemplate"
+              }
+            }
+          }
+        },
+        "operationId": "TemplateController.create"
+      },
+      "patch": {
+        "x-controller-name": "TemplateController",
+        "x-operation-name": "updateAll",
+        "tags": [
+          "TemplateController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Template PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "loopback.Count",
+                  "properties": {
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Template.WhereFilter",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TemplatePartial"
+              }
+            }
+          }
+        },
+        "operationId": "TemplateController.updateAll"
+      },
+      "get": {
+        "x-controller-name": "TemplateController",
+        "x-operation-name": "find",
+        "tags": [
+          "TemplateController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of Template model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TemplateWithRelations"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Template.Filter",
+                  "properties": {
+                    "offset": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "example": 100
+                    },
+                    "skip": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "order": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "where": {
+                      "title": "Template.WhereFilter",
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "fields": {
+                      "title": "Template.Fields",
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "boolean"
+                        },
+                        "content": {
+                          "type": "boolean"
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "TemplateController.find"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Answer": {
+        "title": "Answer",
+        "properties": {
+          "question": {
+            "type": "number"
+          },
+          "id": {
+            "type": "number"
+          },
+          "content": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "question",
+          "content",
+          "user"
+        ],
+        "additionalProperties": false
+      },
+      "NewAnswer": {
+        "title": "NewAnswer",
+        "description": "(Schema options: { title: 'NewAnswer', exclude: [ 'id' ] })",
+        "properties": {
+          "question": {
+            "type": "number"
+          },
+          "content": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "question",
+          "content",
+          "user"
+        ],
+        "additionalProperties": false
+      },
+      "AnswerWithRelations": {
+        "title": "AnswerWithRelations",
+        "description": "(Schema options: { includeRelations: true })",
+        "properties": {
+          "question": {
+            "type": "number"
+          },
+          "id": {
+            "type": "number"
+          },
+          "content": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "question",
+          "content",
+          "user"
+        ],
+        "additionalProperties": false
+      },
+      "AnswerPartial": {
+        "title": "AnswerPartial",
+        "description": "(Schema options: { partial: true })",
+        "properties": {
+          "question": {
+            "type": "number"
+          },
+          "id": {
+            "type": "number"
+          },
+          "content": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Question": {
+        "title": "Question",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "score": {
+            "type": "string"
+          },
+          "brief": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "examination": {
+            "type": "number"
+          },
+          "templateName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "detail"
+        ],
+        "additionalProperties": false
+      },
+      "NewQuestion": {
+        "title": "NewQuestion",
+        "description": "(Schema options: { title: 'NewQuestion', exclude: [ 'id' ] })",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "score": {
+            "type": "string"
+          },
+          "brief": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "examination": {
+            "type": "number"
+          },
+          "templateName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "detail"
+        ],
+        "additionalProperties": false
+      },
+      "QuestionWithRelations": {
+        "title": "QuestionWithRelations",
+        "description": "(Schema options: { includeRelations: true })",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "score": {
+            "type": "string"
+          },
+          "brief": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "examination": {
+            "type": "number"
+          },
+          "templateName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "detail"
+        ],
+        "additionalProperties": false
+      },
+      "QuestionPartial": {
+        "title": "QuestionPartial",
+        "description": "(Schema options: { partial: true })",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "score": {
+            "type": "string"
+          },
+          "brief": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "examination": {
+            "type": "number"
+          },
+          "templateName": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Record": {
+        "title": "Record",
+        "properties": {
+          "answerID": {
+            "type": "number"
+          },
+          "startTime": {
+            "type": "string"
+          },
+          "endTime": {
+            "type": "string"
+          },
+          "timeline": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "answerID",
+          "startTime",
+          "endTime",
+          "timeline"
+        ],
+        "additionalProperties": false
+      },
+      "NewRecord": {
+        "title": "NewRecord",
+        "description": "(Schema options: { title: 'NewRecord' })",
+        "properties": {
+          "answerID": {
+            "type": "number"
+          },
+          "startTime": {
+            "type": "string"
+          },
+          "endTime": {
+            "type": "string"
+          },
+          "timeline": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "answerID",
+          "startTime",
+          "endTime",
+          "timeline"
+        ],
+        "additionalProperties": false
+      },
+      "RecordWithRelations": {
+        "title": "RecordWithRelations",
+        "description": "(Schema options: { includeRelations: true })",
+        "properties": {
+          "answerID": {
+            "type": "number"
+          },
+          "startTime": {
+            "type": "string"
+          },
+          "endTime": {
+            "type": "string"
+          },
+          "timeline": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "answerID",
+          "startTime",
+          "endTime",
+          "timeline"
+        ],
+        "additionalProperties": false
+      },
+      "RecordPartial": {
+        "title": "RecordPartial",
+        "description": "(Schema options: { partial: true })",
+        "properties": {
+          "answerID": {
+            "type": "number"
+          },
+          "startTime": {
+            "type": "string"
+          },
+          "endTime": {
+            "type": "string"
+          },
+          "timeline": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Template": {
+        "title": "Template",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "content"
+        ],
+        "additionalProperties": false
+      },
+      "NewTemplate": {
+        "title": "NewTemplate",
+        "description": "(Schema options: { title: 'NewTemplate' })",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "content"
+        ],
+        "additionalProperties": false
+      },
+      "TemplateWithRelations": {
+        "title": "TemplateWithRelations",
+        "description": "(Schema options: { includeRelations: true })",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "content"
+        ],
+        "additionalProperties": false
+      },
+      "TemplatePartial": {
+        "title": "TemplatePartial",
+        "description": "(Schema options: { partial: true })",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
