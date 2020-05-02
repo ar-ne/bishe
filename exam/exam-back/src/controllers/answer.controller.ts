@@ -1,37 +1,22 @@
-import {
-  Count,
-  CountSchema,
-  Filter,
-  FilterExcludingWhere,
-  repository,
-  Where,
-} from '@loopback/repository';
-import {
-  post,
-  param,
-  get,
-  getFilterSchemaFor,
-  getModelSchemaRef,
-  getWhereSchemaFor,
-  patch,
-  put,
-  del,
-  requestBody,
-} from '@loopback/rest';
-import {Answer} from '../models';
-import {AnswerRepository} from '../repositories';
+import { Count, CountSchema, Filter, FilterExcludingWhere, repository, Where } from '@loopback/repository';
+import { del, get, getModelSchemaRef, param, patch, post, put, requestBody } from '@loopback/rest';
+import { Answer } from '../models';
+import { AnswerRepository, TimelineAnalysisRepository } from '../repositories';
 
 export class AnswerController {
   constructor(
     @repository(AnswerRepository)
-    public answerRepository : AnswerRepository,
-  ) {}
+    public answerRepository: AnswerRepository,
+    @repository(TimelineAnalysisRepository)
+    public timelineAnalysisRepository: TimelineAnalysisRepository,
+  ) {
+  }
 
   @post('/answers', {
     responses: {
       '200': {
         description: 'Answer model instance',
-        content: {'application/json': {schema: getModelSchemaRef(Answer)}},
+        content: { 'application/json': { schema: getModelSchemaRef(Answer) } },
       },
     },
   })
@@ -46,16 +31,18 @@ export class AnswerController {
         },
       },
     })
-    answer: Omit<Answer, 'id'>,
+      answer: Omit<Answer, 'id'>,
   ): Promise<Answer> {
-    return this.answerRepository.create(answer);
+    const nAnswer = await this.answerRepository.create(answer);
+    await this.timelineAnalysisRepository.create({ record: nAnswer.id, finished: false });
+    return nAnswer;
   }
 
   @get('/answers/count', {
     responses: {
       '200': {
         description: 'Answer model count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -73,7 +60,7 @@ export class AnswerController {
           'application/json': {
             schema: {
               type: 'array',
-              items: getModelSchemaRef(Answer, {includeRelations: true}),
+              items: getModelSchemaRef(Answer, { includeRelations: true }),
             },
           },
         },
@@ -90,7 +77,7 @@ export class AnswerController {
     responses: {
       '200': {
         description: 'Answer PATCH success count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -98,11 +85,11 @@ export class AnswerController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Answer, {partial: true}),
+          schema: getModelSchemaRef(Answer, { partial: true }),
         },
       },
     })
-    answer: Answer,
+      answer: Answer,
     @param.where(Answer) where?: Where<Answer>,
   ): Promise<Count> {
     return this.answerRepository.updateAll(answer, where);
@@ -114,7 +101,7 @@ export class AnswerController {
         description: 'Answer model instance',
         content: {
           'application/json': {
-            schema: getModelSchemaRef(Answer, {includeRelations: true}),
+            schema: getModelSchemaRef(Answer, { includeRelations: true }),
           },
         },
       },
@@ -122,7 +109,7 @@ export class AnswerController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(Answer, {exclude: 'where'}) filter?: FilterExcludingWhere<Answer>
+    @param.filter(Answer, { exclude: 'where' }) filter?: FilterExcludingWhere<Answer>,
   ): Promise<Answer> {
     return this.answerRepository.findById(id, filter);
   }
@@ -139,11 +126,11 @@ export class AnswerController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Answer, {partial: true}),
+          schema: getModelSchemaRef(Answer, { partial: true }),
         },
       },
     })
-    answer: Answer,
+      answer: Answer,
   ): Promise<void> {
     await this.answerRepository.updateById(id, answer);
   }

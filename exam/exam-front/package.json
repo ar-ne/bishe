@@ -29,6 +29,7 @@
     "vee-validate": "^3.2.5",
     "vue": "^2.6.11",
     "vue-socket.io-extended": "^4.0.1",
+    "vue-virtual-scroller": "^1.0.6",
     "vuetify": "^2.2.21",
     "vuetify-markdown-editor": "^2.0.0",
     "vuetify-toast-snackbar": "^0.6.1",

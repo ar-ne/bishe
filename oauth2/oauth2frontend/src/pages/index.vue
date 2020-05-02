@@ -40,12 +40,7 @@
 </template>
 
 <script>
-  import {
-    extend,
-    setInteractionMode,
-    ValidationObserver,
-    ValidationProvider,
-  } from 'vee-validate';
+  import { extend, setInteractionMode, ValidationObserver, ValidationProvider } from 'vee-validate';
   import { required } from 'vee-validate/dist/rules';
   import { LoginControllerApi } from '../generated/openapi';
   import { apiConfig } from '../api-config';
@@ -58,6 +53,11 @@
 
   export default {
     layout: 'auth',
+    head() {
+      return {
+        title: '登录',
+      };
+    },
 
     components: {
       ValidationProvider,

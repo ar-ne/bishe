@@ -6,7 +6,8 @@
   "scripts": {
     "submodule": "git submodule update --init --recursive",
     "install": "yarn submodule && cd script-man && yarn",
-    "uninstall": "cd script-man && yarn uninstall"
+    "uninstall": "cd script-man && yarn uninstall",
+    "start": "scma dc r dev -b --no-demo"
   },
   "private": true,
   "workspaces": [
@@ -15,6 +16,9 @@
     "oauth2/oauth2backend",
     "exam/exam-back",
     "exam/exam-front",
-    "exam/exam-ws"
+    "exam/exam-ws",
+    "exam/record-parser",
+    "exam/theia",
+    "exam/theia/ws-client"
   ]
 }

@@ -27,7 +27,12 @@ serve:
 
 tls:
 
-
+ttl:
+  login_consent_request: 720h
+  access_token: 720h
+  refresh_token: 720h
+  id_token: 720h
+  auth_code: 10m
 
 urls:
   self:

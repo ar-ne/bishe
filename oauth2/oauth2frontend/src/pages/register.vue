@@ -39,5 +39,10 @@
   export default {
     layout: 'auth',
     name: 'Register',
+    head() {
+      return {
+        title: '注册',
+      };
+    },
   };
 </script>

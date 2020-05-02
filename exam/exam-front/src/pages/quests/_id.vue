@@ -8,6 +8,14 @@
         {{quest.id}}. {{quest.title}}
         <v-spacer/>
         <v-btn
+          v-if="$auth.user.role==='teacher'"
+          :to="`/answers?id=${id}`"
+          style="margin-right: 12px">
+          <v-icon>mdi-telescope</v-icon>
+          查看回答
+        </v-btn>
+        <v-btn
+          v-if="$auth.user.role==='teacher'"
           :to="`/quests/edit?edit=1&id=${id}`"
           style="margin-right: 12px">
           <v-icon>mdi-square-edit-outline</v-icon>

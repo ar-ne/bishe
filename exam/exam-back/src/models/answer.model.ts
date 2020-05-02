@@ -27,6 +27,11 @@ export class Answer extends Entity {
   })
   user: string;
 
+  @property({
+    type: 'string',
+  })
+  judge?: string;
+
   constructor(data?: Partial<Answer>) {
     super(data);
   }

@@ -75,6 +75,11 @@
 
   export default {
     name: 'Consent',
+    head() {
+      return {
+        title: 'Consent',
+      };
+    },
     data() {
       const { challenge } = this.$route.query;
       if (challenge == null) {

@@ -30,7 +30,8 @@
       "vuex-module-decorators",
       "vuetify",
       "@nuxtjs/auth",
-      "@types/nuxtjs__auth"
+      "@types/nuxtjs__auth",
+      "@nuxtjs/axios"
     ]
   },
   "exclude": [

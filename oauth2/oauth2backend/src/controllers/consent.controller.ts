@@ -17,12 +17,13 @@ export class ConsentController extends HydraAbstractController {
 
     if (Number(process.env.SSO_MODE)) {
       const preRequest = await this.hydraService.getConsentRequest(challenge).then(v => v.body);
+      const user = await this.userRepository.findById(preRequest.subject!);
       const accept = await this.hydraService.acceptConsentRequest(challenge, {
         grantScope: detail.requestedScope,
         session: {
-          accessToken:{
-            role:await this.userRepository.findById(preRequest.subject!)
-          }
+          accessToken: {
+            userinfo: { role: user.role, name: user.name },
+          },
         },
         grantAccessTokenAudience: preRequest.requestedAccessTokenAudience,
         remember: true,

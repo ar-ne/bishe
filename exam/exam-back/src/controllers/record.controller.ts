@@ -1,35 +1,21 @@
-import {
-  Count,
-  CountSchema,
-  Filter,
-  FilterExcludingWhere,
-  repository,
-  Where,
-} from '@loopback/repository';
-import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-} from '@loopback/rest';
-import {Record} from '../models';
-import {RecordRepository} from '../repositories';
+import { Count, CountSchema, Filter, FilterExcludingWhere, repository, Where } from '@loopback/repository';
+import { del, get, getModelSchemaRef, param, patch, post, put, requestBody } from '@loopback/rest';
+import { Record } from '../models';
+import { RecordRepository } from '../repositories';
+import http from 'http';
 
 export class RecordController {
   constructor(
     @repository(RecordRepository)
-    public recordRepository : RecordRepository,
-  ) {}
+    public recordRepository: RecordRepository,
+  ) {
+  }
 
   @post('/records', {
     responses: {
       '200': {
         description: 'Record model instance',
-        content: {'application/json': {schema: getModelSchemaRef(Record)}},
+        content: { 'application/json': { schema: getModelSchemaRef(Record) } },
       },
     },
   })
@@ -39,12 +25,12 @@ export class RecordController {
         'application/json': {
           schema: getModelSchemaRef(Record, {
             title: 'NewRecord',
-            
+
           }),
         },
       },
     })
-    record: Record,
+      record: Record,
   ): Promise<Record> {
     return this.recordRepository.create(record);
   }
@@ -53,7 +39,7 @@ export class RecordController {
     responses: {
       '200': {
         description: 'Record model count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -71,7 +57,7 @@ export class RecordController {
           'application/json': {
             schema: {
               type: 'array',
-              items: getModelSchemaRef(Record, {includeRelations: true}),
+              items: getModelSchemaRef(Record, { includeRelations: true }),
             },
           },
         },
@@ -88,7 +74,7 @@ export class RecordController {
     responses: {
       '200': {
         description: 'Record PATCH success count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -96,11 +82,11 @@ export class RecordController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Record, {partial: true}),
+          schema: getModelSchemaRef(Record, { partial: true }),
         },
       },
     })
-    record: Record,
+      record: Record,
     @param.where(Record) where?: Where<Record>,
   ): Promise<Count> {
     return this.recordRepository.updateAll(record, where);
@@ -112,7 +98,7 @@ export class RecordController {
         description: 'Record model instance',
         content: {
           'application/json': {
-            schema: getModelSchemaRef(Record, {includeRelations: true}),
+            schema: getModelSchemaRef(Record, { includeRelations: true }),
           },
         },
       },
@@ -120,7 +106,7 @@ export class RecordController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(Record, {exclude: 'where'}) filter?: FilterExcludingWhere<Record>
+    @param.filter(Record, { exclude: 'where' }) filter?: FilterExcludingWhere<Record>,
   ): Promise<Record> {
     return this.recordRepository.findById(id, filter);
   }
@@ -137,11 +123,11 @@ export class RecordController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Record, {partial: true}),
+          schema: getModelSchemaRef(Record, { partial: true }),
         },
       },
     })
-    record: Record,
+      record: Record,
   ): Promise<void> {
     await this.recordRepository.updateById(id, record);
   }
@@ -158,6 +144,7 @@ export class RecordController {
     @requestBody() record: Record,
   ): Promise<void> {
     await this.recordRepository.replaceById(id, record);
+    http.get(process.env.TLA_URL!);
   }
 
   @del('/records/{id}', {

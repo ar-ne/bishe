@@ -8,7 +8,7 @@ export class Record extends Entity {
     generated: false,
     required: true,
   })
-  answerID: number;
+  answer: number;
 
   @property({
     type: 'string',

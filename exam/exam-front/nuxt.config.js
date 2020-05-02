@@ -57,6 +57,7 @@ export default {
     '@nuxtjs/auth',
   ],
   auth: {
+    plugins: [{ src: '~/plugins/axios.config.ts' }],
     strategies: {
       hydra: {
         _scheme: 'oauth2',

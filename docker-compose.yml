@@ -14,6 +14,12 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_MULTIPLE_DATABASES=${POSTGRES_MULTIPLE_DATABASES}
 
+  redis:
+    restart: always
+    image: redis:alpine
+    networks:
+      - redis
+
   hydra:
     restart: always
     build:
@@ -48,8 +54,8 @@ services:
       - PORT=${OB_PORT}
       - HOST=${OB_HOST}
       - FRONT_ROOT=${OB_FRONT_ROOT}
-      - HYDRA_ADMIN_URL=${OB_HYDRA_ADMIN_URL}
-      - NODE_TLS_REJECT_UNAUTHORIZED=${OB_NODE_TLS_REJECT_UNAUTHORIZED}
+      - HYDRA_ADMIN_URL=${HYDRA_ADMIN_URL}
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED}
       - SSO_MODE=${OB_SSO_MODE}
 
   oauth2frontend:
@@ -76,13 +82,19 @@ services:
     restart: always
     networks:
       - database
+      - hydra
     build:
       context: ./exam/exam-back
+    environment:
+      - HYDRA_ADMIN_URL=${HYDRA_ADMIN_URL}
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED}
+      - TLA_URL=${EB_TLA_URL}
 
 networks:
   database:
   hydra:
   frontend:
+  redis:
 
 volumes:
   postgres-data:

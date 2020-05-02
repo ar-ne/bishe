@@ -1,0 +1,13 @@
+{
+  "name": "record-parser",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "gen": "openapi-generator generate -g python -i ../exam-back/openapi.json -c ./generator.config.json -o ./generated/openapi",
+    "postgen": "copyfiles ./generated/openapi/openapi_client/** ./ -V -a -u 2"
+  },
+  "dependencies": {
+    "copyfiles": "^2.2.0"
+  }
+}

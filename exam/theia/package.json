@@ -1,0 +1,16 @@
+{
+  "name": "theia",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "docker build . -t exam-theia",
+    "prebuild": "cd ws-client && yarn build",
+    "start": "yarn build && docker run -tip 3000:3000 exam-theia"
+  },
+  "dependencies": {
+    "generator-code": "^1.2.13",
+    "generator-theia-extension": "^0.1.17",
+    "yo": "^3.1.1"
+  }
+}

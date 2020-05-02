@@ -187,6 +187,9 @@
                         },
                         "user": {
                           "type": "boolean"
+                        },
+                        "judge": {
+                          "type": "boolean"
                         }
                       },
                       "additionalProperties": false
@@ -373,6 +376,9 @@
                           "type": "boolean"
                         },
                         "user": {
+                          "type": "boolean"
+                        },
+                        "judge": {
                           "type": "boolean"
                         }
                       },
@@ -1011,7 +1017,7 @@
                       "title": "Record.Fields",
                       "type": "object",
                       "properties": {
-                        "answerID": {
+                        "answer": {
                           "type": "boolean"
                         },
                         "startTime": {
@@ -1198,7 +1204,7 @@
                       "title": "Record.Fields",
                       "type": "object",
                       "properties": {
-                        "answerID": {
+                        "answer": {
                           "type": "boolean"
                         },
                         "startTime": {
@@ -1591,6 +1597,412 @@
         ],
         "operationId": "TemplateController.find"
       }
+    },
+    "/timeline-analyses/count": {
+      "get": {
+        "x-controller-name": "TlAnalysisController",
+        "x-operation-name": "count",
+        "tags": [
+          "TlAnalysisController"
+        ],
+        "responses": {
+          "200": {
+            "description": "TimelineAnalysis model count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "loopback.Count",
+                  "properties": {
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "TimelineAnalysis.WhereFilter",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "TlAnalysisController.count"
+      }
+    },
+    "/timeline-analyses/{id}": {
+      "put": {
+        "x-controller-name": "TlAnalysisController",
+        "x-operation-name": "replaceById",
+        "tags": [
+          "TlAnalysisController"
+        ],
+        "responses": {
+          "204": {
+            "description": "TimelineAnalysis PUT success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimelineAnalysis"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "TlAnalysisController.replaceById"
+      },
+      "patch": {
+        "x-controller-name": "TlAnalysisController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "TlAnalysisController"
+        ],
+        "responses": {
+          "204": {
+            "description": "TimelineAnalysis PATCH success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimelineAnalysisPartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "TlAnalysisController.updateById"
+      },
+      "get": {
+        "x-controller-name": "TlAnalysisController",
+        "x-operation-name": "findById",
+        "tags": [
+          "TlAnalysisController"
+        ],
+        "responses": {
+          "200": {
+            "description": "TimelineAnalysis model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimelineAnalysisWithRelations"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "TimelineAnalysis.Filter",
+                  "properties": {
+                    "offset": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "example": 100
+                    },
+                    "skip": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "order": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "fields": {
+                      "title": "TimelineAnalysis.Fields",
+                      "type": "object",
+                      "properties": {
+                        "record": {
+                          "type": "boolean"
+                        },
+                        "finished": {
+                          "type": "boolean"
+                        },
+                        "result": {
+                          "type": "boolean"
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "TlAnalysisController.findById"
+      },
+      "delete": {
+        "x-controller-name": "TlAnalysisController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "TlAnalysisController"
+        ],
+        "responses": {
+          "204": {
+            "description": "TimelineAnalysis DELETE success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "TlAnalysisController.deleteById"
+      }
+    },
+    "/timeline-analyses": {
+      "post": {
+        "x-controller-name": "TlAnalysisController",
+        "x-operation-name": "create",
+        "tags": [
+          "TlAnalysisController"
+        ],
+        "responses": {
+          "200": {
+            "description": "TimelineAnalysis model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimelineAnalysis"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewTimelineAnalysis"
+              }
+            }
+          }
+        },
+        "operationId": "TlAnalysisController.create"
+      },
+      "patch": {
+        "x-controller-name": "TlAnalysisController",
+        "x-operation-name": "updateAll",
+        "tags": [
+          "TlAnalysisController"
+        ],
+        "responses": {
+          "200": {
+            "description": "TimelineAnalysis PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "loopback.Count",
+                  "properties": {
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "TimelineAnalysis.WhereFilter",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimelineAnalysisPartial"
+              }
+            }
+          }
+        },
+        "operationId": "TlAnalysisController.updateAll"
+      },
+      "get": {
+        "x-controller-name": "TlAnalysisController",
+        "x-operation-name": "find",
+        "tags": [
+          "TlAnalysisController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of TimelineAnalysis model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TimelineAnalysisWithRelations"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "TimelineAnalysis.Filter",
+                  "properties": {
+                    "offset": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "example": 100
+                    },
+                    "skip": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "order": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "where": {
+                      "title": "TimelineAnalysis.WhereFilter",
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "fields": {
+                      "title": "TimelineAnalysis.Fields",
+                      "type": "object",
+                      "properties": {
+                        "record": {
+                          "type": "boolean"
+                        },
+                        "finished": {
+                          "type": "boolean"
+                        },
+                        "result": {
+                          "type": "boolean"
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "TlAnalysisController.find"
+      }
+    },
+    "/userinfo": {
+      "get": {
+        "x-controller-name": "UserController",
+        "x-operation-name": "userinfo",
+        "tags": [
+          "UserController"
+        ],
+        "responses": {
+          "200": {
+            "description": "UserInfo model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfo"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "operationId": "UserController.userinfo"
+      }
     }
   },
   "servers": [
@@ -1614,6 +2026,9 @@
           },
           "user": {
             "type": "string"
+          },
+          "judge": {
+            "type": "string"
           }
         },
         "required": [
@@ -1634,6 +2049,9 @@
             "type": "string"
           },
           "user": {
+            "type": "string"
+          },
+          "judge": {
             "type": "string"
           }
         },
@@ -1659,6 +2077,9 @@
           },
           "user": {
             "type": "string"
+          },
+          "judge": {
+            "type": "string"
           }
         },
         "required": [
@@ -1682,6 +2103,9 @@
             "type": "string"
           },
           "user": {
+            "type": "string"
+          },
+          "judge": {
             "type": "string"
           }
         },
@@ -1846,7 +2270,7 @@
       "Record": {
         "title": "Record",
         "properties": {
-          "answerID": {
+          "answer": {
             "type": "number"
           },
           "startTime": {
@@ -1863,7 +2287,7 @@
           }
         },
         "required": [
-          "answerID",
+          "answer",
           "startTime",
           "endTime",
           "timeline"
@@ -1874,7 +2298,7 @@
         "title": "NewRecord",
         "description": "(Schema options: { title: 'NewRecord' })",
         "properties": {
-          "answerID": {
+          "answer": {
             "type": "number"
           },
           "startTime": {
@@ -1891,7 +2315,7 @@
           }
         },
         "required": [
-          "answerID",
+          "answer",
           "startTime",
           "endTime",
           "timeline"
@@ -1902,7 +2326,7 @@
         "title": "RecordWithRelations",
         "description": "(Schema options: { includeRelations: true })",
         "properties": {
-          "answerID": {
+          "answer": {
             "type": "number"
           },
           "startTime": {
@@ -1919,7 +2343,7 @@
           }
         },
         "required": [
-          "answerID",
+          "answer",
           "startTime",
           "endTime",
           "timeline"
@@ -1930,7 +2354,7 @@
         "title": "RecordPartial",
         "description": "(Schema options: { partial: true })",
         "properties": {
-          "answerID": {
+          "answer": {
             "type": "number"
           },
           "startTime": {
@@ -2009,6 +2433,183 @@
             "type": "string"
           }
         },
+        "additionalProperties": false
+      },
+      "TlaTimelineItem": {
+        "title": "TlaTimelineItem",
+        "properties": {
+          "action": {
+            "type": "string"
+          },
+          "add": {
+            "type": "number"
+          },
+          "del": {
+            "type": "number"
+          },
+          "time": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TlaResult": {
+        "title": "TlaResult",
+        "properties": {
+          "add": {
+            "type": "number"
+          },
+          "del": {
+            "type": "number"
+          },
+          "timeline": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TlaTimelineItem"
+            }
+          },
+          "undo": {
+            "type": "number"
+          },
+          "paste": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TimelineAnalysis": {
+        "title": "TimelineAnalysis",
+        "properties": {
+          "record": {
+            "type": "number"
+          },
+          "finished": {
+            "type": "boolean"
+          },
+          "result": {
+            "$ref": "#/components/schemas/TlaResult"
+          }
+        },
+        "required": [
+          "record",
+          "finished"
+        ],
+        "additionalProperties": false
+      },
+      "NewTimelineAnalysis": {
+        "title": "NewTimelineAnalysis",
+        "description": "(Schema options: { title: 'NewTimelineAnalysis' })",
+        "properties": {
+          "record": {
+            "type": "number"
+          },
+          "finished": {
+            "type": "boolean"
+          },
+          "result": {
+            "$ref": "#/components/schemas/NewTimelineAnalysis"
+          }
+        },
+        "required": [
+          "record",
+          "finished"
+        ],
+        "additionalProperties": false
+      },
+      "TlaTimelineItemWithRelations": {
+        "title": "TlaTimelineItemWithRelations",
+        "description": "(Schema options: { includeRelations: true })",
+        "properties": {
+          "action": {
+            "type": "string"
+          },
+          "add": {
+            "type": "number"
+          },
+          "del": {
+            "type": "number"
+          },
+          "time": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TlaResultWithRelations": {
+        "title": "TlaResultWithRelations",
+        "description": "(Schema options: { includeRelations: true })",
+        "properties": {
+          "add": {
+            "type": "number"
+          },
+          "del": {
+            "type": "number"
+          },
+          "timeline": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TlaTimelineItemWithRelations"
+            }
+          },
+          "undo": {
+            "type": "number"
+          },
+          "paste": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TimelineAnalysisWithRelations": {
+        "title": "TimelineAnalysisWithRelations",
+        "description": "(Schema options: { includeRelations: true })",
+        "properties": {
+          "record": {
+            "type": "number"
+          },
+          "finished": {
+            "type": "boolean"
+          },
+          "result": {
+            "$ref": "#/components/schemas/TlaResultWithRelations"
+          }
+        },
+        "required": [
+          "record",
+          "finished"
+        ],
+        "additionalProperties": false
+      },
+      "TimelineAnalysisPartial": {
+        "title": "TimelineAnalysisPartial",
+        "description": "(Schema options: { partial: true })",
+        "properties": {
+          "record": {
+            "type": "number"
+          },
+          "finished": {
+            "type": "boolean"
+          },
+          "result": {
+            "$ref": "#/components/schemas/TlaResult"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserInfo": {
+        "title": "UserInfo",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "role"
+        ],
         "additionalProperties": false
       }
     }

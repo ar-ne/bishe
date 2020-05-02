@@ -3,8 +3,11 @@ import { socket } from '~/plugins/socket.client';
 
 const UserStateMonitor: Middleware = (context) => {
   socket.emit('Middleware/UserStateMonitor', JSON.stringify({
-    from: context.from.fullPath,
-    to: context.route.fullPath,
+    time: new Date().getTime(),
+    action: {
+      from: context.from.fullPath,
+      to: context.route.fullPath,
+    },
   }));
 };
 

@@ -19,22 +19,27 @@
       value: {
         type: String,
         required: true,
-      },
+      } as PropOptions,
       theme: {
         type: String,
         default: 'vs-dark',
-      },
+      } as PropOptions,
       language: String,
       options: {
         type: Object,
       } as PropOptions<IStandaloneEditorConstructionOptions>,
+      readonly: Boolean,
+      enableTrack: {
+        type: Boolean,
+        default: false,
+      },
     },
     watch: {
       options: {
         deep: true,
         handler(options) {
           if (this.editor) {
-            const editor = this.getModifiedEditor();
+            const { editor } = this;
             editor.updateOptions(options);
           }
         },
@@ -42,7 +47,7 @@
 
       value(newValue) {
         if (this.editor) {
-          const editor = this.getModifiedEditor();
+          const { editor } = this;
           if (newValue !== editor.getValue()) {
             editor.setValue(newValue);
           }
@@ -51,7 +56,7 @@
 
       language(newVal) {
         if (this.editor) {
-          const editor = this.getModifiedEditor();
+          const { editor } = this;
           this.monaco.editor.setModelLanguage(editor.getModel()!, newVal);
         }
       },
@@ -75,49 +80,50 @@
         const self = this;
         self.$emit('editorWillMount', self.monaco);
 
-        const options = {
+        const options: IStandaloneEditorConstructionOptions = {
           value: self.value,
           theme: self.theme,
           language: self.language,
+          automaticLayout: true,
         };
         Object.assign(options, self.options);
 
         self.editor = monaco.editor.create(document.getElementById('editor')!, options);
 
         // @event `change`
-        const editor = self.getModifiedEditor();
-        editor.onDidChangeModelContent(event => {
-          const value = editor.getValue();
-          if (self.value !== value) {
-            self.$emit('change', value, event);
-            console.log(event);
-            this.$socket.client.emit('MonacoEditor', JSON.stringify({
-              type: 'onDidChangeModelContent',
-              value: value,
-              event: event,
-              time: new Date().getTime(),
-            }));
-
-          }
-        });
-        editor.onDidPaste(event => {
-          self.$emit('onDidPaste', event);
-          const value = editor.getValue();
-          this.$socket.client.emit('MonacoEditor', JSON.stringify({
-            type: 'onDidPaste',
-            value: value,
-            event: event,
-            time: new Date().getTime(),
-          }));
-        });
+        if (!options.readOnly) {
+          const { editor } = self;
+          editor.onDidPaste(event => {
+            // self.$emit('onDidPaste', event);
+            const value = editor.getValue();
+            if (self.enableTrack)
+              this.$socket.client.emit('MonacoEditor', JSON.stringify({
+                type: 'onDidPaste',
+                value: value,
+                event: event,
+                time: self.lastTime,
+              }));
+          });
+          editor.onDidChangeModelContent(event => {
+            const value = editor.getValue();
+            if (self.value !== value) {
+              self.$emit('change', value, event);
+              if (self.enableTrack) {
+                self.lastTime = String(new Date().getTime());
+                this.$socket.client.emit('MonacoEditor', JSON.stringify({
+                  type: 'onDidChangeModelContent',
+                  value: value,
+                  event: event,
+                  time: self.lastTime,
+                }));
+              }
+            }
+          });
+        }
         self.$emit('editorDidMount', self.editor);
       },
 
       getEditor() {
-        return this.editor;
-      },
-
-      getModifiedEditor() {
         return this.editor;
       },
 
@@ -132,6 +138,7 @@
       return {
         editor: {} as IStandaloneCodeEditor,
         monaco: monaco,
+        lastTime: '',
       };
     },
   });

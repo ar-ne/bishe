@@ -193,7 +193,7 @@
           self.question.examples!.push({ ...value });
         });
       }
-      self.templates = await new TemplateControllerApi(apiConfig)
+      self.templates = await new TemplateControllerApi(apiConfig())
         .templateControllerFind().then(v => v.data);
       self.loading = false;
     },
@@ -239,7 +239,7 @@
             overrider[k] = undefined;
         });
         Object.assign(question, overrider);
-        const u = new QuestionControllerApi(apiConfig);
+        const u = new QuestionControllerApi(apiConfig());
         let q = undefined;
         this.submitting = true;
         switch (this.mode) {
@@ -256,7 +256,7 @@
       },
     },
     beforeMount() {
-      window.addEventListener('beforeunload',preventRefresh );
+      window.addEventListener('beforeunload', preventRefresh);
       this.$once('hook:beforeDestroy', () => {
         window.removeEventListener('beforeunload', preventRefresh);
       });

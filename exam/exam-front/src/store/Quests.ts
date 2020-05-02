@@ -2,7 +2,6 @@ import { Module, MutationAction, VuexModule } from 'vuex-module-decorators';
 import { Question, QuestionControllerApi } from '~/generated/openapi';
 import { apiConfig } from '~/api-config';
 
-const api = new QuestionControllerApi(apiConfig);
 
 @Module({
   name: 'Quests',
@@ -16,7 +15,7 @@ export class Quests extends VuexModule {
   @MutationAction({ mutate: ['list'] })
   async fetchAll() {
     return {
-      list: await api.questionControllerFind().then(v => v.data),
+      list: await new QuestionControllerApi(apiConfig()).questionControllerFind().then(v => v.data),
     };
   }
 
@@ -24,7 +23,7 @@ export class Quests extends VuexModule {
   async fetchOne(id: number) {
     if (this.list != null && this.list.find(v => v.id === id))
       return { list: this.list };
-    const one = await api.questionControllerFindById(id).then(v => v.data);
+    const one = await new QuestionControllerApi(apiConfig()).questionControllerFindById(id).then(v => v.data);
     const l2: Quest[] = [{ ...one }];
     if (this.list != null) l2.concat(this.list);
     return {

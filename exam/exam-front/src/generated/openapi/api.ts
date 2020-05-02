@@ -49,6 +49,12 @@ export interface Answer {
      * @memberof Answer
      */
     user: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Answer
+     */
+    judge?: string;
 }
 /**
  * (Schema options: { partial: true })
@@ -80,6 +86,12 @@ export interface AnswerPartial {
      * @memberof AnswerPartial
      */
     user?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AnswerPartial
+     */
+    judge?: string;
 }
 /**
  * (Schema options: { includeRelations: true })
@@ -111,6 +123,12 @@ export interface AnswerWithRelations {
      * @memberof AnswerWithRelations
      */
     user: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AnswerWithRelations
+     */
+    judge?: string;
 }
 /**
  * 
@@ -149,6 +167,12 @@ export interface NewAnswer {
      * @memberof NewAnswer
      */
     user: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NewAnswer
+     */
+    judge?: string;
 }
 /**
  * (Schema options: { title: \'NewQuestion\', exclude: [ \'id\' ] })
@@ -206,6 +230,37 @@ export interface NewQuestion {
     templateName?: string;
 }
 /**
+ * (Schema options: { title: \'NewRecord\' })
+ * @export
+ * @interface NewRecord
+ */
+export interface NewRecord {
+    /**
+     * 
+     * @type {number}
+     * @memberof NewRecord
+     */
+    answer: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof NewRecord
+     */
+    startTime: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NewRecord
+     */
+    endTime: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof NewRecord
+     */
+    timeline: Array<string>;
+}
+/**
  * (Schema options: { title: \'NewTemplate\' })
  * @export
  * @interface NewTemplate
@@ -223,6 +278,31 @@ export interface NewTemplate {
      * @memberof NewTemplate
      */
     content: string;
+}
+/**
+ * (Schema options: { title: \'NewTimelineAnalysis\' })
+ * @export
+ * @interface NewTimelineAnalysis
+ */
+export interface NewTimelineAnalysis {
+    /**
+     * 
+     * @type {number}
+     * @memberof NewTimelineAnalysis
+     */
+    record: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof NewTimelineAnalysis
+     */
+    finished: boolean;
+    /**
+     * 
+     * @type {NewTimelineAnalysis}
+     * @memberof NewTimelineAnalysis
+     */
+    result?: NewTimelineAnalysis;
 }
 /**
  * 
@@ -441,6 +521,99 @@ export interface QuestionWithRelations {
 /**
  * 
  * @export
+ * @interface Record
+ */
+export interface Record {
+    /**
+     * 
+     * @type {number}
+     * @memberof Record
+     */
+    answer: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Record
+     */
+    startTime: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Record
+     */
+    endTime: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof Record
+     */
+    timeline: Array<string>;
+}
+/**
+ * (Schema options: { partial: true })
+ * @export
+ * @interface RecordPartial
+ */
+export interface RecordPartial {
+    /**
+     * 
+     * @type {number}
+     * @memberof RecordPartial
+     */
+    answer?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RecordPartial
+     */
+    startTime?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RecordPartial
+     */
+    endTime?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof RecordPartial
+     */
+    timeline?: Array<string>;
+}
+/**
+ * (Schema options: { includeRelations: true })
+ * @export
+ * @interface RecordWithRelations
+ */
+export interface RecordWithRelations {
+    /**
+     * 
+     * @type {number}
+     * @memberof RecordWithRelations
+     */
+    answer: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RecordWithRelations
+     */
+    startTime: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RecordWithRelations
+     */
+    endTime: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof RecordWithRelations
+     */
+    timeline: Array<string>;
+}
+/**
+ * 
+ * @export
  * @interface Template
  */
 export interface Template {
@@ -494,6 +667,236 @@ export interface TemplateWithRelations {
      * @memberof TemplateWithRelations
      */
     content: string;
+}
+/**
+ * 
+ * @export
+ * @interface TimelineAnalysis
+ */
+export interface TimelineAnalysis {
+    /**
+     * 
+     * @type {number}
+     * @memberof TimelineAnalysis
+     */
+    record: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TimelineAnalysis
+     */
+    finished: boolean;
+    /**
+     * 
+     * @type {TlaResult}
+     * @memberof TimelineAnalysis
+     */
+    result?: TlaResult;
+}
+/**
+ * (Schema options: { partial: true })
+ * @export
+ * @interface TimelineAnalysisPartial
+ */
+export interface TimelineAnalysisPartial {
+    /**
+     * 
+     * @type {number}
+     * @memberof TimelineAnalysisPartial
+     */
+    record?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TimelineAnalysisPartial
+     */
+    finished?: boolean;
+    /**
+     * 
+     * @type {TlaResult}
+     * @memberof TimelineAnalysisPartial
+     */
+    result?: TlaResult;
+}
+/**
+ * (Schema options: { includeRelations: true })
+ * @export
+ * @interface TimelineAnalysisWithRelations
+ */
+export interface TimelineAnalysisWithRelations {
+    /**
+     * 
+     * @type {number}
+     * @memberof TimelineAnalysisWithRelations
+     */
+    record: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TimelineAnalysisWithRelations
+     */
+    finished: boolean;
+    /**
+     * 
+     * @type {TlaResultWithRelations}
+     * @memberof TimelineAnalysisWithRelations
+     */
+    result?: TlaResultWithRelations;
+}
+/**
+ * 
+ * @export
+ * @interface TlaResult
+ */
+export interface TlaResult {
+    /**
+     * 
+     * @type {number}
+     * @memberof TlaResult
+     */
+    add?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TlaResult
+     */
+    del?: number;
+    /**
+     * 
+     * @type {Array<TlaTimelineItem>}
+     * @memberof TlaResult
+     */
+    timeline?: Array<TlaTimelineItem>;
+    /**
+     * 
+     * @type {number}
+     * @memberof TlaResult
+     */
+    undo?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TlaResult
+     */
+    paste?: number;
+}
+/**
+ * (Schema options: { includeRelations: true })
+ * @export
+ * @interface TlaResultWithRelations
+ */
+export interface TlaResultWithRelations {
+    /**
+     * 
+     * @type {number}
+     * @memberof TlaResultWithRelations
+     */
+    add?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TlaResultWithRelations
+     */
+    del?: number;
+    /**
+     * 
+     * @type {Array<TlaTimelineItemWithRelations>}
+     * @memberof TlaResultWithRelations
+     */
+    timeline?: Array<TlaTimelineItemWithRelations>;
+    /**
+     * 
+     * @type {number}
+     * @memberof TlaResultWithRelations
+     */
+    undo?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TlaResultWithRelations
+     */
+    paste?: number;
+}
+/**
+ * 
+ * @export
+ * @interface TlaTimelineItem
+ */
+export interface TlaTimelineItem {
+    /**
+     * 
+     * @type {string}
+     * @memberof TlaTimelineItem
+     */
+    action?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof TlaTimelineItem
+     */
+    add?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TlaTimelineItem
+     */
+    del?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TlaTimelineItem
+     */
+    time?: number;
+}
+/**
+ * (Schema options: { includeRelations: true })
+ * @export
+ * @interface TlaTimelineItemWithRelations
+ */
+export interface TlaTimelineItemWithRelations {
+    /**
+     * 
+     * @type {string}
+     * @memberof TlaTimelineItemWithRelations
+     */
+    action?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof TlaTimelineItemWithRelations
+     */
+    add?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TlaTimelineItemWithRelations
+     */
+    del?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TlaTimelineItemWithRelations
+     */
+    time?: number;
+}
+/**
+ * 
+ * @export
+ * @interface UserInfo
+ */
+export interface UserInfo {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserInfo
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserInfo
+     */
+    role: string;
 }
 
 /**
@@ -1995,6 +2398,699 @@ export class QuestionControllerApi extends BaseAPI implements QuestionController
 
 
 /**
+ * RecordControllerApi - axios parameter creator
+ * @export
+ */
+export const RecordControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {{ [key: string]: object; }} [where] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerCount(where?: { [key: string]: object; }, options: any = {}): RequestArgs {
+            const localVarPath = `/records/count`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (where !== undefined) {
+                localVarQueryParameter['where'] = where;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {NewRecord} [newRecord] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerCreate(newRecord?: NewRecord, options: any = {}): RequestArgs {
+            const localVarPath = `/records`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof newRecord !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(newRecord !== undefined ? newRecord : {}) : (newRecord || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerDeleteById(id: number, options: any = {}): RequestArgs {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling recordControllerDeleteById.');
+            }
+            const localVarPath = `/records/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {object} [filter] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerFind(filter?: object, options: any = {}): RequestArgs {
+            const localVarPath = `/records`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (filter !== undefined) {
+                localVarQueryParameter['filter'] = filter;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {object} [filter] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerFindById(id: number, filter?: object, options: any = {}): RequestArgs {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling recordControllerFindById.');
+            }
+            const localVarPath = `/records/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (filter !== undefined) {
+                localVarQueryParameter['filter'] = filter;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {Record} [record] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerReplaceById(id: number, record?: Record, options: any = {}): RequestArgs {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling recordControllerReplaceById.');
+            }
+            const localVarPath = `/records/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof record !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(record !== undefined ? record : {}) : (record || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {{ [key: string]: object; }} [where] 
+         * @param {RecordPartial} [recordPartial] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerUpdateAll(where?: { [key: string]: object; }, recordPartial?: RecordPartial, options: any = {}): RequestArgs {
+            const localVarPath = `/records`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (where !== undefined) {
+                localVarQueryParameter['where'] = where;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof recordPartial !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(recordPartial !== undefined ? recordPartial : {}) : (recordPartial || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {RecordPartial} [recordPartial] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerUpdateById(id: number, recordPartial?: RecordPartial, options: any = {}): RequestArgs {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling recordControllerUpdateById.');
+            }
+            const localVarPath = `/records/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof recordPartial !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(recordPartial !== undefined ? recordPartial : {}) : (recordPartial || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * RecordControllerApi - functional programming interface
+ * @export
+ */
+export const RecordControllerApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {{ [key: string]: object; }} [where] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerCount(where?: { [key: string]: object; }, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoopbackCount> {
+            const localVarAxiosArgs = RecordControllerApiAxiosParamCreator(configuration).recordControllerCount(where, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {NewRecord} [newRecord] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerCreate(newRecord?: NewRecord, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Record> {
+            const localVarAxiosArgs = RecordControllerApiAxiosParamCreator(configuration).recordControllerCreate(newRecord, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerDeleteById(id: number, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
+            const localVarAxiosArgs = RecordControllerApiAxiosParamCreator(configuration).recordControllerDeleteById(id, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {object} [filter] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerFind(filter?: object, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<RecordWithRelations>> {
+            const localVarAxiosArgs = RecordControllerApiAxiosParamCreator(configuration).recordControllerFind(filter, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {object} [filter] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerFindById(id: number, filter?: object, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<RecordWithRelations> {
+            const localVarAxiosArgs = RecordControllerApiAxiosParamCreator(configuration).recordControllerFindById(id, filter, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {Record} [record] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerReplaceById(id: number, record?: Record, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
+            const localVarAxiosArgs = RecordControllerApiAxiosParamCreator(configuration).recordControllerReplaceById(id, record, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {{ [key: string]: object; }} [where] 
+         * @param {RecordPartial} [recordPartial] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerUpdateAll(where?: { [key: string]: object; }, recordPartial?: RecordPartial, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoopbackCount> {
+            const localVarAxiosArgs = RecordControllerApiAxiosParamCreator(configuration).recordControllerUpdateAll(where, recordPartial, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {RecordPartial} [recordPartial] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerUpdateById(id: number, recordPartial?: RecordPartial, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
+            const localVarAxiosArgs = RecordControllerApiAxiosParamCreator(configuration).recordControllerUpdateById(id, recordPartial, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * RecordControllerApi - factory interface
+ * @export
+ */
+export const RecordControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * 
+         * @param {{ [key: string]: object; }} [where] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerCount(where?: { [key: string]: object; }, options?: any): AxiosPromise<LoopbackCount> {
+            return RecordControllerApiFp(configuration).recordControllerCount(where, options)(axios, basePath);
+        },
+        /**
+         * 
+         * @param {NewRecord} [newRecord] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerCreate(newRecord?: NewRecord, options?: any): AxiosPromise<Record> {
+            return RecordControllerApiFp(configuration).recordControllerCreate(newRecord, options)(axios, basePath);
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerDeleteById(id: number, options?: any): AxiosPromise<void> {
+            return RecordControllerApiFp(configuration).recordControllerDeleteById(id, options)(axios, basePath);
+        },
+        /**
+         * 
+         * @param {object} [filter] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerFind(filter?: object, options?: any): AxiosPromise<Array<RecordWithRelations>> {
+            return RecordControllerApiFp(configuration).recordControllerFind(filter, options)(axios, basePath);
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {object} [filter] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerFindById(id: number, filter?: object, options?: any): AxiosPromise<RecordWithRelations> {
+            return RecordControllerApiFp(configuration).recordControllerFindById(id, filter, options)(axios, basePath);
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {Record} [record] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerReplaceById(id: number, record?: Record, options?: any): AxiosPromise<void> {
+            return RecordControllerApiFp(configuration).recordControllerReplaceById(id, record, options)(axios, basePath);
+        },
+        /**
+         * 
+         * @param {{ [key: string]: object; }} [where] 
+         * @param {RecordPartial} [recordPartial] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerUpdateAll(where?: { [key: string]: object; }, recordPartial?: RecordPartial, options?: any): AxiosPromise<LoopbackCount> {
+            return RecordControllerApiFp(configuration).recordControllerUpdateAll(where, recordPartial, options)(axios, basePath);
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {RecordPartial} [recordPartial] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        recordControllerUpdateById(id: number, recordPartial?: RecordPartial, options?: any): AxiosPromise<void> {
+            return RecordControllerApiFp(configuration).recordControllerUpdateById(id, recordPartial, options)(axios, basePath);
+        },
+    };
+};
+
+/**
+ * RecordControllerApi - interface
+ * @export
+ * @interface RecordControllerApi
+ */
+export interface RecordControllerApiInterface {
+    /**
+     * 
+     * @param {{ [key: string]: object; }} [where] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RecordControllerApiInterface
+     */
+    recordControllerCount(where?: { [key: string]: object; }, options?: any): AxiosPromise<LoopbackCount>;
+
+    /**
+     * 
+     * @param {NewRecord} [newRecord] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RecordControllerApiInterface
+     */
+    recordControllerCreate(newRecord?: NewRecord, options?: any): AxiosPromise<Record>;
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RecordControllerApiInterface
+     */
+    recordControllerDeleteById(id: number, options?: any): AxiosPromise<void>;
+
+    /**
+     * 
+     * @param {object} [filter] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RecordControllerApiInterface
+     */
+    recordControllerFind(filter?: object, options?: any): AxiosPromise<Array<RecordWithRelations>>;
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {object} [filter] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RecordControllerApiInterface
+     */
+    recordControllerFindById(id: number, filter?: object, options?: any): AxiosPromise<RecordWithRelations>;
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {Record} [record] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RecordControllerApiInterface
+     */
+    recordControllerReplaceById(id: number, record?: Record, options?: any): AxiosPromise<void>;
+
+    /**
+     * 
+     * @param {{ [key: string]: object; }} [where] 
+     * @param {RecordPartial} [recordPartial] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RecordControllerApiInterface
+     */
+    recordControllerUpdateAll(where?: { [key: string]: object; }, recordPartial?: RecordPartial, options?: any): AxiosPromise<LoopbackCount>;
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {RecordPartial} [recordPartial] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RecordControllerApiInterface
+     */
+    recordControllerUpdateById(id: number, recordPartial?: RecordPartial, options?: any): AxiosPromise<void>;
+
+}
+
+/**
+ * RecordControllerApi - object-oriented interface
+ * @export
+ * @class RecordControllerApi
+ * @extends {BaseAPI}
+ */
+export class RecordControllerApi extends BaseAPI implements RecordControllerApiInterface {
+    /**
+     * 
+     * @param {{ [key: string]: object; }} [where] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RecordControllerApi
+     */
+    public recordControllerCount(where?: { [key: string]: object; }, options?: any) {
+        return RecordControllerApiFp(this.configuration).recordControllerCount(where, options)(this.axios, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {NewRecord} [newRecord] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RecordControllerApi
+     */
+    public recordControllerCreate(newRecord?: NewRecord, options?: any) {
+        return RecordControllerApiFp(this.configuration).recordControllerCreate(newRecord, options)(this.axios, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RecordControllerApi
+     */
+    public recordControllerDeleteById(id: number, options?: any) {
+        return RecordControllerApiFp(this.configuration).recordControllerDeleteById(id, options)(this.axios, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {object} [filter] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RecordControllerApi
+     */
+    public recordControllerFind(filter?: object, options?: any) {
+        return RecordControllerApiFp(this.configuration).recordControllerFind(filter, options)(this.axios, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {object} [filter] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RecordControllerApi
+     */
+    public recordControllerFindById(id: number, filter?: object, options?: any) {
+        return RecordControllerApiFp(this.configuration).recordControllerFindById(id, filter, options)(this.axios, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {Record} [record] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RecordControllerApi
+     */
+    public recordControllerReplaceById(id: number, record?: Record, options?: any) {
+        return RecordControllerApiFp(this.configuration).recordControllerReplaceById(id, record, options)(this.axios, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {{ [key: string]: object; }} [where] 
+     * @param {RecordPartial} [recordPartial] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RecordControllerApi
+     */
+    public recordControllerUpdateAll(where?: { [key: string]: object; }, recordPartial?: RecordPartial, options?: any) {
+        return RecordControllerApiFp(this.configuration).recordControllerUpdateAll(where, recordPartial, options)(this.axios, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {RecordPartial} [recordPartial] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RecordControllerApi
+     */
+    public recordControllerUpdateById(id: number, recordPartial?: RecordPartial, options?: any) {
+        return RecordControllerApiFp(this.configuration).recordControllerUpdateById(id, recordPartial, options)(this.axios, this.basePath);
+    }
+
+}
+
+
+/**
  * TemplateControllerApi - axios parameter creator
  * @export
  */
@@ -2682,6 +3778,820 @@ export class TemplateControllerApi extends BaseAPI implements TemplateController
      */
     public templateControllerUpdateById(id: string, templatePartial?: TemplatePartial, options?: any) {
         return TemplateControllerApiFp(this.configuration).templateControllerUpdateById(id, templatePartial, options)(this.axios, this.basePath);
+    }
+
+}
+
+
+/**
+ * TlAnalysisControllerApi - axios parameter creator
+ * @export
+ */
+export const TlAnalysisControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {{ [key: string]: object; }} [where] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerCount(where?: { [key: string]: object; }, options: any = {}): RequestArgs {
+            const localVarPath = `/timeline-analyses/count`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (where !== undefined) {
+                localVarQueryParameter['where'] = where;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {NewTimelineAnalysis} [newTimelineAnalysis] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerCreate(newTimelineAnalysis?: NewTimelineAnalysis, options: any = {}): RequestArgs {
+            const localVarPath = `/timeline-analyses`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof newTimelineAnalysis !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(newTimelineAnalysis !== undefined ? newTimelineAnalysis : {}) : (newTimelineAnalysis || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerDeleteById(id: number, options: any = {}): RequestArgs {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling tlAnalysisControllerDeleteById.');
+            }
+            const localVarPath = `/timeline-analyses/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {object} [filter] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerFind(filter?: object, options: any = {}): RequestArgs {
+            const localVarPath = `/timeline-analyses`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (filter !== undefined) {
+                localVarQueryParameter['filter'] = filter;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {object} [filter] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerFindById(id: number, filter?: object, options: any = {}): RequestArgs {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling tlAnalysisControllerFindById.');
+            }
+            const localVarPath = `/timeline-analyses/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (filter !== undefined) {
+                localVarQueryParameter['filter'] = filter;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {TimelineAnalysis} [timelineAnalysis] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerReplaceById(id: number, timelineAnalysis?: TimelineAnalysis, options: any = {}): RequestArgs {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling tlAnalysisControllerReplaceById.');
+            }
+            const localVarPath = `/timeline-analyses/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof timelineAnalysis !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(timelineAnalysis !== undefined ? timelineAnalysis : {}) : (timelineAnalysis || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {{ [key: string]: object; }} [where] 
+         * @param {TimelineAnalysisPartial} [timelineAnalysisPartial] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerUpdateAll(where?: { [key: string]: object; }, timelineAnalysisPartial?: TimelineAnalysisPartial, options: any = {}): RequestArgs {
+            const localVarPath = `/timeline-analyses`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (where !== undefined) {
+                localVarQueryParameter['where'] = where;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof timelineAnalysisPartial !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(timelineAnalysisPartial !== undefined ? timelineAnalysisPartial : {}) : (timelineAnalysisPartial || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {TimelineAnalysisPartial} [timelineAnalysisPartial] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerUpdateById(id: number, timelineAnalysisPartial?: TimelineAnalysisPartial, options: any = {}): RequestArgs {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling tlAnalysisControllerUpdateById.');
+            }
+            const localVarPath = `/timeline-analyses/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof timelineAnalysisPartial !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(timelineAnalysisPartial !== undefined ? timelineAnalysisPartial : {}) : (timelineAnalysisPartial || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * TlAnalysisControllerApi - functional programming interface
+ * @export
+ */
+export const TlAnalysisControllerApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {{ [key: string]: object; }} [where] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerCount(where?: { [key: string]: object; }, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoopbackCount> {
+            const localVarAxiosArgs = TlAnalysisControllerApiAxiosParamCreator(configuration).tlAnalysisControllerCount(where, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {NewTimelineAnalysis} [newTimelineAnalysis] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerCreate(newTimelineAnalysis?: NewTimelineAnalysis, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimelineAnalysis> {
+            const localVarAxiosArgs = TlAnalysisControllerApiAxiosParamCreator(configuration).tlAnalysisControllerCreate(newTimelineAnalysis, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerDeleteById(id: number, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
+            const localVarAxiosArgs = TlAnalysisControllerApiAxiosParamCreator(configuration).tlAnalysisControllerDeleteById(id, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {object} [filter] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerFind(filter?: object, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TimelineAnalysisWithRelations>> {
+            const localVarAxiosArgs = TlAnalysisControllerApiAxiosParamCreator(configuration).tlAnalysisControllerFind(filter, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {object} [filter] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerFindById(id: number, filter?: object, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimelineAnalysisWithRelations> {
+            const localVarAxiosArgs = TlAnalysisControllerApiAxiosParamCreator(configuration).tlAnalysisControllerFindById(id, filter, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {TimelineAnalysis} [timelineAnalysis] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerReplaceById(id: number, timelineAnalysis?: TimelineAnalysis, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
+            const localVarAxiosArgs = TlAnalysisControllerApiAxiosParamCreator(configuration).tlAnalysisControllerReplaceById(id, timelineAnalysis, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {{ [key: string]: object; }} [where] 
+         * @param {TimelineAnalysisPartial} [timelineAnalysisPartial] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerUpdateAll(where?: { [key: string]: object; }, timelineAnalysisPartial?: TimelineAnalysisPartial, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoopbackCount> {
+            const localVarAxiosArgs = TlAnalysisControllerApiAxiosParamCreator(configuration).tlAnalysisControllerUpdateAll(where, timelineAnalysisPartial, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {TimelineAnalysisPartial} [timelineAnalysisPartial] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerUpdateById(id: number, timelineAnalysisPartial?: TimelineAnalysisPartial, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
+            const localVarAxiosArgs = TlAnalysisControllerApiAxiosParamCreator(configuration).tlAnalysisControllerUpdateById(id, timelineAnalysisPartial, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * TlAnalysisControllerApi - factory interface
+ * @export
+ */
+export const TlAnalysisControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * 
+         * @param {{ [key: string]: object; }} [where] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerCount(where?: { [key: string]: object; }, options?: any): AxiosPromise<LoopbackCount> {
+            return TlAnalysisControllerApiFp(configuration).tlAnalysisControllerCount(where, options)(axios, basePath);
+        },
+        /**
+         * 
+         * @param {NewTimelineAnalysis} [newTimelineAnalysis] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerCreate(newTimelineAnalysis?: NewTimelineAnalysis, options?: any): AxiosPromise<TimelineAnalysis> {
+            return TlAnalysisControllerApiFp(configuration).tlAnalysisControllerCreate(newTimelineAnalysis, options)(axios, basePath);
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerDeleteById(id: number, options?: any): AxiosPromise<void> {
+            return TlAnalysisControllerApiFp(configuration).tlAnalysisControllerDeleteById(id, options)(axios, basePath);
+        },
+        /**
+         * 
+         * @param {object} [filter] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerFind(filter?: object, options?: any): AxiosPromise<Array<TimelineAnalysisWithRelations>> {
+            return TlAnalysisControllerApiFp(configuration).tlAnalysisControllerFind(filter, options)(axios, basePath);
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {object} [filter] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerFindById(id: number, filter?: object, options?: any): AxiosPromise<TimelineAnalysisWithRelations> {
+            return TlAnalysisControllerApiFp(configuration).tlAnalysisControllerFindById(id, filter, options)(axios, basePath);
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {TimelineAnalysis} [timelineAnalysis] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerReplaceById(id: number, timelineAnalysis?: TimelineAnalysis, options?: any): AxiosPromise<void> {
+            return TlAnalysisControllerApiFp(configuration).tlAnalysisControllerReplaceById(id, timelineAnalysis, options)(axios, basePath);
+        },
+        /**
+         * 
+         * @param {{ [key: string]: object; }} [where] 
+         * @param {TimelineAnalysisPartial} [timelineAnalysisPartial] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerUpdateAll(where?: { [key: string]: object; }, timelineAnalysisPartial?: TimelineAnalysisPartial, options?: any): AxiosPromise<LoopbackCount> {
+            return TlAnalysisControllerApiFp(configuration).tlAnalysisControllerUpdateAll(where, timelineAnalysisPartial, options)(axios, basePath);
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {TimelineAnalysisPartial} [timelineAnalysisPartial] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tlAnalysisControllerUpdateById(id: number, timelineAnalysisPartial?: TimelineAnalysisPartial, options?: any): AxiosPromise<void> {
+            return TlAnalysisControllerApiFp(configuration).tlAnalysisControllerUpdateById(id, timelineAnalysisPartial, options)(axios, basePath);
+        },
+    };
+};
+
+/**
+ * TlAnalysisControllerApi - interface
+ * @export
+ * @interface TlAnalysisControllerApi
+ */
+export interface TlAnalysisControllerApiInterface {
+    /**
+     * 
+     * @param {{ [key: string]: object; }} [where] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TlAnalysisControllerApiInterface
+     */
+    tlAnalysisControllerCount(where?: { [key: string]: object; }, options?: any): AxiosPromise<LoopbackCount>;
+
+    /**
+     * 
+     * @param {NewTimelineAnalysis} [newTimelineAnalysis] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TlAnalysisControllerApiInterface
+     */
+    tlAnalysisControllerCreate(newTimelineAnalysis?: NewTimelineAnalysis, options?: any): AxiosPromise<TimelineAnalysis>;
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TlAnalysisControllerApiInterface
+     */
+    tlAnalysisControllerDeleteById(id: number, options?: any): AxiosPromise<void>;
+
+    /**
+     * 
+     * @param {object} [filter] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TlAnalysisControllerApiInterface
+     */
+    tlAnalysisControllerFind(filter?: object, options?: any): AxiosPromise<Array<TimelineAnalysisWithRelations>>;
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {object} [filter] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TlAnalysisControllerApiInterface
+     */
+    tlAnalysisControllerFindById(id: number, filter?: object, options?: any): AxiosPromise<TimelineAnalysisWithRelations>;
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {TimelineAnalysis} [timelineAnalysis] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TlAnalysisControllerApiInterface
+     */
+    tlAnalysisControllerReplaceById(id: number, timelineAnalysis?: TimelineAnalysis, options?: any): AxiosPromise<void>;
+
+    /**
+     * 
+     * @param {{ [key: string]: object; }} [where] 
+     * @param {TimelineAnalysisPartial} [timelineAnalysisPartial] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TlAnalysisControllerApiInterface
+     */
+    tlAnalysisControllerUpdateAll(where?: { [key: string]: object; }, timelineAnalysisPartial?: TimelineAnalysisPartial, options?: any): AxiosPromise<LoopbackCount>;
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {TimelineAnalysisPartial} [timelineAnalysisPartial] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TlAnalysisControllerApiInterface
+     */
+    tlAnalysisControllerUpdateById(id: number, timelineAnalysisPartial?: TimelineAnalysisPartial, options?: any): AxiosPromise<void>;
+
+}
+
+/**
+ * TlAnalysisControllerApi - object-oriented interface
+ * @export
+ * @class TlAnalysisControllerApi
+ * @extends {BaseAPI}
+ */
+export class TlAnalysisControllerApi extends BaseAPI implements TlAnalysisControllerApiInterface {
+    /**
+     * 
+     * @param {{ [key: string]: object; }} [where] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TlAnalysisControllerApi
+     */
+    public tlAnalysisControllerCount(where?: { [key: string]: object; }, options?: any) {
+        return TlAnalysisControllerApiFp(this.configuration).tlAnalysisControllerCount(where, options)(this.axios, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {NewTimelineAnalysis} [newTimelineAnalysis] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TlAnalysisControllerApi
+     */
+    public tlAnalysisControllerCreate(newTimelineAnalysis?: NewTimelineAnalysis, options?: any) {
+        return TlAnalysisControllerApiFp(this.configuration).tlAnalysisControllerCreate(newTimelineAnalysis, options)(this.axios, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TlAnalysisControllerApi
+     */
+    public tlAnalysisControllerDeleteById(id: number, options?: any) {
+        return TlAnalysisControllerApiFp(this.configuration).tlAnalysisControllerDeleteById(id, options)(this.axios, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {object} [filter] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TlAnalysisControllerApi
+     */
+    public tlAnalysisControllerFind(filter?: object, options?: any) {
+        return TlAnalysisControllerApiFp(this.configuration).tlAnalysisControllerFind(filter, options)(this.axios, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {object} [filter] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TlAnalysisControllerApi
+     */
+    public tlAnalysisControllerFindById(id: number, filter?: object, options?: any) {
+        return TlAnalysisControllerApiFp(this.configuration).tlAnalysisControllerFindById(id, filter, options)(this.axios, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {TimelineAnalysis} [timelineAnalysis] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TlAnalysisControllerApi
+     */
+    public tlAnalysisControllerReplaceById(id: number, timelineAnalysis?: TimelineAnalysis, options?: any) {
+        return TlAnalysisControllerApiFp(this.configuration).tlAnalysisControllerReplaceById(id, timelineAnalysis, options)(this.axios, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {{ [key: string]: object; }} [where] 
+     * @param {TimelineAnalysisPartial} [timelineAnalysisPartial] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TlAnalysisControllerApi
+     */
+    public tlAnalysisControllerUpdateAll(where?: { [key: string]: object; }, timelineAnalysisPartial?: TimelineAnalysisPartial, options?: any) {
+        return TlAnalysisControllerApiFp(this.configuration).tlAnalysisControllerUpdateAll(where, timelineAnalysisPartial, options)(this.axios, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {TimelineAnalysisPartial} [timelineAnalysisPartial] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TlAnalysisControllerApi
+     */
+    public tlAnalysisControllerUpdateById(id: number, timelineAnalysisPartial?: TimelineAnalysisPartial, options?: any) {
+        return TlAnalysisControllerApiFp(this.configuration).tlAnalysisControllerUpdateById(id, timelineAnalysisPartial, options)(this.axios, this.basePath);
+    }
+
+}
+
+
+/**
+ * UserControllerApi - axios parameter creator
+ * @export
+ */
+export const UserControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} [authorization] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userControllerUserinfo(authorization?: string, options: any = {}): RequestArgs {
+            const localVarPath = `/userinfo`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (authorization !== undefined && authorization !== null) {
+                localVarHeaderParameter['Authorization'] = String(authorization);
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * UserControllerApi - functional programming interface
+ * @export
+ */
+export const UserControllerApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} [authorization] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userControllerUserinfo(authorization?: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserInfo> {
+            const localVarAxiosArgs = UserControllerApiAxiosParamCreator(configuration).userControllerUserinfo(authorization, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * UserControllerApi - factory interface
+ * @export
+ */
+export const UserControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * 
+         * @param {string} [authorization] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userControllerUserinfo(authorization?: string, options?: any): AxiosPromise<UserInfo> {
+            return UserControllerApiFp(configuration).userControllerUserinfo(authorization, options)(axios, basePath);
+        },
+    };
+};
+
+/**
+ * UserControllerApi - interface
+ * @export
+ * @interface UserControllerApi
+ */
+export interface UserControllerApiInterface {
+    /**
+     * 
+     * @param {string} [authorization] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserControllerApiInterface
+     */
+    userControllerUserinfo(authorization?: string, options?: any): AxiosPromise<UserInfo>;
+
+}
+
+/**
+ * UserControllerApi - object-oriented interface
+ * @export
+ * @class UserControllerApi
+ * @extends {BaseAPI}
+ */
+export class UserControllerApi extends BaseAPI implements UserControllerApiInterface {
+    /**
+     * 
+     * @param {string} [authorization] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserControllerApi
+     */
+    public userControllerUserinfo(authorization?: string, options?: any) {
+        return UserControllerApiFp(this.configuration).userControllerUserinfo(authorization, options)(this.axios, this.basePath);
     }
 
 }

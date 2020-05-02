@@ -11,23 +11,28 @@
   import Vue from 'vue';
 
   export default Vue.extend({
-      sockets: {
-        connect() {
-          console.log('socket connected');
-        },
-        customEmit(val) {
-          console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)');
-        },
+    sockets: {
+      connect() {
+        console.log('socket connected');
       },
-      methods: {
-        clickButton() {
-          // this.$socket.client isd `socket.io-client` instance
-          this.$socket.client.emit('msg', 'val');
-          this.$socket.client.emit('msg', JSON.stringify(this.$auth.user));
-          // this.$socket.client.connect();
-          this.$toast.success('创建成功');
-        },
+      customEmit(val) {
+        console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)');
       },
     },
-  );
+    beforeMount(): void {
+      const user = this.$auth.user;
+      if (user.role === 'teacher')
+        this.$router.push('/teacher');
+      else this.$router.push('/quests');
+    },
+    methods: {
+      clickButton() {
+        // this.$socket.client isd `socket.io-client` instance
+        this.$socket.client.emit('msg', 'val');
+        this.$socket.client.emit('msg', JSON.stringify(this.$auth.user));
+        // this.$socket.client.connect();
+        this.$toast.success('创建成功');
+      },
+    },
+  });
 </script>
