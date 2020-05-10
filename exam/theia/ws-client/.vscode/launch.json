@@ -16,7 +16,10 @@
 			"outFiles": [
 				"${workspaceFolder}/out/**/*.js"
 			],
-			"preLaunchTask": "${defaultBuildTask}"
+			"preLaunchTask": "${defaultBuildTask}",
+			"env":{
+				"ACCESS_TOKEN":"Bearer 6kqNxTof8qV1sFKW6JTZbH6tyZ6WNv55yHg34VWCAtM.toyNfluMsbqDIIwkXu4Mz3anh8j1yD_H9r4K5tqi5-E"
+			}
 		},
 		{
 			"name": "Extension Tests",

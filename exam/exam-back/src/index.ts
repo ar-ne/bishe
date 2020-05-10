@@ -2,10 +2,12 @@ import { ExamBackApplication } from './application';
 import { ApplicationConfig } from '@loopback/core';
 import fetch from 'node-fetch';
 import * as fs from 'fs';
+import { client } from './redis-service';
 
 export { ExamBackApplication };
 
 export async function main(options: ApplicationConfig = {}) {
+  client.on('error', (err) => console.log(`RedisError:${err}`));
   const app = new ExamBackApplication(options);
   await app.boot();
   await app.start();
@@ -13,7 +15,6 @@ export async function main(options: ApplicationConfig = {}) {
 
   const url = app.restServer.url;
   console.log(`Server is running at ${url}`);
-  console.log(`Try ${url}/ping`);
 
   await exportOpenApiSpecJSON(`http://localhost:3000`);
   return app;

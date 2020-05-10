@@ -3,3 +3,4 @@ export * from './question.repository';
 export * from './template.repository';
 export * from './record.repository';
 export * from './timeline-analysis.repository';
+export * from './workspace-session.repository';

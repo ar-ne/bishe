@@ -43,9 +43,25 @@ services:
       dockerfile: dev.Dockerfile
     ports:
       - 3336:3000
+      - 6229:6229
     volumes:
       - ./exam/exam-back:/app
       - /app/node_modules
+
+  exam-ws:
+    build:
+      dockerfile: dev.Dockerfile
+    ports:
+      - 3001:3001
+    volumes:
+      - ./exam/exam-ws:/app
+      - /app/node_modules
+
+  openresty:
+    volumes:
+      - ./exam/openresty/conf:/app/conf
+      - ./exam/openresty/logs:/app/logs
+      - ./exam/openresty/scripts:/app/scripts
 
 
 volumes:

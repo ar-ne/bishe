@@ -6,7 +6,7 @@
   "scripts": {
     "build": "docker build . -t exam-theia",
     "prebuild": "cd ws-client && yarn build",
-    "start": "yarn build && docker run -tip 3000:3000 exam-theia"
+    "start": "yarn build && docker run -tip 3332:3000 exam-theia"
   },
   "dependencies": {
     "generator-code": "^1.2.13",

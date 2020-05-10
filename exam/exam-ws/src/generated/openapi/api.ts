@@ -57,7 +57,124 @@ export interface Answer {
     judge?: string;
 }
 /**
- * (Schema options: { partial: true })
+ * 
+ * @export
+ * @interface AnswerFields
+ */
+export interface AnswerFields {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof AnswerFields
+     */
+    question?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof AnswerFields
+     */
+    id?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof AnswerFields
+     */
+    content?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof AnswerFields
+     */
+    user?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof AnswerFields
+     */
+    judge?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface AnswerFilter
+ */
+export interface AnswerFilter {
+    /**
+     * 
+     * @type {number}
+     * @memberof AnswerFilter
+     */
+    offset?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof AnswerFilter
+     */
+    limit?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof AnswerFilter
+     */
+    skip?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof AnswerFilter
+     */
+    order?: Array<string>;
+    /**
+     * 
+     * @type {AnswerFields}
+     * @memberof AnswerFilter
+     */
+    fields?: AnswerFields;
+}
+/**
+ * 
+ * @export
+ * @interface AnswerFilter1
+ */
+export interface AnswerFilter1 {
+    /**
+     * 
+     * @type {number}
+     * @memberof AnswerFilter1
+     */
+    offset?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof AnswerFilter1
+     */
+    limit?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof AnswerFilter1
+     */
+    skip?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof AnswerFilter1
+     */
+    order?: Array<string>;
+    /**
+     * 
+     * @type {{ [key: string]: object; }}
+     * @memberof AnswerFilter1
+     */
+    where?: { [key: string]: object; };
+    /**
+     * 
+     * @type {AnswerFields}
+     * @memberof AnswerFilter1
+     */
+    fields?: AnswerFields;
+}
+/**
+ * (tsType: Partial<Answer>, schemaOptions: { partial: true })
  * @export
  * @interface AnswerPartial
  */
@@ -94,7 +211,7 @@ export interface AnswerPartial {
     judge?: string;
 }
 /**
- * (Schema options: { includeRelations: true })
+ * (tsType: AnswerWithRelations, schemaOptions: { includeRelations: true })
  * @export
  * @interface AnswerWithRelations
  */
@@ -133,6 +250,19 @@ export interface AnswerWithRelations {
 /**
  * 
  * @export
+ * @interface InlineObject
+ */
+export interface InlineObject {
+    /**
+     * 
+     * @type {any}
+     * @memberof InlineObject
+     */
+    file?: any;
+}
+/**
+ * 
+ * @export
  * @interface LoopbackCount
  */
 export interface LoopbackCount {
@@ -144,7 +274,7 @@ export interface LoopbackCount {
     count?: number;
 }
 /**
- * (Schema options: { title: \'NewAnswer\', exclude: [ \'id\' ] })
+ * (tsType: Omit<Answer, \'id\'>, schemaOptions: { title: \'NewAnswer\', exclude: [ \'id\' ] })
  * @export
  * @interface NewAnswer
  */
@@ -175,7 +305,7 @@ export interface NewAnswer {
     judge?: string;
 }
 /**
- * (Schema options: { title: \'NewQuestion\', exclude: [ \'id\' ] })
+ * (tsType: Omit<Question, \'id\'>, schemaOptions: { title: \'NewQuestion\', exclude: [ \'id\' ] })
  * @export
  * @interface NewQuestion
  */
@@ -230,7 +360,7 @@ export interface NewQuestion {
     templateName?: string;
 }
 /**
- * (Schema options: { title: \'NewRecord\' })
+ * (tsType: Record, schemaOptions: { title: \'NewRecord\' })
  * @export
  * @interface NewRecord
  */
@@ -261,7 +391,7 @@ export interface NewRecord {
     timeline: Array<string>;
 }
 /**
- * (Schema options: { title: \'NewTemplate\' })
+ * (tsType: Template, schemaOptions: { title: \'NewTemplate\' })
  * @export
  * @interface NewTemplate
  */
@@ -280,7 +410,7 @@ export interface NewTemplate {
     content: string;
 }
 /**
- * (Schema options: { title: \'NewTimelineAnalysis\' })
+ * (tsType: TimelineAnalysis, schemaOptions: { title: \'NewTimelineAnalysis\' })
  * @export
  * @interface NewTimelineAnalysis
  */
@@ -299,10 +429,10 @@ export interface NewTimelineAnalysis {
     finished: boolean;
     /**
      * 
-     * @type {NewTimelineAnalysis}
+     * @type {TlaResult}
      * @memberof NewTimelineAnalysis
      */
-    result?: NewTimelineAnalysis;
+    result?: TlaResult;
 }
 /**
  * 
@@ -397,7 +527,148 @@ export interface Question {
     templateName?: string;
 }
 /**
- * (Schema options: { partial: true })
+ * 
+ * @export
+ * @interface QuestionFields
+ */
+export interface QuestionFields {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof QuestionFields
+     */
+    id?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof QuestionFields
+     */
+    title?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof QuestionFields
+     */
+    author?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof QuestionFields
+     */
+    score?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof QuestionFields
+     */
+    brief?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof QuestionFields
+     */
+    detail?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof QuestionFields
+     */
+    examples?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof QuestionFields
+     */
+    examination?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof QuestionFields
+     */
+    templateName?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface QuestionFilter
+ */
+export interface QuestionFilter {
+    /**
+     * 
+     * @type {number}
+     * @memberof QuestionFilter
+     */
+    offset?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof QuestionFilter
+     */
+    limit?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof QuestionFilter
+     */
+    skip?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof QuestionFilter
+     */
+    order?: Array<string>;
+    /**
+     * 
+     * @type {QuestionFields}
+     * @memberof QuestionFilter
+     */
+    fields?: QuestionFields;
+}
+/**
+ * 
+ * @export
+ * @interface QuestionFilter1
+ */
+export interface QuestionFilter1 {
+    /**
+     * 
+     * @type {number}
+     * @memberof QuestionFilter1
+     */
+    offset?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof QuestionFilter1
+     */
+    limit?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof QuestionFilter1
+     */
+    skip?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof QuestionFilter1
+     */
+    order?: Array<string>;
+    /**
+     * 
+     * @type {{ [key: string]: object; }}
+     * @memberof QuestionFilter1
+     */
+    where?: { [key: string]: object; };
+    /**
+     * 
+     * @type {QuestionFields}
+     * @memberof QuestionFilter1
+     */
+    fields?: QuestionFields;
+}
+/**
+ * (tsType: Partial<Question>, schemaOptions: { partial: true })
  * @export
  * @interface QuestionPartial
  */
@@ -458,7 +729,7 @@ export interface QuestionPartial {
     templateName?: string;
 }
 /**
- * (Schema options: { includeRelations: true })
+ * (tsType: QuestionWithRelations, schemaOptions: { includeRelations: true })
  * @export
  * @interface QuestionWithRelations
  */
@@ -550,7 +821,118 @@ export interface Record {
     timeline: Array<string>;
 }
 /**
- * (Schema options: { partial: true })
+ * 
+ * @export
+ * @interface RecordFields
+ */
+export interface RecordFields {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof RecordFields
+     */
+    answer?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof RecordFields
+     */
+    startTime?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof RecordFields
+     */
+    endTime?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof RecordFields
+     */
+    timeline?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface RecordFilter
+ */
+export interface RecordFilter {
+    /**
+     * 
+     * @type {number}
+     * @memberof RecordFilter
+     */
+    offset?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RecordFilter
+     */
+    limit?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RecordFilter
+     */
+    skip?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof RecordFilter
+     */
+    order?: Array<string>;
+    /**
+     * 
+     * @type {RecordFields}
+     * @memberof RecordFilter
+     */
+    fields?: RecordFields;
+}
+/**
+ * 
+ * @export
+ * @interface RecordFilter1
+ */
+export interface RecordFilter1 {
+    /**
+     * 
+     * @type {number}
+     * @memberof RecordFilter1
+     */
+    offset?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RecordFilter1
+     */
+    limit?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RecordFilter1
+     */
+    skip?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof RecordFilter1
+     */
+    order?: Array<string>;
+    /**
+     * 
+     * @type {{ [key: string]: object; }}
+     * @memberof RecordFilter1
+     */
+    where?: { [key: string]: object; };
+    /**
+     * 
+     * @type {RecordFields}
+     * @memberof RecordFilter1
+     */
+    fields?: RecordFields;
+}
+/**
+ * (tsType: Partial<Record>, schemaOptions: { partial: true })
  * @export
  * @interface RecordPartial
  */
@@ -581,7 +963,7 @@ export interface RecordPartial {
     timeline?: Array<string>;
 }
 /**
- * (Schema options: { includeRelations: true })
+ * (tsType: RecordWithRelations, schemaOptions: { includeRelations: true })
  * @export
  * @interface RecordWithRelations
  */
@@ -631,7 +1013,106 @@ export interface Template {
     content: string;
 }
 /**
- * (Schema options: { partial: true })
+ * 
+ * @export
+ * @interface TemplateFields
+ */
+export interface TemplateFields {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TemplateFields
+     */
+    name?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TemplateFields
+     */
+    content?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface TemplateFilter
+ */
+export interface TemplateFilter {
+    /**
+     * 
+     * @type {number}
+     * @memberof TemplateFilter
+     */
+    offset?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TemplateFilter
+     */
+    limit?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TemplateFilter
+     */
+    skip?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TemplateFilter
+     */
+    order?: Array<string>;
+    /**
+     * 
+     * @type {TemplateFields}
+     * @memberof TemplateFilter
+     */
+    fields?: TemplateFields;
+}
+/**
+ * 
+ * @export
+ * @interface TemplateFilter1
+ */
+export interface TemplateFilter1 {
+    /**
+     * 
+     * @type {number}
+     * @memberof TemplateFilter1
+     */
+    offset?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TemplateFilter1
+     */
+    limit?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TemplateFilter1
+     */
+    skip?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TemplateFilter1
+     */
+    order?: Array<string>;
+    /**
+     * 
+     * @type {{ [key: string]: object; }}
+     * @memberof TemplateFilter1
+     */
+    where?: { [key: string]: object; };
+    /**
+     * 
+     * @type {TemplateFields}
+     * @memberof TemplateFilter1
+     */
+    fields?: TemplateFields;
+}
+/**
+ * (tsType: Partial<Template>, schemaOptions: { partial: true })
  * @export
  * @interface TemplatePartial
  */
@@ -650,7 +1131,7 @@ export interface TemplatePartial {
     content?: string;
 }
 /**
- * (Schema options: { includeRelations: true })
+ * (tsType: TemplateWithRelations, schemaOptions: { includeRelations: true })
  * @export
  * @interface TemplateWithRelations
  */
@@ -694,7 +1175,112 @@ export interface TimelineAnalysis {
     result?: TlaResult;
 }
 /**
- * (Schema options: { partial: true })
+ * 
+ * @export
+ * @interface TimelineAnalysisFields
+ */
+export interface TimelineAnalysisFields {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TimelineAnalysisFields
+     */
+    record?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TimelineAnalysisFields
+     */
+    finished?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TimelineAnalysisFields
+     */
+    result?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface TimelineAnalysisFilter
+ */
+export interface TimelineAnalysisFilter {
+    /**
+     * 
+     * @type {number}
+     * @memberof TimelineAnalysisFilter
+     */
+    offset?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TimelineAnalysisFilter
+     */
+    limit?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TimelineAnalysisFilter
+     */
+    skip?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimelineAnalysisFilter
+     */
+    order?: Array<string>;
+    /**
+     * 
+     * @type {TimelineAnalysisFields}
+     * @memberof TimelineAnalysisFilter
+     */
+    fields?: TimelineAnalysisFields;
+}
+/**
+ * 
+ * @export
+ * @interface TimelineAnalysisFilter1
+ */
+export interface TimelineAnalysisFilter1 {
+    /**
+     * 
+     * @type {number}
+     * @memberof TimelineAnalysisFilter1
+     */
+    offset?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TimelineAnalysisFilter1
+     */
+    limit?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TimelineAnalysisFilter1
+     */
+    skip?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof TimelineAnalysisFilter1
+     */
+    order?: Array<string>;
+    /**
+     * 
+     * @type {{ [key: string]: object; }}
+     * @memberof TimelineAnalysisFilter1
+     */
+    where?: { [key: string]: object; };
+    /**
+     * 
+     * @type {TimelineAnalysisFields}
+     * @memberof TimelineAnalysisFilter1
+     */
+    fields?: TimelineAnalysisFields;
+}
+/**
+ * (tsType: Partial<TimelineAnalysis>, schemaOptions: { partial: true })
  * @export
  * @interface TimelineAnalysisPartial
  */
@@ -719,7 +1305,7 @@ export interface TimelineAnalysisPartial {
     result?: TlaResult;
 }
 /**
- * (Schema options: { includeRelations: true })
+ * (tsType: TimelineAnalysisWithRelations, schemaOptions: { includeRelations: true })
  * @export
  * @interface TimelineAnalysisWithRelations
  */
@@ -781,7 +1367,7 @@ export interface TlaResult {
     paste?: number;
 }
 /**
- * (Schema options: { includeRelations: true })
+ * (tsType: TlaResultWithRelations, schemaOptions: { includeRelations: true })
  * @export
  * @interface TlaResultWithRelations
  */
@@ -849,7 +1435,7 @@ export interface TlaTimelineItem {
     time?: number;
 }
 /**
- * (Schema options: { includeRelations: true })
+ * (tsType: TlaTimelineItemWithRelations, schemaOptions: { includeRelations: true })
  * @export
  * @interface TlaTimelineItemWithRelations
  */
@@ -897,6 +1483,154 @@ export interface UserInfo {
      * @memberof UserInfo
      */
     role: string;
+}
+/**
+ * 
+ * @export
+ * @interface WorkspaceSession
+ */
+export interface WorkspaceSession {
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkspaceSession
+     */
+    token: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkspaceSession
+     */
+    containerID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkspaceSession
+     */
+    address?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkspaceSession
+     */
+    projectArchive?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkspaceSession
+     */
+    enableTrack: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface WorkspaceSessionFields
+ */
+export interface WorkspaceSessionFields {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkspaceSessionFields
+     */
+    token?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkspaceSessionFields
+     */
+    containerID?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkspaceSessionFields
+     */
+    address?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkspaceSessionFields
+     */
+    projectArchive?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkspaceSessionFields
+     */
+    enableTrack?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface WorkspaceSessionFilter
+ */
+export interface WorkspaceSessionFilter {
+    /**
+     * 
+     * @type {number}
+     * @memberof WorkspaceSessionFilter
+     */
+    offset?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WorkspaceSessionFilter
+     */
+    limit?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WorkspaceSessionFilter
+     */
+    skip?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof WorkspaceSessionFilter
+     */
+    order?: Array<string>;
+    /**
+     * 
+     * @type {WorkspaceSessionFields}
+     * @memberof WorkspaceSessionFilter
+     */
+    fields?: WorkspaceSessionFields;
+}
+/**
+ * (tsType: WorkspaceSessionWithRelations, schemaOptions: { includeRelations: true })
+ * @export
+ * @interface WorkspaceSessionWithRelations
+ */
+export interface WorkspaceSessionWithRelations {
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkspaceSessionWithRelations
+     */
+    token: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkspaceSessionWithRelations
+     */
+    containerID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkspaceSessionWithRelations
+     */
+    address?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkspaceSessionWithRelations
+     */
+    projectArchive?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkspaceSessionWithRelations
+     */
+    enableTrack: boolean;
 }
 
 /**
@@ -1010,11 +1744,11 @@ export const AnswerControllerApiAxiosParamCreator = function (configuration?: Co
         },
         /**
          * 
-         * @param {object} [filter] 
+         * @param {AnswerFilter1} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        answerControllerFind(filter?: object, options: any = {}): RequestArgs {
+        answerControllerFind(filter?: AnswerFilter1, options: any = {}): RequestArgs {
             const localVarPath = `/answers`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -1045,11 +1779,11 @@ export const AnswerControllerApiAxiosParamCreator = function (configuration?: Co
         /**
          * 
          * @param {number} id 
-         * @param {object} [filter] 
+         * @param {AnswerFilter} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        answerControllerFindById(id: number, filter?: object, options: any = {}): RequestArgs {
+        answerControllerFindById(id: number, filter?: AnswerFilter, options: any = {}): RequestArgs {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling answerControllerFindById.');
@@ -1251,11 +1985,11 @@ export const AnswerControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {object} [filter] 
+         * @param {AnswerFilter1} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        answerControllerFind(filter?: object, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AnswerWithRelations>> {
+        answerControllerFind(filter?: AnswerFilter1, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AnswerWithRelations>> {
             const localVarAxiosArgs = AnswerControllerApiAxiosParamCreator(configuration).answerControllerFind(filter, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1265,11 +1999,11 @@ export const AnswerControllerApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {number} id 
-         * @param {object} [filter] 
+         * @param {AnswerFilter} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        answerControllerFindById(id: number, filter?: object, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<AnswerWithRelations> {
+        answerControllerFindById(id: number, filter?: AnswerFilter, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<AnswerWithRelations> {
             const localVarAxiosArgs = AnswerControllerApiAxiosParamCreator(configuration).answerControllerFindById(id, filter, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1356,21 +2090,21 @@ export const AnswerControllerApiFactory = function (configuration?: Configuratio
         },
         /**
          * 
-         * @param {object} [filter] 
+         * @param {AnswerFilter1} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        answerControllerFind(filter?: object, options?: any): AxiosPromise<Array<AnswerWithRelations>> {
+        answerControllerFind(filter?: AnswerFilter1, options?: any): AxiosPromise<Array<AnswerWithRelations>> {
             return AnswerControllerApiFp(configuration).answerControllerFind(filter, options)(axios, basePath);
         },
         /**
          * 
          * @param {number} id 
-         * @param {object} [filter] 
+         * @param {AnswerFilter} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        answerControllerFindById(id: number, filter?: object, options?: any): AxiosPromise<AnswerWithRelations> {
+        answerControllerFindById(id: number, filter?: AnswerFilter, options?: any): AxiosPromise<AnswerWithRelations> {
             return AnswerControllerApiFp(configuration).answerControllerFindById(id, filter, options)(axios, basePath);
         },
         /**
@@ -1441,22 +2175,22 @@ export interface AnswerControllerApiInterface {
 
     /**
      * 
-     * @param {object} [filter] 
+     * @param {AnswerFilter1} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AnswerControllerApiInterface
      */
-    answerControllerFind(filter?: object, options?: any): AxiosPromise<Array<AnswerWithRelations>>;
+    answerControllerFind(filter?: AnswerFilter1, options?: any): AxiosPromise<Array<AnswerWithRelations>>;
 
     /**
      * 
      * @param {number} id 
-     * @param {object} [filter] 
+     * @param {AnswerFilter} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AnswerControllerApiInterface
      */
-    answerControllerFindById(id: number, filter?: object, options?: any): AxiosPromise<AnswerWithRelations>;
+    answerControllerFindById(id: number, filter?: AnswerFilter, options?: any): AxiosPromise<AnswerWithRelations>;
 
     /**
      * 
@@ -1532,24 +2266,24 @@ export class AnswerControllerApi extends BaseAPI implements AnswerControllerApiI
 
     /**
      * 
-     * @param {object} [filter] 
+     * @param {AnswerFilter1} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AnswerControllerApi
      */
-    public answerControllerFind(filter?: object, options?: any) {
+    public answerControllerFind(filter?: AnswerFilter1, options?: any) {
         return AnswerControllerApiFp(this.configuration).answerControllerFind(filter, options)(this.axios, this.basePath);
     }
 
     /**
      * 
      * @param {number} id 
-     * @param {object} [filter] 
+     * @param {AnswerFilter} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AnswerControllerApi
      */
-    public answerControllerFindById(id: number, filter?: object, options?: any) {
+    public answerControllerFindById(id: number, filter?: AnswerFilter, options?: any) {
         return AnswerControllerApiFp(this.configuration).answerControllerFindById(id, filter, options)(this.axios, this.basePath);
     }
 
@@ -1587,6 +2321,275 @@ export class AnswerControllerApi extends BaseAPI implements AnswerControllerApiI
      */
     public answerControllerUpdateById(id: number, answerPartial?: AnswerPartial, options?: any) {
         return AnswerControllerApiFp(this.configuration).answerControllerUpdateById(id, answerPartial, options)(this.axios, this.basePath);
+    }
+
+}
+
+
+/**
+ * FileUdControllerApi - axios parameter creator
+ * @export
+ */
+export const FileUdControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} filename 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fileUdControllerDownloadFile(filename: string, options: any = {}): RequestArgs {
+            // verify required parameter 'filename' is not null or undefined
+            if (filename === null || filename === undefined) {
+                throw new RequiredError('filename','Required parameter filename was null or undefined when calling fileUdControllerDownloadFile.');
+            }
+            const localVarPath = `/files/dl/{filename}`
+                .replace(`{${"filename"}}`, encodeURIComponent(String(filename)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {any} [file] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fileUdControllerFileUpload(file?: any, options: any = {}): RequestArgs {
+            const localVarPath = `/files/u`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new FormData();
+
+
+            if (file !== undefined) { 
+                localVarFormParams.append('file', file as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fileUdControllerListFiles(options: any = {}): RequestArgs {
+            const localVarPath = `/files/ls`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * FileUdControllerApi - functional programming interface
+ * @export
+ */
+export const FileUdControllerApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} filename 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fileUdControllerDownloadFile(filename: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any> {
+            const localVarAxiosArgs = FileUdControllerApiAxiosParamCreator(configuration).fileUdControllerDownloadFile(filename, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {any} [file] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fileUdControllerFileUpload(file?: any, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object> {
+            const localVarAxiosArgs = FileUdControllerApiAxiosParamCreator(configuration).fileUdControllerFileUpload(file, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fileUdControllerListFiles(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>> {
+            const localVarAxiosArgs = FileUdControllerApiAxiosParamCreator(configuration).fileUdControllerListFiles(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * FileUdControllerApi - factory interface
+ * @export
+ */
+export const FileUdControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * 
+         * @param {string} filename 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fileUdControllerDownloadFile(filename: string, options?: any): AxiosPromise<any> {
+            return FileUdControllerApiFp(configuration).fileUdControllerDownloadFile(filename, options)(axios, basePath);
+        },
+        /**
+         * 
+         * @param {any} [file] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fileUdControllerFileUpload(file?: any, options?: any): AxiosPromise<object> {
+            return FileUdControllerApiFp(configuration).fileUdControllerFileUpload(file, options)(axios, basePath);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fileUdControllerListFiles(options?: any): AxiosPromise<Array<string>> {
+            return FileUdControllerApiFp(configuration).fileUdControllerListFiles(options)(axios, basePath);
+        },
+    };
+};
+
+/**
+ * FileUdControllerApi - interface
+ * @export
+ * @interface FileUdControllerApi
+ */
+export interface FileUdControllerApiInterface {
+    /**
+     * 
+     * @param {string} filename 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FileUdControllerApiInterface
+     */
+    fileUdControllerDownloadFile(filename: string, options?: any): AxiosPromise<any>;
+
+    /**
+     * 
+     * @param {any} [file] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FileUdControllerApiInterface
+     */
+    fileUdControllerFileUpload(file?: any, options?: any): AxiosPromise<object>;
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FileUdControllerApiInterface
+     */
+    fileUdControllerListFiles(options?: any): AxiosPromise<Array<string>>;
+
+}
+
+/**
+ * FileUdControllerApi - object-oriented interface
+ * @export
+ * @class FileUdControllerApi
+ * @extends {BaseAPI}
+ */
+export class FileUdControllerApi extends BaseAPI implements FileUdControllerApiInterface {
+    /**
+     * 
+     * @param {string} filename 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FileUdControllerApi
+     */
+    public fileUdControllerDownloadFile(filename: string, options?: any) {
+        return FileUdControllerApiFp(this.configuration).fileUdControllerDownloadFile(filename, options)(this.axios, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {any} [file] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FileUdControllerApi
+     */
+    public fileUdControllerFileUpload(file?: any, options?: any) {
+        return FileUdControllerApiFp(this.configuration).fileUdControllerFileUpload(file, options)(this.axios, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FileUdControllerApi
+     */
+    public fileUdControllerListFiles(options?: any) {
+        return FileUdControllerApiFp(this.configuration).fileUdControllerListFiles(options)(this.axios, this.basePath);
     }
 
 }
@@ -1815,11 +2818,11 @@ export const QuestionControllerApiAxiosParamCreator = function (configuration?: 
         },
         /**
          * 
-         * @param {object} [filter] 
+         * @param {QuestionFilter1} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        questionControllerFind(filter?: object, options: any = {}): RequestArgs {
+        questionControllerFind(filter?: QuestionFilter1, options: any = {}): RequestArgs {
             const localVarPath = `/questions`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -1850,11 +2853,11 @@ export const QuestionControllerApiAxiosParamCreator = function (configuration?: 
         /**
          * 
          * @param {number} id 
-         * @param {object} [filter] 
+         * @param {QuestionFilter} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        questionControllerFindById(id: number, filter?: object, options: any = {}): RequestArgs {
+        questionControllerFindById(id: number, filter?: QuestionFilter, options: any = {}): RequestArgs {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling questionControllerFindById.');
@@ -2056,11 +3059,11 @@ export const QuestionControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {object} [filter] 
+         * @param {QuestionFilter1} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        questionControllerFind(filter?: object, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<QuestionWithRelations>> {
+        questionControllerFind(filter?: QuestionFilter1, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<QuestionWithRelations>> {
             const localVarAxiosArgs = QuestionControllerApiAxiosParamCreator(configuration).questionControllerFind(filter, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -2070,11 +3073,11 @@ export const QuestionControllerApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {number} id 
-         * @param {object} [filter] 
+         * @param {QuestionFilter} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        questionControllerFindById(id: number, filter?: object, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<QuestionWithRelations> {
+        questionControllerFindById(id: number, filter?: QuestionFilter, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<QuestionWithRelations> {
             const localVarAxiosArgs = QuestionControllerApiAxiosParamCreator(configuration).questionControllerFindById(id, filter, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -2161,21 +3164,21 @@ export const QuestionControllerApiFactory = function (configuration?: Configurat
         },
         /**
          * 
-         * @param {object} [filter] 
+         * @param {QuestionFilter1} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        questionControllerFind(filter?: object, options?: any): AxiosPromise<Array<QuestionWithRelations>> {
+        questionControllerFind(filter?: QuestionFilter1, options?: any): AxiosPromise<Array<QuestionWithRelations>> {
             return QuestionControllerApiFp(configuration).questionControllerFind(filter, options)(axios, basePath);
         },
         /**
          * 
          * @param {number} id 
-         * @param {object} [filter] 
+         * @param {QuestionFilter} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        questionControllerFindById(id: number, filter?: object, options?: any): AxiosPromise<QuestionWithRelations> {
+        questionControllerFindById(id: number, filter?: QuestionFilter, options?: any): AxiosPromise<QuestionWithRelations> {
             return QuestionControllerApiFp(configuration).questionControllerFindById(id, filter, options)(axios, basePath);
         },
         /**
@@ -2246,22 +3249,22 @@ export interface QuestionControllerApiInterface {
 
     /**
      * 
-     * @param {object} [filter] 
+     * @param {QuestionFilter1} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof QuestionControllerApiInterface
      */
-    questionControllerFind(filter?: object, options?: any): AxiosPromise<Array<QuestionWithRelations>>;
+    questionControllerFind(filter?: QuestionFilter1, options?: any): AxiosPromise<Array<QuestionWithRelations>>;
 
     /**
      * 
      * @param {number} id 
-     * @param {object} [filter] 
+     * @param {QuestionFilter} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof QuestionControllerApiInterface
      */
-    questionControllerFindById(id: number, filter?: object, options?: any): AxiosPromise<QuestionWithRelations>;
+    questionControllerFindById(id: number, filter?: QuestionFilter, options?: any): AxiosPromise<QuestionWithRelations>;
 
     /**
      * 
@@ -2337,24 +3340,24 @@ export class QuestionControllerApi extends BaseAPI implements QuestionController
 
     /**
      * 
-     * @param {object} [filter] 
+     * @param {QuestionFilter1} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof QuestionControllerApi
      */
-    public questionControllerFind(filter?: object, options?: any) {
+    public questionControllerFind(filter?: QuestionFilter1, options?: any) {
         return QuestionControllerApiFp(this.configuration).questionControllerFind(filter, options)(this.axios, this.basePath);
     }
 
     /**
      * 
      * @param {number} id 
-     * @param {object} [filter] 
+     * @param {QuestionFilter} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof QuestionControllerApi
      */
-    public questionControllerFindById(id: number, filter?: object, options?: any) {
+    public questionControllerFindById(id: number, filter?: QuestionFilter, options?: any) {
         return QuestionControllerApiFp(this.configuration).questionControllerFindById(id, filter, options)(this.axios, this.basePath);
     }
 
@@ -2508,11 +3511,11 @@ export const RecordControllerApiAxiosParamCreator = function (configuration?: Co
         },
         /**
          * 
-         * @param {object} [filter] 
+         * @param {RecordFilter1} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        recordControllerFind(filter?: object, options: any = {}): RequestArgs {
+        recordControllerFind(filter?: RecordFilter1, options: any = {}): RequestArgs {
             const localVarPath = `/records`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -2543,11 +3546,11 @@ export const RecordControllerApiAxiosParamCreator = function (configuration?: Co
         /**
          * 
          * @param {number} id 
-         * @param {object} [filter] 
+         * @param {RecordFilter} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        recordControllerFindById(id: number, filter?: object, options: any = {}): RequestArgs {
+        recordControllerFindById(id: number, filter?: RecordFilter, options: any = {}): RequestArgs {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling recordControllerFindById.');
@@ -2749,11 +3752,11 @@ export const RecordControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {object} [filter] 
+         * @param {RecordFilter1} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        recordControllerFind(filter?: object, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<RecordWithRelations>> {
+        recordControllerFind(filter?: RecordFilter1, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<RecordWithRelations>> {
             const localVarAxiosArgs = RecordControllerApiAxiosParamCreator(configuration).recordControllerFind(filter, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -2763,11 +3766,11 @@ export const RecordControllerApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {number} id 
-         * @param {object} [filter] 
+         * @param {RecordFilter} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        recordControllerFindById(id: number, filter?: object, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<RecordWithRelations> {
+        recordControllerFindById(id: number, filter?: RecordFilter, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<RecordWithRelations> {
             const localVarAxiosArgs = RecordControllerApiAxiosParamCreator(configuration).recordControllerFindById(id, filter, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -2854,21 +3857,21 @@ export const RecordControllerApiFactory = function (configuration?: Configuratio
         },
         /**
          * 
-         * @param {object} [filter] 
+         * @param {RecordFilter1} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        recordControllerFind(filter?: object, options?: any): AxiosPromise<Array<RecordWithRelations>> {
+        recordControllerFind(filter?: RecordFilter1, options?: any): AxiosPromise<Array<RecordWithRelations>> {
             return RecordControllerApiFp(configuration).recordControllerFind(filter, options)(axios, basePath);
         },
         /**
          * 
          * @param {number} id 
-         * @param {object} [filter] 
+         * @param {RecordFilter} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        recordControllerFindById(id: number, filter?: object, options?: any): AxiosPromise<RecordWithRelations> {
+        recordControllerFindById(id: number, filter?: RecordFilter, options?: any): AxiosPromise<RecordWithRelations> {
             return RecordControllerApiFp(configuration).recordControllerFindById(id, filter, options)(axios, basePath);
         },
         /**
@@ -2939,22 +3942,22 @@ export interface RecordControllerApiInterface {
 
     /**
      * 
-     * @param {object} [filter] 
+     * @param {RecordFilter1} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RecordControllerApiInterface
      */
-    recordControllerFind(filter?: object, options?: any): AxiosPromise<Array<RecordWithRelations>>;
+    recordControllerFind(filter?: RecordFilter1, options?: any): AxiosPromise<Array<RecordWithRelations>>;
 
     /**
      * 
      * @param {number} id 
-     * @param {object} [filter] 
+     * @param {RecordFilter} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RecordControllerApiInterface
      */
-    recordControllerFindById(id: number, filter?: object, options?: any): AxiosPromise<RecordWithRelations>;
+    recordControllerFindById(id: number, filter?: RecordFilter, options?: any): AxiosPromise<RecordWithRelations>;
 
     /**
      * 
@@ -3030,24 +4033,24 @@ export class RecordControllerApi extends BaseAPI implements RecordControllerApiI
 
     /**
      * 
-     * @param {object} [filter] 
+     * @param {RecordFilter1} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RecordControllerApi
      */
-    public recordControllerFind(filter?: object, options?: any) {
+    public recordControllerFind(filter?: RecordFilter1, options?: any) {
         return RecordControllerApiFp(this.configuration).recordControllerFind(filter, options)(this.axios, this.basePath);
     }
 
     /**
      * 
      * @param {number} id 
-     * @param {object} [filter] 
+     * @param {RecordFilter} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RecordControllerApi
      */
-    public recordControllerFindById(id: number, filter?: object, options?: any) {
+    public recordControllerFindById(id: number, filter?: RecordFilter, options?: any) {
         return RecordControllerApiFp(this.configuration).recordControllerFindById(id, filter, options)(this.axios, this.basePath);
     }
 
@@ -3201,11 +4204,11 @@ export const TemplateControllerApiAxiosParamCreator = function (configuration?: 
         },
         /**
          * 
-         * @param {object} [filter] 
+         * @param {TemplateFilter1} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        templateControllerFind(filter?: object, options: any = {}): RequestArgs {
+        templateControllerFind(filter?: TemplateFilter1, options: any = {}): RequestArgs {
             const localVarPath = `/templates`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -3236,11 +4239,11 @@ export const TemplateControllerApiAxiosParamCreator = function (configuration?: 
         /**
          * 
          * @param {string} id 
-         * @param {object} [filter] 
+         * @param {TemplateFilter} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        templateControllerFindById(id: string, filter?: object, options: any = {}): RequestArgs {
+        templateControllerFindById(id: string, filter?: TemplateFilter, options: any = {}): RequestArgs {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling templateControllerFindById.');
@@ -3442,11 +4445,11 @@ export const TemplateControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {object} [filter] 
+         * @param {TemplateFilter1} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        templateControllerFind(filter?: object, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TemplateWithRelations>> {
+        templateControllerFind(filter?: TemplateFilter1, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TemplateWithRelations>> {
             const localVarAxiosArgs = TemplateControllerApiAxiosParamCreator(configuration).templateControllerFind(filter, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -3456,11 +4459,11 @@ export const TemplateControllerApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {string} id 
-         * @param {object} [filter] 
+         * @param {TemplateFilter} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        templateControllerFindById(id: string, filter?: object, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<TemplateWithRelations> {
+        templateControllerFindById(id: string, filter?: TemplateFilter, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<TemplateWithRelations> {
             const localVarAxiosArgs = TemplateControllerApiAxiosParamCreator(configuration).templateControllerFindById(id, filter, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -3547,21 +4550,21 @@ export const TemplateControllerApiFactory = function (configuration?: Configurat
         },
         /**
          * 
-         * @param {object} [filter] 
+         * @param {TemplateFilter1} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        templateControllerFind(filter?: object, options?: any): AxiosPromise<Array<TemplateWithRelations>> {
+        templateControllerFind(filter?: TemplateFilter1, options?: any): AxiosPromise<Array<TemplateWithRelations>> {
             return TemplateControllerApiFp(configuration).templateControllerFind(filter, options)(axios, basePath);
         },
         /**
          * 
          * @param {string} id 
-         * @param {object} [filter] 
+         * @param {TemplateFilter} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        templateControllerFindById(id: string, filter?: object, options?: any): AxiosPromise<TemplateWithRelations> {
+        templateControllerFindById(id: string, filter?: TemplateFilter, options?: any): AxiosPromise<TemplateWithRelations> {
             return TemplateControllerApiFp(configuration).templateControllerFindById(id, filter, options)(axios, basePath);
         },
         /**
@@ -3632,22 +4635,22 @@ export interface TemplateControllerApiInterface {
 
     /**
      * 
-     * @param {object} [filter] 
+     * @param {TemplateFilter1} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TemplateControllerApiInterface
      */
-    templateControllerFind(filter?: object, options?: any): AxiosPromise<Array<TemplateWithRelations>>;
+    templateControllerFind(filter?: TemplateFilter1, options?: any): AxiosPromise<Array<TemplateWithRelations>>;
 
     /**
      * 
      * @param {string} id 
-     * @param {object} [filter] 
+     * @param {TemplateFilter} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TemplateControllerApiInterface
      */
-    templateControllerFindById(id: string, filter?: object, options?: any): AxiosPromise<TemplateWithRelations>;
+    templateControllerFindById(id: string, filter?: TemplateFilter, options?: any): AxiosPromise<TemplateWithRelations>;
 
     /**
      * 
@@ -3723,24 +4726,24 @@ export class TemplateControllerApi extends BaseAPI implements TemplateController
 
     /**
      * 
-     * @param {object} [filter] 
+     * @param {TemplateFilter1} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TemplateControllerApi
      */
-    public templateControllerFind(filter?: object, options?: any) {
+    public templateControllerFind(filter?: TemplateFilter1, options?: any) {
         return TemplateControllerApiFp(this.configuration).templateControllerFind(filter, options)(this.axios, this.basePath);
     }
 
     /**
      * 
      * @param {string} id 
-     * @param {object} [filter] 
+     * @param {TemplateFilter} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TemplateControllerApi
      */
-    public templateControllerFindById(id: string, filter?: object, options?: any) {
+    public templateControllerFindById(id: string, filter?: TemplateFilter, options?: any) {
         return TemplateControllerApiFp(this.configuration).templateControllerFindById(id, filter, options)(this.axios, this.basePath);
     }
 
@@ -3894,11 +4897,11 @@ export const TlAnalysisControllerApiAxiosParamCreator = function (configuration?
         },
         /**
          * 
-         * @param {object} [filter] 
+         * @param {TimelineAnalysisFilter1} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tlAnalysisControllerFind(filter?: object, options: any = {}): RequestArgs {
+        tlAnalysisControllerFind(filter?: TimelineAnalysisFilter1, options: any = {}): RequestArgs {
             const localVarPath = `/timeline-analyses`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -3929,11 +4932,11 @@ export const TlAnalysisControllerApiAxiosParamCreator = function (configuration?
         /**
          * 
          * @param {number} id 
-         * @param {object} [filter] 
+         * @param {TimelineAnalysisFilter} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tlAnalysisControllerFindById(id: number, filter?: object, options: any = {}): RequestArgs {
+        tlAnalysisControllerFindById(id: number, filter?: TimelineAnalysisFilter, options: any = {}): RequestArgs {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling tlAnalysisControllerFindById.');
@@ -4135,11 +5138,11 @@ export const TlAnalysisControllerApiFp = function(configuration?: Configuration)
         },
         /**
          * 
-         * @param {object} [filter] 
+         * @param {TimelineAnalysisFilter1} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tlAnalysisControllerFind(filter?: object, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TimelineAnalysisWithRelations>> {
+        tlAnalysisControllerFind(filter?: TimelineAnalysisFilter1, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TimelineAnalysisWithRelations>> {
             const localVarAxiosArgs = TlAnalysisControllerApiAxiosParamCreator(configuration).tlAnalysisControllerFind(filter, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -4149,11 +5152,11 @@ export const TlAnalysisControllerApiFp = function(configuration?: Configuration)
         /**
          * 
          * @param {number} id 
-         * @param {object} [filter] 
+         * @param {TimelineAnalysisFilter} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tlAnalysisControllerFindById(id: number, filter?: object, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimelineAnalysisWithRelations> {
+        tlAnalysisControllerFindById(id: number, filter?: TimelineAnalysisFilter, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimelineAnalysisWithRelations> {
             const localVarAxiosArgs = TlAnalysisControllerApiAxiosParamCreator(configuration).tlAnalysisControllerFindById(id, filter, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -4240,21 +5243,21 @@ export const TlAnalysisControllerApiFactory = function (configuration?: Configur
         },
         /**
          * 
-         * @param {object} [filter] 
+         * @param {TimelineAnalysisFilter1} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tlAnalysisControllerFind(filter?: object, options?: any): AxiosPromise<Array<TimelineAnalysisWithRelations>> {
+        tlAnalysisControllerFind(filter?: TimelineAnalysisFilter1, options?: any): AxiosPromise<Array<TimelineAnalysisWithRelations>> {
             return TlAnalysisControllerApiFp(configuration).tlAnalysisControllerFind(filter, options)(axios, basePath);
         },
         /**
          * 
          * @param {number} id 
-         * @param {object} [filter] 
+         * @param {TimelineAnalysisFilter} [filter] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tlAnalysisControllerFindById(id: number, filter?: object, options?: any): AxiosPromise<TimelineAnalysisWithRelations> {
+        tlAnalysisControllerFindById(id: number, filter?: TimelineAnalysisFilter, options?: any): AxiosPromise<TimelineAnalysisWithRelations> {
             return TlAnalysisControllerApiFp(configuration).tlAnalysisControllerFindById(id, filter, options)(axios, basePath);
         },
         /**
@@ -4325,22 +5328,22 @@ export interface TlAnalysisControllerApiInterface {
 
     /**
      * 
-     * @param {object} [filter] 
+     * @param {TimelineAnalysisFilter1} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TlAnalysisControllerApiInterface
      */
-    tlAnalysisControllerFind(filter?: object, options?: any): AxiosPromise<Array<TimelineAnalysisWithRelations>>;
+    tlAnalysisControllerFind(filter?: TimelineAnalysisFilter1, options?: any): AxiosPromise<Array<TimelineAnalysisWithRelations>>;
 
     /**
      * 
      * @param {number} id 
-     * @param {object} [filter] 
+     * @param {TimelineAnalysisFilter} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TlAnalysisControllerApiInterface
      */
-    tlAnalysisControllerFindById(id: number, filter?: object, options?: any): AxiosPromise<TimelineAnalysisWithRelations>;
+    tlAnalysisControllerFindById(id: number, filter?: TimelineAnalysisFilter, options?: any): AxiosPromise<TimelineAnalysisWithRelations>;
 
     /**
      * 
@@ -4416,24 +5419,24 @@ export class TlAnalysisControllerApi extends BaseAPI implements TlAnalysisContro
 
     /**
      * 
-     * @param {object} [filter] 
+     * @param {TimelineAnalysisFilter1} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TlAnalysisControllerApi
      */
-    public tlAnalysisControllerFind(filter?: object, options?: any) {
+    public tlAnalysisControllerFind(filter?: TimelineAnalysisFilter1, options?: any) {
         return TlAnalysisControllerApiFp(this.configuration).tlAnalysisControllerFind(filter, options)(this.axios, this.basePath);
     }
 
     /**
      * 
      * @param {number} id 
-     * @param {object} [filter] 
+     * @param {TimelineAnalysisFilter} [filter] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TlAnalysisControllerApi
      */
-    public tlAnalysisControllerFindById(id: number, filter?: object, options?: any) {
+    public tlAnalysisControllerFindById(id: number, filter?: TimelineAnalysisFilter, options?: any) {
         return TlAnalysisControllerApiFp(this.configuration).tlAnalysisControllerFindById(id, filter, options)(this.axios, this.basePath);
     }
 
@@ -4592,6 +5595,316 @@ export class UserControllerApi extends BaseAPI implements UserControllerApiInter
      */
     public userControllerUserinfo(authorization?: string, options?: any) {
         return UserControllerApiFp(this.configuration).userControllerUserinfo(authorization, options)(this.axios, this.basePath);
+    }
+
+}
+
+
+/**
+ * WorkspaceControllerApi - axios parameter creator
+ * @export
+ */
+export const WorkspaceControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        workspaceControllerDeleteById(id: string, options: any = {}): RequestArgs {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling workspaceControllerDeleteById.');
+            }
+            const localVarPath = `/workspace-sessions/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {WorkspaceSessionFilter} [filter] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        workspaceControllerFindById(id: string, filter?: WorkspaceSessionFilter, options: any = {}): RequestArgs {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling workspaceControllerFindById.');
+            }
+            const localVarPath = `/workspace-sessions/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (filter !== undefined) {
+                localVarQueryParameter['filter'] = filter;
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} authorization 
+         * @param {boolean} enableTrack 
+         * @param {string} [templateName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        workspaceControllerGetContainer(authorization: string, enableTrack: boolean, templateName?: string, options: any = {}): RequestArgs {
+            // verify required parameter 'authorization' is not null or undefined
+            if (authorization === null || authorization === undefined) {
+                throw new RequiredError('authorization','Required parameter authorization was null or undefined when calling workspaceControllerGetContainer.');
+            }
+            // verify required parameter 'enableTrack' is not null or undefined
+            if (enableTrack === null || enableTrack === undefined) {
+                throw new RequiredError('enableTrack','Required parameter enableTrack was null or undefined when calling workspaceControllerGetContainer.');
+            }
+            const localVarPath = `/workspace-sessions`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (enableTrack !== undefined) {
+                localVarQueryParameter['enableTrack'] = enableTrack;
+            }
+
+            if (templateName !== undefined) {
+                localVarQueryParameter['templateName'] = templateName;
+            }
+
+            if (authorization !== undefined && authorization !== null) {
+                localVarHeaderParameter['Authorization'] = String(authorization);
+            }
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * WorkspaceControllerApi - functional programming interface
+ * @export
+ */
+export const WorkspaceControllerApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        workspaceControllerDeleteById(id: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
+            const localVarAxiosArgs = WorkspaceControllerApiAxiosParamCreator(configuration).workspaceControllerDeleteById(id, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {WorkspaceSessionFilter} [filter] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        workspaceControllerFindById(id: string, filter?: WorkspaceSessionFilter, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<WorkspaceSessionWithRelations> {
+            const localVarAxiosArgs = WorkspaceControllerApiAxiosParamCreator(configuration).workspaceControllerFindById(id, filter, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {string} authorization 
+         * @param {boolean} enableTrack 
+         * @param {string} [templateName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        workspaceControllerGetContainer(authorization: string, enableTrack: boolean, templateName?: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<WorkspaceSession> {
+            const localVarAxiosArgs = WorkspaceControllerApiAxiosParamCreator(configuration).workspaceControllerGetContainer(authorization, enableTrack, templateName, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * WorkspaceControllerApi - factory interface
+ * @export
+ */
+export const WorkspaceControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        workspaceControllerDeleteById(id: string, options?: any): AxiosPromise<void> {
+            return WorkspaceControllerApiFp(configuration).workspaceControllerDeleteById(id, options)(axios, basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {WorkspaceSessionFilter} [filter] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        workspaceControllerFindById(id: string, filter?: WorkspaceSessionFilter, options?: any): AxiosPromise<WorkspaceSessionWithRelations> {
+            return WorkspaceControllerApiFp(configuration).workspaceControllerFindById(id, filter, options)(axios, basePath);
+        },
+        /**
+         * 
+         * @param {string} authorization 
+         * @param {boolean} enableTrack 
+         * @param {string} [templateName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        workspaceControllerGetContainer(authorization: string, enableTrack: boolean, templateName?: string, options?: any): AxiosPromise<WorkspaceSession> {
+            return WorkspaceControllerApiFp(configuration).workspaceControllerGetContainer(authorization, enableTrack, templateName, options)(axios, basePath);
+        },
+    };
+};
+
+/**
+ * WorkspaceControllerApi - interface
+ * @export
+ * @interface WorkspaceControllerApi
+ */
+export interface WorkspaceControllerApiInterface {
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkspaceControllerApiInterface
+     */
+    workspaceControllerDeleteById(id: string, options?: any): AxiosPromise<void>;
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {WorkspaceSessionFilter} [filter] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkspaceControllerApiInterface
+     */
+    workspaceControllerFindById(id: string, filter?: WorkspaceSessionFilter, options?: any): AxiosPromise<WorkspaceSessionWithRelations>;
+
+    /**
+     * 
+     * @param {string} authorization 
+     * @param {boolean} enableTrack 
+     * @param {string} [templateName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkspaceControllerApiInterface
+     */
+    workspaceControllerGetContainer(authorization: string, enableTrack: boolean, templateName?: string, options?: any): AxiosPromise<WorkspaceSession>;
+
+}
+
+/**
+ * WorkspaceControllerApi - object-oriented interface
+ * @export
+ * @class WorkspaceControllerApi
+ * @extends {BaseAPI}
+ */
+export class WorkspaceControllerApi extends BaseAPI implements WorkspaceControllerApiInterface {
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkspaceControllerApi
+     */
+    public workspaceControllerDeleteById(id: string, options?: any) {
+        return WorkspaceControllerApiFp(this.configuration).workspaceControllerDeleteById(id, options)(this.axios, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {WorkspaceSessionFilter} [filter] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkspaceControllerApi
+     */
+    public workspaceControllerFindById(id: string, filter?: WorkspaceSessionFilter, options?: any) {
+        return WorkspaceControllerApiFp(this.configuration).workspaceControllerFindById(id, filter, options)(this.axios, this.basePath);
+    }
+
+    /**
+     * 
+     * @param {string} authorization 
+     * @param {boolean} enableTrack 
+     * @param {string} [templateName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkspaceControllerApi
+     */
+    public workspaceControllerGetContainer(authorization: string, enableTrack: boolean, templateName?: string, options?: any) {
+        return WorkspaceControllerApiFp(this.configuration).workspaceControllerGetContainer(authorization, enableTrack, templateName, options)(this.axios, this.basePath);
     }
 
 }

@@ -1,37 +1,20 @@
-import {
-  Count,
-  CountSchema,
-  Filter,
-  FilterExcludingWhere,
-  repository,
-  Where,
-} from '@loopback/repository';
-import {
-  post,
-  param,
-  get,
-  getFilterSchemaFor,
-  getModelSchemaRef,
-  getWhereSchemaFor,
-  patch,
-  put,
-  del,
-  requestBody,
-} from '@loopback/rest';
-import {Template} from '../models';
-import {TemplateRepository} from '../repositories';
+import { Count, CountSchema, Filter, FilterExcludingWhere, repository, Where } from '@loopback/repository';
+import { del, get, getModelSchemaRef, param, patch, post, put, requestBody } from '@loopback/rest';
+import { Template } from '../models';
+import { TemplateRepository } from '../repositories';
 
 export class TemplateController {
   constructor(
     @repository(TemplateRepository)
-    public templateRepository : TemplateRepository,
-  ) {}
+    public templateRepository: TemplateRepository,
+  ) {
+  }
 
   @post('/templates', {
     responses: {
       '200': {
         description: 'Template model instance',
-        content: {'application/json': {schema: getModelSchemaRef(Template)}},
+        content: { 'application/json': { schema: getModelSchemaRef(Template) } },
       },
     },
   })
@@ -41,12 +24,11 @@ export class TemplateController {
         'application/json': {
           schema: getModelSchemaRef(Template, {
             title: 'NewTemplate',
-
           }),
         },
       },
     })
-    template: Template,
+      template: Template,
   ): Promise<Template> {
     return this.templateRepository.create(template);
   }
@@ -55,7 +37,7 @@ export class TemplateController {
     responses: {
       '200': {
         description: 'Template model count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -73,7 +55,7 @@ export class TemplateController {
           'application/json': {
             schema: {
               type: 'array',
-              items: getModelSchemaRef(Template, {includeRelations: true}),
+              items: getModelSchemaRef(Template, { includeRelations: true }),
             },
           },
         },
@@ -90,7 +72,7 @@ export class TemplateController {
     responses: {
       '200': {
         description: 'Template PATCH success count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -98,11 +80,11 @@ export class TemplateController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Template, {partial: true}),
+          schema: getModelSchemaRef(Template, { partial: true }),
         },
       },
     })
-    template: Template,
+      template: Template,
     @param.where(Template) where?: Where<Template>,
   ): Promise<Count> {
     return this.templateRepository.updateAll(template, where);
@@ -114,7 +96,7 @@ export class TemplateController {
         description: 'Template model instance',
         content: {
           'application/json': {
-            schema: getModelSchemaRef(Template, {includeRelations: true}),
+            schema: getModelSchemaRef(Template, { includeRelations: true }),
           },
         },
       },
@@ -122,7 +104,7 @@ export class TemplateController {
   })
   async findById(
     @param.path.string('id') id: string,
-    @param.filter(Template, {exclude: 'where'}) filter?: FilterExcludingWhere<Template>
+    @param.filter(Template, { exclude: 'where' }) filter?: FilterExcludingWhere<Template>,
   ): Promise<Template> {
     return this.templateRepository.findById(id, filter);
   }
@@ -139,11 +121,11 @@ export class TemplateController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Template, {partial: true}),
+          schema: getModelSchemaRef(Template, { partial: true }),
         },
       },
     })
-    template: Template,
+      template: Template,
   ): Promise<void> {
     await this.templateRepository.updateById(id, template);
   }

@@ -3,15 +3,23 @@
     <words>
       <w>axios</w>
       <w>csurf</w>
+      <w>datasources</w>
+      <w>dockerode</w>
       <w>dotenv</w>
       <w>markdownit</w>
+      <w>multer</w>
       <w>nestjs</w>
       <w>nuxtjs</w>
       <w>openapi</w>
+      <w>openresty</w>
+      <w>oryd</w>
       <w>postgresql</w>
+      <w>resty</w>
       <w>scma</w>
       <w>scripthost</w>
+      <w>sslmode</w>
       <w>subprocess</w>
+      <w>theia</w>
       <w>userinfo</w>
       <w>workbox</w>
     </words>

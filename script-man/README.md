@@ -29,10 +29,10 @@ USAGE
 # Commands
 <!-- commands -->
 * [`scma dc ACTION [OVERRIDE]`](#scma-dc-action-override)
+* [`scma env [FILE]`](#scma-env-file)
 * [`scma help [COMMAND]`](#scma-help-command)
-* [`scma sc [FILE]`](#scma-sc-file)
-* [`scma service [FILE]`](#scma-service-file)
-* [`scma volume MODE VOLUME FILE`](#scma-volume-mode-volume-file)
+* [`scma sc ACTION [NAME]`](#scma-sc-action-name)
+* [`scma v ACTION [NAME] [PATH]`](#scma-v-action-name-path)
 
 ## `scma dc ACTION [OVERRIDE]`
 
@@ -43,19 +43,39 @@ USAGE
   $ scma dc ACTION [OVERRIDE]
 
 ARGUMENTS
-  ACTION    (up|down|r) docker-compose action
-            'u' for start
-            'd' for stop and remove
+  ACTION    (up|down|r|status) docker-compose action
+            'up' for start
+            'down' for stop and remove
             'r' for restart with container removed
+            'status' is an alias of 'docker-compose top'
 
-  OVERRIDE  (dev|production) [default: dev] docker-compose config override
+  OVERRIDE  docker-compose config override
+            override docker-compose.yml with docker-compose.<override type>.yml
 
 OPTIONS
+  -b, --buildImage   --build when up
+  -c, --cwd=cwd      set current working dir for the command
   -d, --[no-]demo    run in demo
   -v, --[no-]volume  delete named volumes
 ```
 
 _See code: [src\commands\dc.ts](https://github.com/arnesacnussem/script-man/blob/v0.0.0/src\commands\dc.ts)_
+
+## `scma env [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ scma env [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src\commands\env.ts](https://github.com/arnesacnussem/script-man/blob/v0.0.0/src\commands\env.ts)_
 
 ## `scma help [COMMAND]`
 
@@ -74,51 +94,69 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src\commands\help.ts)_
 
-## `scma sc [FILE]`
+## `scma sc ACTION [NAME]`
 
-describe the command here
+Service control
 
 ```
 USAGE
-  $ scma sc [FILE]
+  $ scma sc ACTION [NAME]
 
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+ARGUMENTS
+  ACTION  (start|stop|restart|ls|status) [default: ls] action
+  NAME    Service name
+
+DESCRIPTION
+  services detail is stored in services-control.config.json
+     file format:
+     [
+       {
+         name: string;
+         type: string;
+         options: { [key: string]: any };
+       }
+     ]
 ```
 
 _See code: [src\commands\sc.ts](https://github.com/arnesacnussem/script-man/blob/v0.0.0/src\commands\sc.ts)_
 
-## `scma service [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ scma service [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-```
-
-_See code: [src\commands\service.ts](https://github.com/arnesacnussem/script-man/blob/v0.0.0/src\commands\service.ts)_
-
-## `scma volume MODE VOLUME FILE`
+## `scma v ACTION [NAME] [PATH]`
 
 Docker named volume tools
 
 ```
 USAGE
-  $ scma volume MODE VOLUME FILE
+  $ scma v ACTION [NAME] [PATH]
 
 ARGUMENTS
-  MODE    (i|e) set work mode,i for import e for export
-  VOLUME  volume name
-  FILE    file on host
+  ACTION  (i|e|ls) [default: ls] set work mode,
+          'i' for import
+          'e' for export
+          'ls' for list
+
+  NAME    volume or project name
+          if using project mode,-p flag is needed
+
+  PATH    file or folder on host
+          if using project mode,this should be a folder,and -p flag is needed
+
+OPTIONS
+  -a, --[no-]show_all  show all, if not set or set to 'no', only show volume with label
+  -p, --project        docker-compose project mode,do same action to all volume belong to same project
+
+DESCRIPTION
+  Docker volume import/export tools with docker-compose project support
+     scma volume ACTION [VOLUME_OR_PROJECT] [FILE_OR_DIR]
+
+     Note: When all optional argument is missing and ACTION is not 'l', it will read ./docker-volume.config.json for 
+  config
+     	Config file format:
+     {
+       type: VolumeConfigType; //VOLUME or PROJECT
+       name?: string;
+       path?: string;
+  }
 ```
 
-_See code: [src\commands\volume.ts](https://github.com/arnesacnussem/script-man/blob/v0.0.0/src\commands\volume.ts)_
+_See code: [src\commands\v.ts](https://github.com/arnesacnussem/script-man/blob/v0.0.0/src\commands\v.ts)_
 <!-- commandsstop -->

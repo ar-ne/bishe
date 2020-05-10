@@ -3,8 +3,8 @@ import { Redis } from 'ioredis';
 import { DAY, MINUTE } from './utils/constants';
 import { RecordControllerApi, RecordWithRelations } from './generated/openapi';
 import { apiConfig } from './api-config';
-import { UserInfoWithToken } from './websocket';
 import { Socket } from 'socket.io';
+import { UserInfoWithToken } from './websocket/types';
 
 
 export const EXPIRE = 7 * DAY;
@@ -25,38 +25,40 @@ export class RedisService {
     private readonly socket: Socket) {
   }
 
-  public Record() {
+  public Record() { //答题过程记录
     const self = this;
     const key = KEY_FACTORY.USER_RECORD(self.user.name);
     const lastTimeKey = KEY_FACTORY.USER_RECORD_LAST_TIME(self.user.name);
     const { client } = this;
     return {
-      update: async (dat: string, create = false) => {
-        if (create || !await client.exists(key)) {
-          await client.set(key, JSON.stringify({
+      update: async (dat: string) => {
+        let rec: RecordWithRelations;
+        if (!await client.exists(key))
+          rec = {
             answer: -1,
             startTime: String(new Date().getTime()),
             endTime: '',
             timeline: [],
-          } as RecordWithRelations));
-        }
-        if (create) return;
-        const rec: RecordWithRelations = JSON.parse((await client.get(key))!);
+          }; else rec = JSON.parse((await client.get(key))!);
+
         rec.timeline.push(dat);
+        await client.set(key, JSON.stringify(rec));
       },
-      submit: async (answerID: number, lastTime: string) => {
-        if (!await client.exists(key)) return;
+
+      submit: async (answerID: number, lastTime: string):Promise<boolean> => {
+        if (!await client.exists(key)) return false;
         const rec: RecordWithRelations = JSON.parse((await client.get(key))!);
         rec.endTime = String(new Date().getTime());
         rec.answer = answerID;
         await new RecordControllerApi(apiConfig(self.user.token)).recordControllerCreate(rec)
           .then(v => self.socket.emit('onSuccess', v.data.answer)).catch(reason => clog(reason.stack));
-
+        await client.del(key);
+        return true;
       },
     };
   }
 
-  public Tracker() {
+  public Tracker() { //用户跟踪
     const self = this;
     const key = KEY_FACTORY.USER_TRACKER(self.user.name);
     const { client } = this;
@@ -64,7 +66,7 @@ export class RedisService {
       update: async (dat: UserTracker) => {
         await client.set(key, JSON.stringify(dat));
         await client.expire(key, EXPIRE);
-        this.Timeline().update(dat);
+        await this.Timeline().update(dat);
       },
       get: async (): Promise<UserTracker | never> => {
         const exists = await client.exists(key).then(v => v === 1);
@@ -79,7 +81,7 @@ export class RedisService {
     return this.client.keys(KEY_FACTORY.USER_TRACKER()).then(v => v.map(x => JSON.parse(x)));
   }
 
-  public Timeline() {
+  public Timeline() { //记录用户位置的时间线
     const self = this;
     const key = KEY_FACTORY.USER_TIMELINE(self.user.name);
     const { client } = this;

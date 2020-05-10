@@ -5,9 +5,11 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/code.iml" filepath="$PROJECT_DIR$/.idea/code.iml" />
       <module fileurl="file://$PROJECT_DIR$/exam/exam-back/exam-back.iml" filepath="$PROJECT_DIR$/exam/exam-back/exam-back.iml" />
       <module fileurl="file://$PROJECT_DIR$/exam/exam-front/exam-front.iml" filepath="$PROJECT_DIR$/exam/exam-front/exam-front.iml" />
+      <module fileurl="file://$PROJECT_DIR$/exam/exam-ws/exam-ws.iml" filepath="$PROJECT_DIR$/exam/exam-ws/exam-ws.iml" />
       <module fileurl="file://$PROJECT_DIR$/oauth2/oauth2backend/oauth2backend.iml" filepath="$PROJECT_DIR$/oauth2/oauth2backend/oauth2backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/oauth2/oauth2frontend/oauth2frontend.iml" filepath="$PROJECT_DIR$/oauth2/oauth2frontend/oauth2frontend.iml" />
       <module fileurl="file://$PROJECT_DIR$/script-man/script-man.iml" filepath="$PROJECT_DIR$/script-man/script-man.iml" />
+      <module fileurl="file://$PROJECT_DIR$/exam/theia/ws-client/ws-client.iml" filepath="$PROJECT_DIR$/exam/theia/ws-client/ws-client.iml" />
     </modules>
   </component>
 </project>

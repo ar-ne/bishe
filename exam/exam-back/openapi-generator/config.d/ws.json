@@ -1,0 +1,6 @@
+{
+  "outDir": "../exam-ws/src/generated/openapi",
+  "generator": "typescript-axios",
+  "supportsES6": true,
+  "withInterfaces": true
+}

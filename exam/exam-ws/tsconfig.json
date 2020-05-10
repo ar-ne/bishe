@@ -9,7 +9,11 @@
     "skipLibCheck": true,
     "strict": true,
     "incremental": true,
-    "lib": ["es2018", "esnext.asynciterable"],
+    "lib": [
+      "es2017",
+      "esnext.asynciterable",
+      "dom"
+    ],
     "module": "commonjs",
     "esModuleInterop": true,
     "moduleResolution": "node",
@@ -18,5 +22,7 @@
     "declaration": true,
     "importHelpers": true
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

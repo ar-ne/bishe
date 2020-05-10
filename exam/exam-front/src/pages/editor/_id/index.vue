@@ -1,15 +1,31 @@
 <template>
   <v-container>
-    <MonacoEditor v-model="text" language="java" :enable-track="enableTrack"></MonacoEditor>
-    <v-divider/>
-    <v-btn @click="p1" color="primary">提交</v-btn>
+    <v-dialog v-model="loading" persistent>
+      <v-card>
+        <v-card-title>
+          等待服务器...
+        </v-card-title>
+        <v-card-text>
+          <v-progress-linear indeterminate/>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+    <v-card v-if="!loading">
+      <v-card-actions>
+        <v-btn @click="submit">提交</v-btn>
+        <v-btn @click="openEditor">打开编辑器</v-btn>
+      </v-card-actions>
+      <v-card-text>
+        暂无内容
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
 <script lang='ts'>
   import Vue from 'vue';
   import MonacoEditor from '~/components/MonacoEditor.vue';
-  import { AnswerControllerApi, Question, QuestionControllerApi, TemplateControllerApi } from '~/generated/openapi';
+  import { Question, QuestionControllerApi, WorkspaceControllerApi, WorkspaceSession } from '~/generated/openapi';
   import { apiConfig } from '~/api-config';
 
   function preventRefresh(ev: { preventDefault: () => void; returnValue: string; }) {
@@ -23,70 +39,40 @@
       MonacoEditor,
     },
     async created() {
-      if (this.$route.query.q !== undefined) {
-        this.enableTrack = true;
+      if (this.$route.query.q !== undefined) {//答题模式
         this.question = await new QuestionControllerApi(apiConfig())
           .questionControllerFindById(Number(this.$route.query.q)).then(v => v.data);
-        if (this.question.templateName !== undefined)
-          this.text = (await new TemplateControllerApi(apiConfig())
-            .templateControllerFindById(this.question.templateName).then(v => v.data)).content;
-        this.$socket.client.emit('editor/create');
-        this.$socket.client.emit('MonacoEditor', JSON.stringify({
-          type: 'onCreate',
-          value: this.text,
-          event: {},
-          time: new Date().getTime(),
-        }));
+        this.workspace = await new WorkspaceControllerApi(apiConfig())
+          .workspaceControllerGetContainer(this.$auth.getToken('hydra'), true, this.question.templateName).then(v => v.data);
+        this.loading = false;
+      }
+      if (this.$route.query.n !== undefined) { //模板模式
+        this.workspace = await new WorkspaceControllerApi(apiConfig())
+          .workspaceControllerGetContainer(this.$auth.getToken('hydra'), false).then(v => v.data);
+        this.loading = false;
       }
     },
     data() {
       return {
-        text: '',
         question: {} as Question,
-        n: String(this.$route.query.n),
-        submitting: false,
-        enableTrack: false,
+        n: String(this.$route.query.n),//模板名称
+        workspace: {} as WorkspaceSession,
+        loading: true,
       };
     },
     sockets: {
-      async onSuccess(dat) {
+      async submitSuccess(dat) {
         this.$toast['success']('提交成功,answerID:' + dat);
         await this.$router.push('/quests');
       },
     },
     methods: {
-      async p1() {
-        if (this.n.startsWith('-')) {//提交模板
-          await new TemplateControllerApi(apiConfig())
-            .templateControllerCreate({
-              name: this.n.substring(1),
-              content: this.text,
-            });
-          this.$toast.success('模板创建成功');
-          this.submitting = true;
-          await this.$router.push('/teacher');
-        } else {//提交回答
-          const api = new AnswerControllerApi(apiConfig());
-          const answer = await api.answerControllerCreate({
-            user: this.$auth.user.name,
-            content: this.text,
-            question: this.question.id!,
-          }).then(v => v.data);
-          this.$socket.client.emit('editor/submit', answer.id);
-        }
-        this.submitting = true;
+      async openEditor() {
+        window.open(`http://localhost:3011/${this.workspace.containerID}/`);
       },
-    },
-    beforeMount() {
-      window.addEventListener('beforeunload', preventRefresh);
-      this.$once('hook:beforeDestroy', () => {
-        window.removeEventListener('beforeunload', preventRefresh);
-      });
-    },
-    beforeRouteLeave(to, from, next) {
-      if (!this.submitting && !window.confirm('Leave without saving?')) return;
-      window.removeEventListener('beforeunload', preventRefresh);
-      next();
+      async submit() {
+        this.$socket.client.emit('submit');
+      },
     },
   });
 </script>

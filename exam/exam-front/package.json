@@ -9,8 +9,7 @@
     "build": "nuxt-ts build",
     "generate": "nuxt-ts generate",
     "start": "nuxt-ts start",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "gen": "openapi-generator generate -g typescript-axios -i ../exam-back/openapi.json -c generator.config.json -o ./src/generated/openapi"
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
     "@mdi/font": "^5.0.45",

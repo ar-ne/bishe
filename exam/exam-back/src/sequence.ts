@@ -11,6 +11,7 @@ import {
 } from '@loopback/rest';
 import { service } from '@loopback/core';
 import { HydraService } from './services';
+import { Request } from 'express';
 
 const SequenceActions = RestBindings.SequenceActions;
 const publicPaths = ['/openapi.json', '/explorer'];
@@ -29,17 +30,7 @@ export class MySequence implements SequenceHandler {
   async handle(context: RequestContext) {
     try {
       const { request, response } = context;
-      let acc = true;
-      // if (publicPaths.includes(request.path)) acc = true;
-      // else {
-      //   const token = request.header('Authorization')?.split(' ')[1];
-      //   if (token !== undefined) {
-      //     const introspection = await this.hydraService
-      //       .introspectOAuth2Token(token).then(value => value.body);
-      //     acc = introspection.active;
-      //   }
-      // }
-      if (acc) {
+      if (await this.handleSecure(request, true)) {
         const route = this.findRoute(request);
         const args = await this.parseParams(request, route);
         const result = await this.invoke(route, args);
@@ -53,5 +44,27 @@ export class MySequence implements SequenceHandler {
       const { request, response } = context;
       console.log(`${response.statusCode}\t${request.method}\t${request.url}`);
     }
+  }
+
+  async handleSecure(request: Request, disable = false) {
+    if (disable) return true;
+    //check path
+    if (publicPaths.map(v => {
+      return request.path.startsWith(v);
+    }).filter(v => v).length > 0) {
+      return true;
+    }
+
+    return await this.verifyToken(request);
+  }
+
+  async verifyToken(request: Request) {
+    const token = request.header('Authorization')?.split(' ')[1];
+    if (token !== undefined) {
+      const introspection = await this.hydraService
+        .introspectOAuth2Token(token).then(value => value.body);
+      return introspection.active;
+    }
+    return false;
   }
 }

@@ -31,13 +31,14 @@
     "prestart": "npm run build",
     "start": "node -r source-map-support/register .",
     "prepublishOnly": "npm run test",
-    "dev": "tsc && tsc-watch --onSuccess \"node -r source-map-support/register .\""
+    "dev": "tsc && tsc-watch --onSuccess \"node --inspect-brk=0.0.0.0:6229 -r source-map-support/register .\"",
+    "gen": "ts-node openapi-generator/generate.ts"
   },
   "repository": {
     "type": "git"
   },
   "author": "",
-  "license": "",
+  "license": "UNLICENSED",
   "files": [
     "README.md",
     "index.js",
@@ -56,11 +57,23 @@
     "@loopback/rest-explorer": "^2.0.3",
     "@loopback/service-proxy": "^2.0.3",
     "@oryd/hydra-client": "^1.4.2",
+    "@types/dockerode": "^2.5.28",
+    "@types/ioredis": "^4.16.0",
+    "@types/js-yaml": "^3.12.3",
+    "@types/lodash": "^4.14.150",
+    "@types/multer": "^1.4.3",
     "@types/node-fetch": "^2.5.5",
     "@types/socket.io": "^2.1.4",
+    "dockerode": "^3.2.0",
+    "execa": "^4.0.0",
     "express": "^4.17.1",
+    "ioredis": "^4.16.3",
+    "loopback-connector-kv-redis": "^3.0.3",
     "loopback-connector-postgresql": "^3.9.1",
+    "loopback-connector-redis": "^3.0.0",
+    "multer": "^1.4.2",
     "node-fetch": "^2.6.0",
+    "redis": "^3.0.2",
     "socket.io": "^2.3.0",
     "tslib": "^1.10.0"
   },
@@ -69,6 +82,7 @@
     "@loopback/cli": "^2.3.0",
     "@loopback/eslint-config": "^6.0.3",
     "@loopback/testlab": "^3.0.0",
+    "@openapitools/openapi-generator-cli": "^1.0.12-4.3.0",
     "@types/node": "^10.17.19",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",

@@ -3,6 +3,7 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.yarn" />
       <excludeFolder url="file://$MODULE_DIR$/oauth2/backend/dist" />
       <excludeFolder url="file://$MODULE_DIR$/oauth2/frontend/.nuxt" />
       <excludeFolder url="file://$MODULE_DIR$/oauth2/frontend/openapi" />

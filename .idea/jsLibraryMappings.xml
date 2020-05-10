@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <file url="file://$PROJECT_DIR$" libraries="{Node.js Core}" />
+    <file url="file://$PROJECT_DIR$/exam/exam-back" libraries="{Node.js Core}" />
+    <file url="file://$PROJECT_DIR$/exam/exam-front" libraries="{Node.js Core}" />
+    <file url="file://$PROJECT_DIR$/exam/theia/ws-client" libraries="{Node.js Core}" />
+    <file url="file://$PROJECT_DIR$/oauth2/oauth2backend" libraries="{Node.js Core}" />
+    <file url="file://$PROJECT_DIR$/oauth2/oauth2frontend" libraries="{Node.js Core}" />
+    <file url="file://$PROJECT_DIR$/script-man" libraries="{Node.js Core}" />
+  </component>
+</project>

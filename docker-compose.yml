@@ -19,6 +19,8 @@ services:
     image: redis:alpine
     networks:
       - redis
+    volumes:
+      - redis-data:/data
 
   hydra:
     restart: always
@@ -46,6 +48,8 @@ services:
       context: ./oauth2/oauth2backend
     # ports:
     #   - ${OB_PORT}:${OB_PORT}
+    volumes:
+      - yarn-cache:/usr/local/share/.cache/yarn/v6
     networks:
       - hydra
       - database
@@ -66,6 +70,10 @@ services:
       - frontend
     ports:
       - 80:80
+    volumes:
+      - yarn-cache:/usr/local/share/.cache/yarn/v6
+    environment:
+      - NUXT_ENV_BASE=${OAUTH_FRONT_NUXT_ENV_BASE}
 
   exam-front:
     restart: always
@@ -75,26 +83,83 @@ services:
       - frontend
     ports:
       - 3000:3000
+    volumes:
+      - yarn-cache:/usr/local/share/.cache/yarn/v6
+    environment:
+      - NUXT_ENV_BASE=${EXAM_FRONT_NUXT_ENV_BASE}
+      - NUXT_WS_SERVER=${NUXT_WS_SERVER}
+      - OAUTH2_CLIENT_ID=${OAUTH2_CLIENT_ID}
+      - OAUTH2_AUTHORIZATION_ENDPOINT=${OAUTH2_AUTHORIZATION_ENDPOINT}
+      - OAUTH2_TOKEN_ENDPOINT=${OAUTH2_TOKEN_ENDPOINT}
+      - OAUTH2_USERINFO_ENDPOINT=${OAUTH2_USERINFO_ENDPOINT}
+      - VUE_APP_BACKEND_URL=${VUE_APP_BACKEND_URL_PUBLIC}
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED}
 
   exam-back:
     depends_on:
       - postgres
+      - redis
     restart: always
     networks:
       - database
       - hydra
+      - backend
+      - redis
+      - theia-containers
     build:
       context: ./exam/exam-back
+    volumes:
+      - yarn-cache:/usr/local/share/.cache/yarn/v6
+      - exam-storage:/exam
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - HYDRA_ADMIN_URL=${HYDRA_ADMIN_URL}
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED}
       - TLA_URL=${EB_TLA_URL}
+      - REDIS_HOST=${REDIS_HOST}
+      - CONTAINER_NETWORK=${EB_CONTAINER_NETWORK}
+
+  exam-ws:
+    depends_on:
+      - exam-back
+      - redis
+    restart: always
+    networks:
+      - redis
+      - backend
+      - theia-containers
+    build:
+      context: ./exam/exam-ws
+    volumes:
+      - yarn-cache:/usr/local/share/.cache/yarn/v6
+    environment:
+      - VUE_APP_BACKEND_URL=${VUE_APP_BACKEND_URL}
+      - REDIS_HOST=${REDIS_HOST}
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED}.
+
+  openresty:
+    restart: always
+    depends_on:
+      - exam-back
+      - redis
+    networks:
+      - theia-containers
+      - redis
+    build:
+      context: ./exam/openresty
+    ports:
+      - 3011:80
 
 networks:
   database:
   hydra:
   frontend:
   redis:
+  backend:
+  theia-containers:
 
 volumes:
   postgres-data:
+  redis-data:
+  yarn-cache:
+  exam-storage:

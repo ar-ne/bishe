@@ -20,13 +20,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "loopback.Count",
-                  "properties": {
-                    "count": {
-                      "type": "number"
-                    }
-                  }
+                  "$ref": "#/components/schemas/loopback.Count"
                 }
               }
             }
@@ -41,7 +35,8 @@
                 "schema": {
                   "type": "object",
                   "title": "Answer.WhereFilter",
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Answer>"
                 }
               }
             }
@@ -150,52 +145,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "Answer.Filter",
-                  "properties": {
-                    "offset": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "limit": {
-                      "type": "integer",
-                      "minimum": 1,
-                      "example": 100
-                    },
-                    "skip": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "order": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "fields": {
-                      "title": "Answer.Fields",
-                      "type": "object",
-                      "properties": {
-                        "question": {
-                          "type": "boolean"
-                        },
-                        "id": {
-                          "type": "boolean"
-                        },
-                        "content": {
-                          "type": "boolean"
-                        },
-                        "user": {
-                          "type": "boolean"
-                        },
-                        "judge": {
-                          "type": "boolean"
-                        }
-                      },
-                      "additionalProperties": false
-                    }
-                  },
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/Answer.Filter"
                 }
               }
             }
@@ -269,13 +219,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "loopback.Count",
-                  "properties": {
-                    "count": {
-                      "type": "number"
-                    }
-                  }
+                  "$ref": "#/components/schemas/loopback.Count"
                 }
               }
             }
@@ -290,7 +234,8 @@
                 "schema": {
                   "type": "object",
                   "title": "Answer.WhereFilter",
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Answer>"
                 }
               }
             }
@@ -335,63 +280,111 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "Answer.Filter",
-                  "properties": {
-                    "offset": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "limit": {
-                      "type": "integer",
-                      "minimum": 1,
-                      "example": 100
-                    },
-                    "skip": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "order": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "where": {
-                      "title": "Answer.WhereFilter",
-                      "type": "object",
-                      "additionalProperties": true
-                    },
-                    "fields": {
-                      "title": "Answer.Fields",
-                      "type": "object",
-                      "properties": {
-                        "question": {
-                          "type": "boolean"
-                        },
-                        "id": {
-                          "type": "boolean"
-                        },
-                        "content": {
-                          "type": "boolean"
-                        },
-                        "user": {
-                          "type": "boolean"
-                        },
-                        "judge": {
-                          "type": "boolean"
-                        }
-                      },
-                      "additionalProperties": false
-                    }
-                  },
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/Answer.Filter1"
                 }
               }
             }
           }
         ],
         "operationId": "AnswerController.find"
+      }
+    },
+    "/files/dl/{filename}": {
+      "get": {
+        "x-controller-name": "FileUdController",
+        "x-operation-name": "downloadFile",
+        "tags": [
+          "FileUdController"
+        ],
+        "responses": {
+          "200": {
+            "description": "The file content",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filename",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "FileUdController.downloadFile"
+      }
+    },
+    "/files/ls": {
+      "get": {
+        "x-controller-name": "FileUdController",
+        "x-operation-name": "listFiles",
+        "tags": [
+          "FileUdController"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "description": "A list of files"
+          }
+        },
+        "operationId": "FileUdController.listFiles"
+      }
+    },
+    "/files/u": {
+      "post": {
+        "x-controller-name": "FileUdController",
+        "x-operation-name": "fileUpload",
+        "tags": [
+          "FileUdController"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Files and fields"
+          }
+        },
+        "requestBody": {
+          "description": "Request body for multipart/form-data based file upload",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "x-parser": "stream",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "FileUdController.fileUpload"
       }
     },
     "/ping": {
@@ -407,28 +400,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "PingResponse",
-                  "properties": {
-                    "greeting": {
-                      "type": "string"
-                    },
-                    "date": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
-                    "headers": {
-                      "type": "object",
-                      "properties": {
-                        "Content-Type": {
-                          "type": "string"
-                        }
-                      },
-                      "additionalProperties": true
-                    }
-                  }
+                  "$ref": "#/components/schemas/PingResponse"
                 }
               }
             }
@@ -450,13 +422,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "loopback.Count",
-                  "properties": {
-                    "count": {
-                      "type": "number"
-                    }
-                  }
+                  "$ref": "#/components/schemas/loopback.Count"
                 }
               }
             }
@@ -471,7 +437,8 @@
                 "schema": {
                   "type": "object",
                   "title": "Question.WhereFilter",
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Question>"
                 }
               }
             }
@@ -580,64 +547,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "Question.Filter",
-                  "properties": {
-                    "offset": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "limit": {
-                      "type": "integer",
-                      "minimum": 1,
-                      "example": 100
-                    },
-                    "skip": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "order": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "fields": {
-                      "title": "Question.Fields",
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "boolean"
-                        },
-                        "title": {
-                          "type": "boolean"
-                        },
-                        "author": {
-                          "type": "boolean"
-                        },
-                        "score": {
-                          "type": "boolean"
-                        },
-                        "brief": {
-                          "type": "boolean"
-                        },
-                        "detail": {
-                          "type": "boolean"
-                        },
-                        "examples": {
-                          "type": "boolean"
-                        },
-                        "examination": {
-                          "type": "boolean"
-                        },
-                        "templateName": {
-                          "type": "boolean"
-                        }
-                      },
-                      "additionalProperties": false
-                    }
-                  },
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/Question.Filter"
                 }
               }
             }
@@ -711,13 +621,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "loopback.Count",
-                  "properties": {
-                    "count": {
-                      "type": "number"
-                    }
-                  }
+                  "$ref": "#/components/schemas/loopback.Count"
                 }
               }
             }
@@ -732,7 +636,8 @@
                 "schema": {
                   "type": "object",
                   "title": "Question.WhereFilter",
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Question>"
                 }
               }
             }
@@ -777,69 +682,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "Question.Filter",
-                  "properties": {
-                    "offset": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "limit": {
-                      "type": "integer",
-                      "minimum": 1,
-                      "example": 100
-                    },
-                    "skip": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "order": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "where": {
-                      "title": "Question.WhereFilter",
-                      "type": "object",
-                      "additionalProperties": true
-                    },
-                    "fields": {
-                      "title": "Question.Fields",
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "boolean"
-                        },
-                        "title": {
-                          "type": "boolean"
-                        },
-                        "author": {
-                          "type": "boolean"
-                        },
-                        "score": {
-                          "type": "boolean"
-                        },
-                        "brief": {
-                          "type": "boolean"
-                        },
-                        "detail": {
-                          "type": "boolean"
-                        },
-                        "examples": {
-                          "type": "boolean"
-                        },
-                        "examination": {
-                          "type": "boolean"
-                        },
-                        "templateName": {
-                          "type": "boolean"
-                        }
-                      },
-                      "additionalProperties": false
-                    }
-                  },
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/Question.Filter1"
                 }
               }
             }
@@ -861,13 +704,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "loopback.Count",
-                  "properties": {
-                    "count": {
-                      "type": "number"
-                    }
-                  }
+                  "$ref": "#/components/schemas/loopback.Count"
                 }
               }
             }
@@ -882,7 +719,8 @@
                 "schema": {
                   "type": "object",
                   "title": "Record.WhereFilter",
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Record>"
                 }
               }
             }
@@ -991,49 +829,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "Record.Filter",
-                  "properties": {
-                    "offset": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "limit": {
-                      "type": "integer",
-                      "minimum": 1,
-                      "example": 100
-                    },
-                    "skip": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "order": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "fields": {
-                      "title": "Record.Fields",
-                      "type": "object",
-                      "properties": {
-                        "answer": {
-                          "type": "boolean"
-                        },
-                        "startTime": {
-                          "type": "boolean"
-                        },
-                        "endTime": {
-                          "type": "boolean"
-                        },
-                        "timeline": {
-                          "type": "boolean"
-                        }
-                      },
-                      "additionalProperties": false
-                    }
-                  },
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/Record.Filter"
                 }
               }
             }
@@ -1107,13 +903,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "loopback.Count",
-                  "properties": {
-                    "count": {
-                      "type": "number"
-                    }
-                  }
+                  "$ref": "#/components/schemas/loopback.Count"
                 }
               }
             }
@@ -1128,7 +918,8 @@
                 "schema": {
                   "type": "object",
                   "title": "Record.WhereFilter",
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Record>"
                 }
               }
             }
@@ -1173,54 +964,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "Record.Filter",
-                  "properties": {
-                    "offset": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "limit": {
-                      "type": "integer",
-                      "minimum": 1,
-                      "example": 100
-                    },
-                    "skip": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "order": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "where": {
-                      "title": "Record.WhereFilter",
-                      "type": "object",
-                      "additionalProperties": true
-                    },
-                    "fields": {
-                      "title": "Record.Fields",
-                      "type": "object",
-                      "properties": {
-                        "answer": {
-                          "type": "boolean"
-                        },
-                        "startTime": {
-                          "type": "boolean"
-                        },
-                        "endTime": {
-                          "type": "boolean"
-                        },
-                        "timeline": {
-                          "type": "boolean"
-                        }
-                      },
-                      "additionalProperties": false
-                    }
-                  },
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/Record.Filter1"
                 }
               }
             }
@@ -1242,13 +986,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "loopback.Count",
-                  "properties": {
-                    "count": {
-                      "type": "number"
-                    }
-                  }
+                  "$ref": "#/components/schemas/loopback.Count"
                 }
               }
             }
@@ -1263,7 +1001,8 @@
                 "schema": {
                   "type": "object",
                   "title": "Template.WhereFilter",
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Template>"
                 }
               }
             }
@@ -1372,43 +1111,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "Template.Filter",
-                  "properties": {
-                    "offset": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "limit": {
-                      "type": "integer",
-                      "minimum": 1,
-                      "example": 100
-                    },
-                    "skip": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "order": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "fields": {
-                      "title": "Template.Fields",
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "boolean"
-                        },
-                        "content": {
-                          "type": "boolean"
-                        }
-                      },
-                      "additionalProperties": false
-                    }
-                  },
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/Template.Filter"
                 }
               }
             }
@@ -1482,13 +1185,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "loopback.Count",
-                  "properties": {
-                    "count": {
-                      "type": "number"
-                    }
-                  }
+                  "$ref": "#/components/schemas/loopback.Count"
                 }
               }
             }
@@ -1503,7 +1200,8 @@
                 "schema": {
                   "type": "object",
                   "title": "Template.WhereFilter",
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Template>"
                 }
               }
             }
@@ -1548,48 +1246,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "Template.Filter",
-                  "properties": {
-                    "offset": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "limit": {
-                      "type": "integer",
-                      "minimum": 1,
-                      "example": 100
-                    },
-                    "skip": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "order": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "where": {
-                      "title": "Template.WhereFilter",
-                      "type": "object",
-                      "additionalProperties": true
-                    },
-                    "fields": {
-                      "title": "Template.Fields",
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "boolean"
-                        },
-                        "content": {
-                          "type": "boolean"
-                        }
-                      },
-                      "additionalProperties": false
-                    }
-                  },
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/Template.Filter1"
                 }
               }
             }
@@ -1611,13 +1268,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "loopback.Count",
-                  "properties": {
-                    "count": {
-                      "type": "number"
-                    }
-                  }
+                  "$ref": "#/components/schemas/loopback.Count"
                 }
               }
             }
@@ -1632,7 +1283,8 @@
                 "schema": {
                   "type": "object",
                   "title": "TimelineAnalysis.WhereFilter",
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<TimelineAnalysis>"
                 }
               }
             }
@@ -1741,46 +1393,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "TimelineAnalysis.Filter",
-                  "properties": {
-                    "offset": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "limit": {
-                      "type": "integer",
-                      "minimum": 1,
-                      "example": 100
-                    },
-                    "skip": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "order": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "fields": {
-                      "title": "TimelineAnalysis.Fields",
-                      "type": "object",
-                      "properties": {
-                        "record": {
-                          "type": "boolean"
-                        },
-                        "finished": {
-                          "type": "boolean"
-                        },
-                        "result": {
-                          "type": "boolean"
-                        }
-                      },
-                      "additionalProperties": false
-                    }
-                  },
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/TimelineAnalysis.Filter"
                 }
               }
             }
@@ -1854,13 +1467,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "loopback.Count",
-                  "properties": {
-                    "count": {
-                      "type": "number"
-                    }
-                  }
+                  "$ref": "#/components/schemas/loopback.Count"
                 }
               }
             }
@@ -1875,7 +1482,8 @@
                 "schema": {
                   "type": "object",
                   "title": "TimelineAnalysis.WhereFilter",
-                  "additionalProperties": true
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<TimelineAnalysis>"
                 }
               }
             }
@@ -1920,51 +1528,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "title": "TimelineAnalysis.Filter",
-                  "properties": {
-                    "offset": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "limit": {
-                      "type": "integer",
-                      "minimum": 1,
-                      "example": 100
-                    },
-                    "skip": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "order": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "where": {
-                      "title": "TimelineAnalysis.WhereFilter",
-                      "type": "object",
-                      "additionalProperties": true
-                    },
-                    "fields": {
-                      "title": "TimelineAnalysis.Fields",
-                      "type": "object",
-                      "properties": {
-                        "record": {
-                          "type": "boolean"
-                        },
-                        "finished": {
-                          "type": "boolean"
-                        },
-                        "result": {
-                          "type": "boolean"
-                        }
-                      },
-                      "additionalProperties": false
-                    }
-                  },
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/TimelineAnalysis.Filter1"
                 }
               }
             }
@@ -2003,6 +1567,120 @@
         ],
         "operationId": "UserController.userinfo"
       }
+    },
+    "/workspace-sessions/{id}": {
+      "get": {
+        "x-controller-name": "WorkspaceController",
+        "x-operation-name": "findById",
+        "tags": [
+          "WorkspaceController"
+        ],
+        "responses": {
+          "200": {
+            "description": "WorkspaceSession model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceSessionWithRelations"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceSession.Filter"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "WorkspaceController.findById"
+      },
+      "delete": {
+        "x-controller-name": "WorkspaceController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "WorkspaceController"
+        ],
+        "responses": {
+          "204": {
+            "description": "WorkspaceSession DELETE success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "WorkspaceController.deleteById"
+      }
+    },
+    "/workspace-sessions": {
+      "post": {
+        "x-controller-name": "WorkspaceController",
+        "x-operation-name": "getContainer",
+        "tags": [
+          "WorkspaceController"
+        ],
+        "responses": {
+          "200": {
+            "description": "WorkspaceSession model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceSession"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "enableTrack",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "required": true
+          },
+          {
+            "name": "templateName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          }
+        ],
+        "operationId": "WorkspaceController.getContainer"
+      }
     }
   },
   "servers": [
@@ -2040,7 +1718,7 @@
       },
       "NewAnswer": {
         "title": "NewAnswer",
-        "description": "(Schema options: { title: 'NewAnswer', exclude: [ 'id' ] })",
+        "description": "(tsType: Omit<Answer, 'id'>, schemaOptions: { title: 'NewAnswer', exclude: [ 'id' ] })",
         "properties": {
           "question": {
             "type": "number"
@@ -2060,11 +1738,12 @@
           "content",
           "user"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-typescript-type": "Omit<Answer, 'id'>"
       },
       "AnswerWithRelations": {
         "title": "AnswerWithRelations",
-        "description": "(Schema options: { includeRelations: true })",
+        "description": "(tsType: AnswerWithRelations, schemaOptions: { includeRelations: true })",
         "properties": {
           "question": {
             "type": "number"
@@ -2087,11 +1766,12 @@
           "content",
           "user"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-typescript-type": "AnswerWithRelations"
       },
       "AnswerPartial": {
         "title": "AnswerPartial",
-        "description": "(Schema options: { partial: true })",
+        "description": "(tsType: Partial<Answer>, schemaOptions: { partial: true })",
         "properties": {
           "question": {
             "type": "number"
@@ -2109,7 +1789,8 @@
             "type": "string"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-typescript-type": "Partial<Answer>"
       },
       "Question": {
         "title": "Question",
@@ -2153,7 +1834,7 @@
       },
       "NewQuestion": {
         "title": "NewQuestion",
-        "description": "(Schema options: { title: 'NewQuestion', exclude: [ 'id' ] })",
+        "description": "(tsType: Omit<Question, 'id'>, schemaOptions: { title: 'NewQuestion', exclude: [ 'id' ] })",
         "properties": {
           "title": {
             "type": "string"
@@ -2187,11 +1868,12 @@
           "title",
           "detail"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-typescript-type": "Omit<Question, 'id'>"
       },
       "QuestionWithRelations": {
         "title": "QuestionWithRelations",
-        "description": "(Schema options: { includeRelations: true })",
+        "description": "(tsType: QuestionWithRelations, schemaOptions: { includeRelations: true })",
         "properties": {
           "id": {
             "type": "number"
@@ -2228,11 +1910,12 @@
           "title",
           "detail"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-typescript-type": "QuestionWithRelations"
       },
       "QuestionPartial": {
         "title": "QuestionPartial",
-        "description": "(Schema options: { partial: true })",
+        "description": "(tsType: Partial<Question>, schemaOptions: { partial: true })",
         "properties": {
           "id": {
             "type": "number"
@@ -2265,7 +1948,8 @@
             "type": "string"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-typescript-type": "Partial<Question>"
       },
       "Record": {
         "title": "Record",
@@ -2296,7 +1980,7 @@
       },
       "NewRecord": {
         "title": "NewRecord",
-        "description": "(Schema options: { title: 'NewRecord' })",
+        "description": "(tsType: Record, schemaOptions: { title: 'NewRecord' })",
         "properties": {
           "answer": {
             "type": "number"
@@ -2320,11 +2004,12 @@
           "endTime",
           "timeline"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-typescript-type": "Record"
       },
       "RecordWithRelations": {
         "title": "RecordWithRelations",
-        "description": "(Schema options: { includeRelations: true })",
+        "description": "(tsType: RecordWithRelations, schemaOptions: { includeRelations: true })",
         "properties": {
           "answer": {
             "type": "number"
@@ -2348,11 +2033,12 @@
           "endTime",
           "timeline"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-typescript-type": "RecordWithRelations"
       },
       "RecordPartial": {
         "title": "RecordPartial",
-        "description": "(Schema options: { partial: true })",
+        "description": "(tsType: Partial<Record>, schemaOptions: { partial: true })",
         "properties": {
           "answer": {
             "type": "number"
@@ -2370,7 +2056,8 @@
             }
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-typescript-type": "Partial<Record>"
       },
       "Template": {
         "title": "Template",
@@ -2390,7 +2077,7 @@
       },
       "NewTemplate": {
         "title": "NewTemplate",
-        "description": "(Schema options: { title: 'NewTemplate' })",
+        "description": "(tsType: Template, schemaOptions: { title: 'NewTemplate' })",
         "properties": {
           "name": {
             "type": "string"
@@ -2403,11 +2090,12 @@
           "name",
           "content"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-typescript-type": "Template"
       },
       "TemplateWithRelations": {
         "title": "TemplateWithRelations",
-        "description": "(Schema options: { includeRelations: true })",
+        "description": "(tsType: TemplateWithRelations, schemaOptions: { includeRelations: true })",
         "properties": {
           "name": {
             "type": "string"
@@ -2420,11 +2108,12 @@
           "name",
           "content"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-typescript-type": "TemplateWithRelations"
       },
       "TemplatePartial": {
         "title": "TemplatePartial",
-        "description": "(Schema options: { partial: true })",
+        "description": "(tsType: Partial<Template>, schemaOptions: { partial: true })",
         "properties": {
           "name": {
             "type": "string"
@@ -2433,7 +2122,8 @@
             "type": "string"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-typescript-type": "Partial<Template>"
       },
       "TlaTimelineItem": {
         "title": "TlaTimelineItem",
@@ -2498,7 +2188,7 @@
       },
       "NewTimelineAnalysis": {
         "title": "NewTimelineAnalysis",
-        "description": "(Schema options: { title: 'NewTimelineAnalysis' })",
+        "description": "(tsType: TimelineAnalysis, schemaOptions: { title: 'NewTimelineAnalysis' })",
         "properties": {
           "record": {
             "type": "number"
@@ -2507,18 +2197,19 @@
             "type": "boolean"
           },
           "result": {
-            "$ref": "#/components/schemas/NewTimelineAnalysis"
+            "$ref": "#/components/schemas/TlaResult"
           }
         },
         "required": [
           "record",
           "finished"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-typescript-type": "TimelineAnalysis"
       },
       "TlaTimelineItemWithRelations": {
         "title": "TlaTimelineItemWithRelations",
-        "description": "(Schema options: { includeRelations: true })",
+        "description": "(tsType: TlaTimelineItemWithRelations, schemaOptions: { includeRelations: true })",
         "properties": {
           "action": {
             "type": "string"
@@ -2533,11 +2224,12 @@
             "type": "number"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-typescript-type": "TlaTimelineItemWithRelations"
       },
       "TlaResultWithRelations": {
         "title": "TlaResultWithRelations",
-        "description": "(Schema options: { includeRelations: true })",
+        "description": "(tsType: TlaResultWithRelations, schemaOptions: { includeRelations: true })",
         "properties": {
           "add": {
             "type": "number"
@@ -2558,11 +2250,12 @@
             "type": "number"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-typescript-type": "TlaResultWithRelations"
       },
       "TimelineAnalysisWithRelations": {
         "title": "TimelineAnalysisWithRelations",
-        "description": "(Schema options: { includeRelations: true })",
+        "description": "(tsType: TimelineAnalysisWithRelations, schemaOptions: { includeRelations: true })",
         "properties": {
           "record": {
             "type": "number"
@@ -2578,11 +2271,12 @@
           "record",
           "finished"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-typescript-type": "TimelineAnalysisWithRelations"
       },
       "TimelineAnalysisPartial": {
         "title": "TimelineAnalysisPartial",
-        "description": "(Schema options: { partial: true })",
+        "description": "(tsType: Partial<TimelineAnalysis>, schemaOptions: { partial: true })",
         "properties": {
           "record": {
             "type": "number"
@@ -2594,7 +2288,8 @@
             "$ref": "#/components/schemas/TlaResult"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "x-typescript-type": "Partial<TimelineAnalysis>"
       },
       "UserInfo": {
         "title": "UserInfo",
@@ -2611,6 +2306,573 @@
           "role"
         ],
         "additionalProperties": false
+      },
+      "WorkspaceSession": {
+        "title": "WorkspaceSession",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "containerID": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "projectArchive": {
+            "type": "string"
+          },
+          "enableTrack": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "token",
+          "enableTrack"
+        ],
+        "additionalProperties": false
+      },
+      "WorkspaceSessionWithRelations": {
+        "title": "WorkspaceSessionWithRelations",
+        "description": "(tsType: WorkspaceSessionWithRelations, schemaOptions: { includeRelations: true })",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "containerID": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "projectArchive": {
+            "type": "string"
+          },
+          "enableTrack": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "token",
+          "enableTrack"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "WorkspaceSessionWithRelations"
+      },
+      "loopback.Count": {
+        "type": "object",
+        "title": "loopback.Count",
+        "x-typescript-type": "@loopback/repository#Count",
+        "properties": {
+          "count": {
+            "type": "number"
+          }
+        }
+      },
+      "Answer.Fields": {
+        "title": "Answer.Fields",
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "boolean"
+          },
+          "content": {
+            "type": "boolean"
+          },
+          "user": {
+            "type": "boolean"
+          },
+          "judge": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Answer.Filter": {
+        "type": "object",
+        "title": "Answer.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fields": {
+            "$ref": "#/components/schemas/Answer.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Answer>"
+      },
+      "Answer.Filter1": {
+        "type": "object",
+        "title": "Answer.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "where": {
+            "title": "Answer.WhereFilter",
+            "type": "object",
+            "additionalProperties": true
+          },
+          "fields": {
+            "$ref": "#/components/schemas/Answer.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Answer>"
+      },
+      "PingResponse": {
+        "type": "object",
+        "title": "PingResponse",
+        "properties": {
+          "greeting": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "headers": {
+            "type": "object",
+            "properties": {
+              "Content-Type": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "Question.Fields": {
+        "title": "Question.Fields",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "boolean"
+          },
+          "title": {
+            "type": "boolean"
+          },
+          "author": {
+            "type": "boolean"
+          },
+          "score": {
+            "type": "boolean"
+          },
+          "brief": {
+            "type": "boolean"
+          },
+          "detail": {
+            "type": "boolean"
+          },
+          "examples": {
+            "type": "boolean"
+          },
+          "examination": {
+            "type": "boolean"
+          },
+          "templateName": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Question.Filter": {
+        "type": "object",
+        "title": "Question.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fields": {
+            "$ref": "#/components/schemas/Question.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Question>"
+      },
+      "Question.Filter1": {
+        "type": "object",
+        "title": "Question.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "where": {
+            "title": "Question.WhereFilter",
+            "type": "object",
+            "additionalProperties": true
+          },
+          "fields": {
+            "$ref": "#/components/schemas/Question.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Question>"
+      },
+      "Record.Fields": {
+        "title": "Record.Fields",
+        "type": "object",
+        "properties": {
+          "answer": {
+            "type": "boolean"
+          },
+          "startTime": {
+            "type": "boolean"
+          },
+          "endTime": {
+            "type": "boolean"
+          },
+          "timeline": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Record.Filter": {
+        "type": "object",
+        "title": "Record.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fields": {
+            "$ref": "#/components/schemas/Record.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Record>"
+      },
+      "Record.Filter1": {
+        "type": "object",
+        "title": "Record.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "where": {
+            "title": "Record.WhereFilter",
+            "type": "object",
+            "additionalProperties": true
+          },
+          "fields": {
+            "$ref": "#/components/schemas/Record.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Record>"
+      },
+      "Template.Fields": {
+        "title": "Template.Fields",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "boolean"
+          },
+          "content": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Template.Filter": {
+        "type": "object",
+        "title": "Template.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fields": {
+            "$ref": "#/components/schemas/Template.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Template>"
+      },
+      "Template.Filter1": {
+        "type": "object",
+        "title": "Template.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "where": {
+            "title": "Template.WhereFilter",
+            "type": "object",
+            "additionalProperties": true
+          },
+          "fields": {
+            "$ref": "#/components/schemas/Template.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Template>"
+      },
+      "TimelineAnalysis.Fields": {
+        "title": "TimelineAnalysis.Fields",
+        "type": "object",
+        "properties": {
+          "record": {
+            "type": "boolean"
+          },
+          "finished": {
+            "type": "boolean"
+          },
+          "result": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TimelineAnalysis.Filter": {
+        "type": "object",
+        "title": "TimelineAnalysis.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fields": {
+            "$ref": "#/components/schemas/TimelineAnalysis.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<TimelineAnalysis>"
+      },
+      "TimelineAnalysis.Filter1": {
+        "type": "object",
+        "title": "TimelineAnalysis.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "where": {
+            "title": "TimelineAnalysis.WhereFilter",
+            "type": "object",
+            "additionalProperties": true
+          },
+          "fields": {
+            "$ref": "#/components/schemas/TimelineAnalysis.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<TimelineAnalysis>"
+      },
+      "WorkspaceSession.Fields": {
+        "title": "WorkspaceSession.Fields",
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "boolean"
+          },
+          "containerID": {
+            "type": "boolean"
+          },
+          "address": {
+            "type": "boolean"
+          },
+          "projectArchive": {
+            "type": "boolean"
+          },
+          "enableTrack": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorkspaceSession.Filter": {
+        "type": "object",
+        "title": "WorkspaceSession.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fields": {
+            "$ref": "#/components/schemas/WorkspaceSession.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<WorkspaceSession>"
       }
     }
   }

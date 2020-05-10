@@ -5,4 +5,5 @@ COPY ./package.json .
 RUN yarn install --ignore-scripts
 
 EXPOSE 3000
+EXPOSE 6229
 CMD ["yarn","dev"]

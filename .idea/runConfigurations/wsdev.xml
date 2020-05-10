@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="wsdev" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/exam/exam-ws/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="dev" />
+    </scripts>
+    <node-interpreter value="project" />
+    <envs>
+      <env name="REDIS_HOST" value="localhost" />
+    </envs>
+    <method v="2" />
+  </configuration>
+</component>

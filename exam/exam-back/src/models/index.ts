@@ -6,3 +6,4 @@ export * from './user-info.model';
 export * from './timeline-analysis.model';
 export * from './tla-timeline-item.model';
 export * from './tla-result.model';
+export * from './workspace-session.model';
