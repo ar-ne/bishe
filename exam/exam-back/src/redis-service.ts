@@ -10,10 +10,17 @@ client.on('error', (err) => console.log(`RedisError:${err}`));
 export const CONTAINER_ROUTE_KEY = '__workspace_route_by_';
 
 class RedisService {
-  setContainer(workspaceSession: WorkspaceSession) {
-    const key = CONTAINER_ROUTE_KEY + workspaceSession.containerID;
-    client.set(key, workspaceSession.address!);
-  }
+  ContainerRoute = (w: WorkspaceSession) => {
+    const key = CONTAINER_ROUTE_KEY + w.containerID;
+    return {
+      set: () => {
+        client.set(key, w.address!);
+      },
+      del: () => {
+        client.del(key);
+      },
+    };
+  };
 }
 
 export const redisService = new RedisService();

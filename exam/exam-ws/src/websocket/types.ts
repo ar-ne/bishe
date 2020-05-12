@@ -1,6 +1,7 @@
 import { Record, UserInfo } from '../generated/openapi';
 import { RedisService } from '../redis-service';
 import { Socket } from 'socket.io';
+import { Logger } from '../utils';
 
 export interface UserInfoWithToken extends UserInfo {
   token: string;
@@ -8,8 +9,9 @@ export interface UserInfoWithToken extends UserInfo {
 
 export interface WSCallback {
   event: string;
-  callback: (...args: any[]) => void;
+  callback: (logger: Logger, ...args: any[]) => void;
 }
+
 
 export interface WSCallback_ARG {
   record: Record;

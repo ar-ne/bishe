@@ -5608,17 +5608,16 @@ export const WorkspaceControllerApiAxiosParamCreator = function (configuration?:
     return {
         /**
          * 
-         * @param {string} id 
+         * @param {string} authorization 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workspaceControllerDeleteById(id: string, options: any = {}): RequestArgs {
-            // verify required parameter 'id' is not null or undefined
-            if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling workspaceControllerDeleteById.');
+        workspaceControllerDeleteById(authorization: string, options: any = {}): RequestArgs {
+            // verify required parameter 'authorization' is not null or undefined
+            if (authorization === null || authorization === undefined) {
+                throw new RequiredError('authorization','Required parameter authorization was null or undefined when calling workspaceControllerDeleteById.');
             }
-            const localVarPath = `/workspace-sessions/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            const localVarPath = `/workspace-sessions`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -5627,6 +5626,10 @@ export const WorkspaceControllerApiAxiosParamCreator = function (configuration?:
             const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (authorization !== undefined && authorization !== null) {
+                localVarHeaderParameter['Authorization'] = String(authorization);
+            }
 
 
     
@@ -5685,11 +5688,11 @@ export const WorkspaceControllerApiAxiosParamCreator = function (configuration?:
          * 
          * @param {string} authorization 
          * @param {boolean} enableTrack 
-         * @param {string} [templateName] 
+         * @param {string} [projectArchiveName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workspaceControllerGetContainer(authorization: string, enableTrack: boolean, templateName?: string, options: any = {}): RequestArgs {
+        workspaceControllerGetContainer(authorization: string, enableTrack: boolean, projectArchiveName?: string, options: any = {}): RequestArgs {
             // verify required parameter 'authorization' is not null or undefined
             if (authorization === null || authorization === undefined) {
                 throw new RequiredError('authorization','Required parameter authorization was null or undefined when calling workspaceControllerGetContainer.');
@@ -5712,8 +5715,8 @@ export const WorkspaceControllerApiAxiosParamCreator = function (configuration?:
                 localVarQueryParameter['enableTrack'] = enableTrack;
             }
 
-            if (templateName !== undefined) {
-                localVarQueryParameter['templateName'] = templateName;
+            if (projectArchiveName !== undefined) {
+                localVarQueryParameter['projectArchiveName'] = projectArchiveName;
             }
 
             if (authorization !== undefined && authorization !== null) {
@@ -5744,12 +5747,12 @@ export const WorkspaceControllerApiFp = function(configuration?: Configuration) 
     return {
         /**
          * 
-         * @param {string} id 
+         * @param {string} authorization 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workspaceControllerDeleteById(id: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
-            const localVarAxiosArgs = WorkspaceControllerApiAxiosParamCreator(configuration).workspaceControllerDeleteById(id, options);
+        workspaceControllerDeleteById(authorization: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
+            const localVarAxiosArgs = WorkspaceControllerApiAxiosParamCreator(configuration).workspaceControllerDeleteById(authorization, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -5773,12 +5776,12 @@ export const WorkspaceControllerApiFp = function(configuration?: Configuration) 
          * 
          * @param {string} authorization 
          * @param {boolean} enableTrack 
-         * @param {string} [templateName] 
+         * @param {string} [projectArchiveName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workspaceControllerGetContainer(authorization: string, enableTrack: boolean, templateName?: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<WorkspaceSession> {
-            const localVarAxiosArgs = WorkspaceControllerApiAxiosParamCreator(configuration).workspaceControllerGetContainer(authorization, enableTrack, templateName, options);
+        workspaceControllerGetContainer(authorization: string, enableTrack: boolean, projectArchiveName?: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<WorkspaceSession> {
+            const localVarAxiosArgs = WorkspaceControllerApiAxiosParamCreator(configuration).workspaceControllerGetContainer(authorization, enableTrack, projectArchiveName, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -5795,12 +5798,12 @@ export const WorkspaceControllerApiFactory = function (configuration?: Configura
     return {
         /**
          * 
-         * @param {string} id 
+         * @param {string} authorization 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workspaceControllerDeleteById(id: string, options?: any): AxiosPromise<void> {
-            return WorkspaceControllerApiFp(configuration).workspaceControllerDeleteById(id, options)(axios, basePath);
+        workspaceControllerDeleteById(authorization: string, options?: any): AxiosPromise<void> {
+            return WorkspaceControllerApiFp(configuration).workspaceControllerDeleteById(authorization, options)(axios, basePath);
         },
         /**
          * 
@@ -5816,12 +5819,12 @@ export const WorkspaceControllerApiFactory = function (configuration?: Configura
          * 
          * @param {string} authorization 
          * @param {boolean} enableTrack 
-         * @param {string} [templateName] 
+         * @param {string} [projectArchiveName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workspaceControllerGetContainer(authorization: string, enableTrack: boolean, templateName?: string, options?: any): AxiosPromise<WorkspaceSession> {
-            return WorkspaceControllerApiFp(configuration).workspaceControllerGetContainer(authorization, enableTrack, templateName, options)(axios, basePath);
+        workspaceControllerGetContainer(authorization: string, enableTrack: boolean, projectArchiveName?: string, options?: any): AxiosPromise<WorkspaceSession> {
+            return WorkspaceControllerApiFp(configuration).workspaceControllerGetContainer(authorization, enableTrack, projectArchiveName, options)(axios, basePath);
         },
     };
 };
@@ -5834,12 +5837,12 @@ export const WorkspaceControllerApiFactory = function (configuration?: Configura
 export interface WorkspaceControllerApiInterface {
     /**
      * 
-     * @param {string} id 
+     * @param {string} authorization 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WorkspaceControllerApiInterface
      */
-    workspaceControllerDeleteById(id: string, options?: any): AxiosPromise<void>;
+    workspaceControllerDeleteById(authorization: string, options?: any): AxiosPromise<void>;
 
     /**
      * 
@@ -5855,12 +5858,12 @@ export interface WorkspaceControllerApiInterface {
      * 
      * @param {string} authorization 
      * @param {boolean} enableTrack 
-     * @param {string} [templateName] 
+     * @param {string} [projectArchiveName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WorkspaceControllerApiInterface
      */
-    workspaceControllerGetContainer(authorization: string, enableTrack: boolean, templateName?: string, options?: any): AxiosPromise<WorkspaceSession>;
+    workspaceControllerGetContainer(authorization: string, enableTrack: boolean, projectArchiveName?: string, options?: any): AxiosPromise<WorkspaceSession>;
 
 }
 
@@ -5873,13 +5876,13 @@ export interface WorkspaceControllerApiInterface {
 export class WorkspaceControllerApi extends BaseAPI implements WorkspaceControllerApiInterface {
     /**
      * 
-     * @param {string} id 
+     * @param {string} authorization 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WorkspaceControllerApi
      */
-    public workspaceControllerDeleteById(id: string, options?: any) {
-        return WorkspaceControllerApiFp(this.configuration).workspaceControllerDeleteById(id, options)(this.axios, this.basePath);
+    public workspaceControllerDeleteById(authorization: string, options?: any) {
+        return WorkspaceControllerApiFp(this.configuration).workspaceControllerDeleteById(authorization, options)(this.axios, this.basePath);
     }
 
     /**
@@ -5898,13 +5901,13 @@ export class WorkspaceControllerApi extends BaseAPI implements WorkspaceControll
      * 
      * @param {string} authorization 
      * @param {boolean} enableTrack 
-     * @param {string} [templateName] 
+     * @param {string} [projectArchiveName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WorkspaceControllerApi
      */
-    public workspaceControllerGetContainer(authorization: string, enableTrack: boolean, templateName?: string, options?: any) {
-        return WorkspaceControllerApiFp(this.configuration).workspaceControllerGetContainer(authorization, enableTrack, templateName, options)(this.axios, this.basePath);
+    public workspaceControllerGetContainer(authorization: string, enableTrack: boolean, projectArchiveName?: string, options?: any) {
+        return WorkspaceControllerApiFp(this.configuration).workspaceControllerGetContainer(authorization, enableTrack, projectArchiveName, options)(this.axios, this.basePath);
     }
 
 }

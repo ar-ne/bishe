@@ -1609,29 +1609,6 @@
           }
         ],
         "operationId": "WorkspaceController.findById"
-      },
-      "delete": {
-        "x-controller-name": "WorkspaceController",
-        "x-operation-name": "deleteById",
-        "tags": [
-          "WorkspaceController"
-        ],
-        "responses": {
-          "204": {
-            "description": "WorkspaceSession DELETE success"
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          }
-        ],
-        "operationId": "WorkspaceController.deleteById"
       }
     },
     "/workspace-sessions": {
@@ -1671,7 +1648,7 @@
             "required": true
           },
           {
-            "name": "templateName",
+            "name": "projectArchiveName",
             "in": "query",
             "schema": {
               "type": "string"
@@ -1680,6 +1657,29 @@
           }
         ],
         "operationId": "WorkspaceController.getContainer"
+      },
+      "delete": {
+        "x-controller-name": "WorkspaceController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "WorkspaceController"
+        ],
+        "responses": {
+          "204": {
+            "description": "WorkspaceSession DELETE success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "WorkspaceController.deleteById"
       }
     }
   },

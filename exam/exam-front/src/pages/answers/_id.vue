@@ -28,7 +28,10 @@
           <v-divider/>
         </v-card-subtitle>
         <v-card-text style="height: inherit">
-          <MonacoEditor v-model="awr.ans.content" :options="monacoOption" language="java"></MonacoEditor>
+          <v-btn @click="open(`${back}/files/dl/${awr.ans.content}`)">
+            <v-icon>mdi-download</v-icon>
+            <span>下载项目压缩包</span>
+          </v-btn>
         </v-card-text>
       </v-card>
     </v-container>
@@ -79,7 +82,7 @@
           <v-hover v-slot:default="{ hover }" open-delay="100" close-delay="100">
             <v-card :elevation="hover ? 16 : 2">
               <v-card-subtitle>
-                {{new Date(item.time).toISOString().substring(11).replace('Z',' ')}}
+                {{new Date(Number(item.time)).toISOString().substring(11).replace('Z',' ')}}
                 <v-icon :color="getActIco(awr.analysis.result.timeline[i].action).color">
                   {{getActIco(awr.analysis.result.timeline[i].action).icon}}
                 </v-icon>
@@ -104,10 +107,10 @@
                       <v-list-item>
                         位置: {{item.event.changes?getPos(item.event.changes[0].range):'无'}}
                       </v-list-item>
-                      <v-list-item>
-                        代码片段:
-                        <div class="md" v-html="Renderer(`\`\`\`${item.value}\`\`\``)"></div>
-                      </v-list-item>
+                      <!--                      <v-list-item>-->
+                      <!--                        代码片段:-->
+                      <!--                        <div class="md" v-html="Renderer(`\`\`\`${item.value}\`\`\``)"></div>-->
+                      <!--                      </v-list-item>-->
                       <v-list-item v-if="showRaw">
                         RawEvent
                         <v-treeview
@@ -149,6 +152,7 @@
   import getTree, { TreeViewItems } from '~/toTreeView';
   import MonacoEditor from '~/components/MonacoEditor.vue';
   import { editor, IRange } from 'monaco-editor';
+  import { BACKEND_URL } from '~/api-config';
   import IStandaloneEditorConstructionOptions = editor.IStandaloneEditorConstructionOptions;
 
   export default Vue.extend({
@@ -200,6 +204,8 @@
         showRaw: false,
         loading: true,
         showTimeline: false,
+        back: BACKEND_URL,
+        open: (url: string) => window.open(url),
         collapse: false,
         id: Number(this.$route.params.id),
         monacoOption: { readOnly: true } as IStandaloneEditorConstructionOptions,

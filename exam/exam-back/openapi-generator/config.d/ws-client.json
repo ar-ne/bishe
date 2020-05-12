@@ -1,6 +1,5 @@
 {
   "outDir": "../theia/ws-client/src/generated/openapi",
-  "generator": "typescript-axios",
-  "supportsES6": true,
-  "withInterfaces": true
+  "generator": "typescript-node",
+  "supportsES6": true
 }

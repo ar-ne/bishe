@@ -1,7 +1,7 @@
 import { Namespace } from 'socket.io';
 import { WSCallback, WSCallback_ARG } from './types';
 import { io } from '../server';
-import { CLIENT, FRONT } from './rooms';
+import { CLIENT, FRONT, TRACK } from './rooms';
 
 export const wsNamespaces: {
   [name: string]: {
@@ -17,4 +17,8 @@ export const wsNamespaces: {
     nsp: io.of('/CLIENT'),
     init: CLIENT,
   },
+  TRACK_WATCHER:{
+    nsp:io.of('/TRACK'),
+    init:TRACK
+  }
 };

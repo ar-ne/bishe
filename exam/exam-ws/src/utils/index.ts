@@ -1,5 +1,11 @@
-export const clog = (message?: any, ...optionalParams: any[]) => {
-  console.log(message, optionalParams);
+export const clog: Logger = (message?: any, ...optionalParams: any[]) => {
+  console.log(message, optionalParams.length == 0 ? '' : optionalParams);
+};
+
+export const loggerFactory = (tag: string): Logger => {
+  return (message?: any, ...optionalParams: any[]) => {
+    console.log(tag, message, optionalParams.length == 0 ? '' : optionalParams);
+  };
 };
 
 export const cookieParser = (cookie: string) => {
@@ -16,3 +22,5 @@ export const cookieParser = (cookie: string) => {
 };
 
 export const strWithPrefixFactory = (prefix: string) => (str: string = '') => prefix + str;
+
+export type Logger = (message?: any, ...optionalParams: any[]) => void;

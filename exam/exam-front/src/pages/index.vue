@@ -1,8 +1,9 @@
 <template>
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
-      <v-btn @click="clickButton">test</v-btn>
-      <span>{{ $socket.connected ? 'Connected' : 'Disconnected' }}</span>
+      <h1>正在重定向，请稍后...</h1>
+      <!--      <v-btn @click="clickButton">test</v-btn>-->
+      <!--      <span>{{ $socket.connected ? 'Connected' : 'Disconnected' }}</span>-->
     </v-flex>
   </v-layout>
 </template>

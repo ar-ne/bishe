@@ -31,7 +31,7 @@
     "prestart": "npm run build",
     "start": "node -r source-map-support/register .",
     "prepublishOnly": "npm run test",
-    "dev": "tsc && tsc-watch --onSuccess \"node --inspect-brk=0.0.0.0:6229 -r source-map-support/register .\"",
+    "dev": "tsc && tsc-watch --onSuccess \"node -r source-map-support/register .\"",
     "gen": "ts-node openapi-generator/generate.ts"
   },
   "repository": {
@@ -65,6 +65,7 @@
     "@types/node-fetch": "^2.5.5",
     "@types/socket.io": "^2.1.4",
     "dockerode": "^3.2.0",
+    "dotenv": "^8.2.0",
     "execa": "^4.0.0",
     "express": "^4.17.1",
     "ioredis": "^4.16.3",

@@ -32,7 +32,9 @@ export class RecordController {
     })
       record: Record,
   ): Promise<Record> {
-    return this.recordRepository.create(record);
+    const nR = await this.recordRepository.create(record);
+    http.get(process.env.TLA_URL!);
+    return nR;
   }
 
   @get('/records/count', {

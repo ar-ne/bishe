@@ -1,3 +1,4 @@
+require('dotenv').config();
 import { ExamBackApplication } from './application';
 import { ApplicationConfig } from '@loopback/core';
 import fetch from 'node-fetch';

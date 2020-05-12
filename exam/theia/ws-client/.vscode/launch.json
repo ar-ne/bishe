@@ -17,8 +17,9 @@
 				"${workspaceFolder}/out/**/*.js"
 			],
 			"preLaunchTask": "${defaultBuildTask}",
-			"env":{
-				"ACCESS_TOKEN":"Bearer 6kqNxTof8qV1sFKW6JTZbH6tyZ6WNv55yHg34VWCAtM.toyNfluMsbqDIIwkXu4Mz3anh8j1yD_H9r4K5tqi5-E"
+			"env": {
+				"ACCESS_TOKEN": "Bearer HLJFh-9Qe5BOae4cXeJsiYwRmdNeSyVGG8FAXS2OYpA.16SHDMQ0vF0x8LqIz6vtGXDU-hx32AAa9VxG0TR9Lm4",
+				"WS_URL": "http://localhost:3001"
 			}
 		},
 		{

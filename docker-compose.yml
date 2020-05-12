@@ -72,8 +72,6 @@ services:
       - 80:80
     volumes:
       - yarn-cache:/usr/local/share/.cache/yarn/v6
-    environment:
-      - NUXT_ENV_BASE=${OAUTH_FRONT_NUXT_ENV_BASE}
 
   exam-front:
     restart: always
@@ -85,15 +83,6 @@ services:
       - 3000:3000
     volumes:
       - yarn-cache:/usr/local/share/.cache/yarn/v6
-    environment:
-      - NUXT_ENV_BASE=${EXAM_FRONT_NUXT_ENV_BASE}
-      - NUXT_WS_SERVER=${NUXT_WS_SERVER}
-      - OAUTH2_CLIENT_ID=${OAUTH2_CLIENT_ID}
-      - OAUTH2_AUTHORIZATION_ENDPOINT=${OAUTH2_AUTHORIZATION_ENDPOINT}
-      - OAUTH2_TOKEN_ENDPOINT=${OAUTH2_TOKEN_ENDPOINT}
-      - OAUTH2_USERINFO_ENDPOINT=${OAUTH2_USERINFO_ENDPOINT}
-      - VUE_APP_BACKEND_URL=${VUE_APP_BACKEND_URL_PUBLIC}
-      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED}
 
   exam-back:
     depends_on:
@@ -112,12 +101,6 @@ services:
       - yarn-cache:/usr/local/share/.cache/yarn/v6
       - exam-storage:/exam
       - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - HYDRA_ADMIN_URL=${HYDRA_ADMIN_URL}
-      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED}
-      - TLA_URL=${EB_TLA_URL}
-      - REDIS_HOST=${REDIS_HOST}
-      - CONTAINER_NETWORK=${EB_CONTAINER_NETWORK}
 
   exam-ws:
     depends_on:
@@ -133,7 +116,7 @@ services:
     volumes:
       - yarn-cache:/usr/local/share/.cache/yarn/v6
     environment:
-      - VUE_APP_BACKEND_URL=${VUE_APP_BACKEND_URL}
+      - VUE_APP_BACKEND_URL=${VUE_APP_BACKEND_URL_INTERNAL}
       - REDIS_HOST=${REDIS_HOST}
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED}.
 

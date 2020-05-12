@@ -11,7 +11,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer/>
-            <v-btn color="primary" :to="`/editor?n=-${templateName}`">确定</v-btn>
+            <v-btn color="primary" :to="`/editor?n=${templateName}`">确定</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>

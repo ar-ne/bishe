@@ -1,5 +1,3 @@
 {
-  "ws": "http://localhost:3001",
-  "exam": "localhost:3336",
   "debug": true
 }

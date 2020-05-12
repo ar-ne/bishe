@@ -373,7 +373,7 @@ class TlAnalysisControllerApi(object):
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
-        :param object filter:
+        :param TimelineAnalysisFilter1 filter:
         :param _preload_content: if False, the urllib3.HTTPResponse object will
                                  be returned without reading/decoding response
                                  data. Default is True.
@@ -397,7 +397,7 @@ class TlAnalysisControllerApi(object):
         >>> result = thread.get()
 
         :param async_req bool: execute request asynchronously
-        :param object filter:
+        :param TimelineAnalysisFilter1 filter:
         :param _return_http_data_only: response data without head status code
                                        and headers
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -482,7 +482,7 @@ class TlAnalysisControllerApi(object):
 
         :param async_req bool: execute request asynchronously
         :param float id: (required)
-        :param object filter:
+        :param TimelineAnalysisFilter filter:
         :param _preload_content: if False, the urllib3.HTTPResponse object will
                                  be returned without reading/decoding response
                                  data. Default is True.
@@ -507,7 +507,7 @@ class TlAnalysisControllerApi(object):
 
         :param async_req bool: execute request asynchronously
         :param float id: (required)
-        :param object filter:
+        :param TimelineAnalysisFilter filter:
         :param _return_http_data_only: response data without head status code
                                        and headers
         :param _preload_content: if False, the urllib3.HTTPResponse object will

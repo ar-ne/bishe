@@ -30,21 +30,25 @@ export class WorkspaceController {
       token: string,
     @param.query.boolean('enableTrack', { required: true })
       enableTrack: boolean,
-    @param.query.string('templateName', { required: false })
-      templateName?: string,
+    @param.query.string('projectArchiveName', { required: false })
+      projectArchive?: string,
   ):
 
     Promise<WorkspaceSession> {
-    const exists = await this.wsp.exists(token);
-    const workspaceSession = exists ? await this.wsp.findById(token) : new WorkspaceSession();
+    let exists = await this.wsp.exists(token);
+    if (exists) {
+      const tContainer = await this.dockerService.verify(await this.wsp.findById(token));
+      if (tContainer === undefined) {
+        await this.wsp.deleteById(token);
+        exists = false;
+      }
+    }
 
+    const workspaceSession = exists ? await this.wsp.findById(token) : new WorkspaceSession();
     if (!exists) {//若不存在与该token绑定的session
       workspaceSession.token = token;
       workspaceSession.enableTrack = enableTrack;
-      if (templateName) {
-        const template = await this.tr.findById(templateName);
-        workspaceSession.projectArchive = template?.content;
-      }
+      if (projectArchive) workspaceSession.projectArchive = projectArchive;
       await this.wsp.create(workspaceSession);
     }
 
@@ -57,7 +61,7 @@ export class WorkspaceController {
 
     //返回WorkspaceSession
     await this.wsp.update(workspaceSession);
-    redisService.setContainer(workspaceSession);
+    redisService.ContainerRoute(workspaceSession).set();
     return workspaceSession;
   }
 
@@ -80,14 +84,15 @@ export class WorkspaceController {
     return this.wsp.findById(id, filter);
   }
 
-  @del('/workspace-sessions/{id}', {
+  @del('/workspace-sessions', {
     responses: {
       '204': {
         description: 'WorkspaceSession DELETE success',
       },
     },
   })
-  async deleteById(@param.path.string('id') id: string): Promise<void> {
-    await this.wsp.deleteById(id);
+  async deleteById(@param.header.string('Authorization', { required: true })token: string): Promise<void> {
+    await this.dockerService.destroy(await this.wsp.findById(token));
+    await this.wsp.deleteById(token);
   }
 }

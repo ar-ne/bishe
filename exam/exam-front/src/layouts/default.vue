@@ -19,18 +19,17 @@
           <span>{{item.title}}</span>
         </v-tooltip>
       </v-btn>
-      <div class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default">
+      <v-btn icon elevation="0">
         <v-tooltip bottom>
-          <template>
-            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 10 10" width="50%">
-              <circle cx="5" cy="5" r="4" stroke-width="1.5" stroke="#00247D" fill="#fff"/>
-              <circle cx="5" cy="5" r="2" :fill="$socket.connected?'#4CAF50':'#FF9800'"/>
-            </svg>
+          <template v-slot:activator="{ on }">
+            <v-icon :color="(socketGlob.connected && socketPage.connected)?'success':'error'" dark v-on="on">
+              {{socketGlob.connected?'mdi-lan-connect':'mdi-lan-disconnect'}}
+            </v-icon>
           </template>
-          <span>主连接:{{$socket.connected?'已连接':'未连接'}}</span>
-<!--          <span>页面连接:{{$socket.connected?'已连接':'未连接'}}</span>-->
+          <span>主连接:{{socketGlob.connected?'已连接':'未连接'}}</span>
+          <span>页面连接:{{socketPage.connected?'已连接':'未连接'}}</span>
         </v-tooltip>
-      </div>
+      </v-btn>
     </v-app-bar>
     <v-content class="x-content">
       <nuxt/>
@@ -47,6 +46,8 @@
   import { getModule } from 'vuex-module-decorators';
   import { DefaultLayoutSettings } from '~/store/DefaultLayoutSettings';
   import 'vuetify-markdown-editor/dist/vuetify-markdown-editor.css';
+  import { socket } from '~/plugins/socket.client';
+  import Socket = SocketIOClient.Socket;
 
   export default Vue.extend({
     name: 'defaultLayout',
@@ -60,6 +61,8 @@
     },
     data() {
       return {
+        socketPage: this.$socket,
+        socketGlob: socket as Socket,
         collapse: false,
         clipped: false,
         drawer: false,
@@ -72,9 +75,9 @@
             icon: 'mdi-view-list',
           },
           {
-            title: '首页',
-            to: '/',
-            icon: 'mdi-home',
+            title: this.$auth.user.role === 'teacher' ? '首页' : '我的回答',
+            to: this.$auth.user.role === 'teacher' ? '/teacher' : '/answers/my',
+            icon: this.$auth.user.role === 'teacher' ? 'mdi-home' : 'mdi-account-details',
           },
         ],
       };
@@ -101,7 +104,7 @@
 
   .circle::after {
     content: '';
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     width: 2rem;
     height: 2rem;
     position: absolute;

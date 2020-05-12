@@ -2,13 +2,16 @@ import { Command, flags } from '@oclif/command';
 import { resolve } from 'path';
 import Log from '../log';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
+import * as chalk from 'chalk';
 
 interface Config {
   placeholders: string[];
-  target: string;
-  envs: {
-    [key: string]: string;
-  }
+  envFiles: {
+    target: string;
+    envs: {
+      [key: string]: string;
+    }
+  }[]
 }
 
 interface Placeholder {
@@ -20,13 +23,15 @@ export default class Env extends Command {
   replace format: Key=Value
   Default config 'env.config.json'
   config format:
-  interface Config {
-    placeholders: string[];
+interface Config {
+  placeholders: string[];
+  envFiles: {
     target: string;
     envs: {
       [key: string]: string;
     }
-  }
+  }[]
+}
   `;
 
   static flags = {
@@ -82,17 +87,21 @@ export default class Env extends Command {
       Log.error('Missing key:' + missed_key);
     }
 
-    //build envs
-    const env: string[] = [];
-    Object.keys(config.envs).forEach(key => {
-      let value = config.envs[key];
-      placeholderKeys.forEach(placeholder => {
-        value = String(value).replace(placeholder, placeholders[placeholder]);
+    //build and write envs
+    config.envFiles.forEach(({ target, envs }) => {
+      const env: string[] = [];
+      Object.keys(envs).forEach(key => {
+        let value = envs[key];
+        placeholderKeys.forEach(placeholder => {
+          value = String(value).replace(placeholder, placeholders[placeholder]);
+        });
+        env.push(`${key}=${value}`);
       });
-      env.push(`${key}=${value}`);
+
+      writeFileSync(resolve(target), env.join('\n'));
+      console.log(`${chalk.green(env.length)} environment variable has been wrote into file ${chalk.green(resolve(target))}`);
     });
 
-    writeFileSync(resolve(config.target), env.join('\n'));
     if (flags.save)
       writeFileSync(resolve(flags.file || 'env.placeholder.json'), JSON.stringify(placeholders, null, 2));
   }

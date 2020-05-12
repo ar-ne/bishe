@@ -7,7 +7,8 @@
     "submodule": "git submodule update --init --recursive",
     "install": "yarn submodule && cd script-man && yarn",
     "uninstall": "cd script-man && yarn uninstall",
-    "start": "scma dc r dev -b --no-demo"
+    "start": "scma dc r dev -b --no-demo",
+    "redis-cli": "docker run -it --network code_redis --rm redis:alpine redis-cli -h redis"
   },
   "private": true,
   "workspaces": [

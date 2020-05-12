@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io';
-import { Record, UserControllerApi, UserInfo } from '../generated/openapi';
+import { Record, UserControllerApi } from '../generated/openapi';
 import { apiConfig } from '../api-config';
-import { clog, cookieParser } from '../utils';
+import { clog, cookieParser, loggerFactory } from '../utils';
 import { Redis } from 'ioredis';
 import { RedisService } from '../redis-service';
 import { UserInfoWithToken, WSCallback, WSCallback_ARG } from './types';
@@ -25,7 +25,11 @@ export const wsInit = async (
   try {
     const { record, redis, user } = await connectInit(client, socket);
     wsCallbacks({ record, redis, user, socket }).forEach(value => {
-      socket.on(value.event, value.callback);
+      socket.on(value.event, args => {
+        const logger = loggerFactory(`${user.name}${socket.nsp.name}|${value.event}`);
+        logger('');
+        value.callback(logger, args);
+      });
     });
   } catch (e) {
     socket.disconnect(true);
@@ -59,6 +63,7 @@ export class WSClients {
     this._container = {
       '/FRONT': new SocketSet(),
       '/CLIENT': new SocketSet(),
+      '/TRACK': new SocketSet(),
     };
   }
 
@@ -70,6 +75,10 @@ export class WSClients {
 
   public static get WSC() {
     return WSClients.getInstance()._container;
+  }
+
+  public static get TRACK(): SocketSet {
+    return WSClients.getInstance()._container['/TRACK'];
   }
 
   public static get FRONT(): SocketSet {
@@ -103,8 +112,15 @@ export class SocketSet {
       delete this._container[token];
   }
 
-  get(token: string): Socket[] | undefined {
-    return this._container[token];
+  get(token?: string): Socket[] {
+    if (!token) {
+      const all: Socket[] = [];
+      Object.keys(this._container).forEach(key => {
+        all.concat(this._container[key]);
+      });
+      return all;
+    } else
+      return this._container[token];
   }
 
   constructor() {

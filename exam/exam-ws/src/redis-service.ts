@@ -1,7 +1,7 @@
-import { clog, strWithPrefixFactory } from './utils';
+import { strWithPrefixFactory } from './utils';
 import { Redis } from 'ioredis';
 import { DAY, MINUTE } from './utils/constants';
-import { RecordControllerApi, RecordWithRelations } from './generated/openapi';
+import { Record, RecordControllerApi, RecordWithRelations } from './generated/openapi';
 import { apiConfig } from './api-config';
 import { Socket } from 'socket.io';
 import { UserInfoWithToken } from './websocket/types';
@@ -45,15 +45,17 @@ export class RedisService {
         await client.set(key, JSON.stringify(rec));
       },
 
-      submit: async (answerID: number, lastTime: string):Promise<boolean> => {
-        if (!await client.exists(key)) return false;
+      submit: async (answerID: number, lastTime: string): Promise<Record | undefined> => {
+        if (!await client.exists(key)) return undefined;
         const rec: RecordWithRelations = JSON.parse((await client.get(key))!);
         rec.endTime = String(new Date().getTime());
         rec.answer = answerID;
-        await new RecordControllerApi(apiConfig(self.user.token)).recordControllerCreate(rec)
-          .then(v => self.socket.emit('onSuccess', v.data.answer)).catch(reason => clog(reason.stack));
+        const sRec = await new RecordControllerApi(apiConfig(self.user.token)).recordControllerCreate(rec)
+          .then(v => v.data).catch((reason: string) => {
+            throw new Error('Something wrong');
+          });
         await client.del(key);
-        return true;
+        return sRec;
       },
     };
   }
@@ -77,7 +79,7 @@ export class RedisService {
     };
   }
 
-  async getAllTracker(): Promise<UserTracker[]> {
+  async getAllTracker(): Promise<TrackerTimeline[]> {
     return this.client.keys(KEY_FACTORY.USER_TRACKER()).then(v => v.map(x => JSON.parse(x)));
   }
 

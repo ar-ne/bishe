@@ -35,7 +35,7 @@ class NewTimelineAnalysis(object):
     openapi_types = {
         'record': 'float',
         'finished': 'bool',
-        'result': 'NewTimelineAnalysis'
+        'result': 'TlaResult'
     }
 
     attribute_map = {
@@ -112,7 +112,7 @@ class NewTimelineAnalysis(object):
 
 
         :return: The result of this NewTimelineAnalysis.  # noqa: E501
-        :rtype: NewTimelineAnalysis
+        :rtype: TlaResult
         """
         return self._result
 
@@ -122,7 +122,7 @@ class NewTimelineAnalysis(object):
 
 
         :param result: The result of this NewTimelineAnalysis.  # noqa: E501
-        :type: NewTimelineAnalysis
+        :type: TlaResult
         """
 
         self._result = result

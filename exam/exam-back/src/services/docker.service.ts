@@ -3,6 +3,7 @@ import Dockerode, { Container, ContainerInspectInfo, EndpointsConfig, NetworkIns
 import { WorkspaceSession } from '../models';
 import { repository } from '@loopback/repository';
 import { WorkspaceSessionRepository } from '../repositories';
+import { redisService } from '../redis-service';
 
 export const docker = new Dockerode();
 
@@ -47,6 +48,7 @@ export class DockerService {
         force: true,
         v: true,
       });
+      await redisService.ContainerRoute(workspaceSession).del();
       await this.wsp.deleteById(workspaceSession.token);
     }
   }
@@ -82,16 +84,18 @@ export class DockerService {
         EndpointsConfig: {} as EndpointsConfig,
       },
       HostConfig: {
-        Memory: 512000000,
-        OomKillDisable: true,
+        // Memory: 512000000,
+        // OomKillDisable: true,
         DiskQuota: 1024000000,
-        CpuQuota:  1000000,
-        CpuPeriod: 1000000,
+        // CpuQuota: 1000000,
+        // CpuPeriod: 1000000,
       },
       Env: [
         `ACCESS_TOKEN=${workspaceSession.token}`,
         `PROJECT_ARCHIVE=${workspaceSession.projectArchive}`,
         `ENABLE_TRACK=${workspaceSession.enableTrack ? 1 : 0}`,
+        `WS_URL=${process.env.WS_URL}`,
+        `BACKEND_URL=http://exam-back:3000`,
       ],
     };
     containerOption.NetworkingConfig!.EndpointsConfig![await this._network.then(n => n.Name)] = {
