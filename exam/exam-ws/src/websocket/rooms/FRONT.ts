@@ -8,25 +8,18 @@ export const FRONT = (
     {
       event: 'Middleware/UserStateMonitor',
       callback: async (log, dat) => {
-        const d = JSON.parse(dat);
-        log(JSON.parse(dat));
-        await redis.Tracker().update(d);
-        const trackers = await redis.getAllTracker();
-        for (const s of WSClients.TRACK.get()) {
-          s.emit('update',);
-        }
+        log(dat);
+        await redis.Tracker().update(dat);
+        WSClients.TRACK.broadcast('update', await redis.getAllTracker());
       },
     },
     {
       event: 'submit/answer',
       callback: async (log, qID: number) => {
         log(user.name, 'submit/answer');
-        const socketSet = WSClients.CLIENT.get(user.token);
-        socketSet?.forEach((value) => {
-          value.emit('submit/answer', {
-            qID: qID,
-            user: user.name,
-          });
+        WSClients.CLIENT.emit(user.token, 'submit/answer', {
+          qID: qID,
+          user: user.name,
         });
       },
     },
@@ -34,12 +27,9 @@ export const FRONT = (
       event: 'submit/template',
       callback: async (log, name: string) => {
         log('submit/template');
-        const socketSet = WSClients.CLIENT.get(user.token);
-        socketSet?.forEach((value) => {
-          value.emit('submit/template', {
-            name,
-            user: user.name,
-          });
+        WSClients.CLIENT.emit(user.token, 'submit/template', {
+          name,
+          user: user.name,
         });
       },
     },

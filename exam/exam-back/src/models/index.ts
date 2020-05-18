@@ -7,3 +7,6 @@ export * from './timeline-analysis.model';
 export * from './tla-timeline-item.model';
 export * from './tla-result.model';
 export * from './workspace-session.model';
+export * from './user-track-acrion.model';
+export * from './user-track-info.model';
+export * from './user-track.model';

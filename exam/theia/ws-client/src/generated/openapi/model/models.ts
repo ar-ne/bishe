@@ -41,6 +41,9 @@ export * from './tlaResultWithRelations';
 export * from './tlaTimelineItem';
 export * from './tlaTimelineItemWithRelations';
 export * from './userInfo';
+export * from './userTrack';
+export * from './userTrackAcrion';
+export * from './userTrackInfo';
 export * from './workspaceSession';
 export * from './workspaceSessionFields';
 export * from './workspaceSessionFilter';
@@ -91,6 +94,9 @@ import { TlaResultWithRelations } from './tlaResultWithRelations';
 import { TlaTimelineItem } from './tlaTimelineItem';
 import { TlaTimelineItemWithRelations } from './tlaTimelineItemWithRelations';
 import { UserInfo } from './userInfo';
+import { UserTrack } from './userTrack';
+import { UserTrackAcrion } from './userTrackAcrion';
+import { UserTrackInfo } from './userTrackInfo';
 import { WorkspaceSession } from './workspaceSession';
 import { WorkspaceSessionFields } from './workspaceSessionFields';
 import { WorkspaceSessionFilter } from './workspaceSessionFilter';
@@ -155,6 +161,9 @@ let typeMap: {[index: string]: any} = {
     "TlaTimelineItem": TlaTimelineItem,
     "TlaTimelineItemWithRelations": TlaTimelineItemWithRelations,
     "UserInfo": UserInfo,
+    "UserTrack": UserTrack,
+    "UserTrackAcrion": UserTrackAcrion,
+    "UserTrackInfo": UserTrackInfo,
     "WorkspaceSession": WorkspaceSession,
     "WorkspaceSessionFields": WorkspaceSessionFields,
     "WorkspaceSessionFilter": WorkspaceSessionFilter,

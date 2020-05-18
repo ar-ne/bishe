@@ -1,7 +1,11 @@
 import { WSCallback, WSCallback_ARG } from '../types';
-import { SocketSet } from '../ws-utils';
 
 export const TRACK = (
-  _: WSCallback_ARG): WSCallback[] => {
-  return [];
+  { redis, user, socket }: WSCallback_ARG): WSCallback[] => {
+  return [{
+    event: 'init',
+    callback: async (log) => {
+      socket.emit('update', await redis.getAllTracker());
+    },
+  }];
 };

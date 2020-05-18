@@ -68,7 +68,7 @@
         drawer: false,
         fixed: false,
         miniVariant: false,
-        toolbarItems: [
+        toolbarItems: this.$auth.loggedIn ? [
           {
             title: '题目列表',
             to: '/quests',
@@ -79,7 +79,7 @@
             to: this.$auth.user.role === 'teacher' ? '/teacher' : '/answers/my',
             icon: this.$auth.user.role === 'teacher' ? 'mdi-home' : 'mdi-account-details',
           },
-        ],
+        ] : [],
       };
     },
   });

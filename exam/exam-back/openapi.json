@@ -1537,6 +1537,31 @@
         "operationId": "TlAnalysisController.find"
       }
     },
+    "/user-tracks": {
+      "get": {
+        "x-controller-name": "UserTrackController",
+        "x-operation-name": "getAll",
+        "tags": [
+          "UserTrackController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of UserTrack model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserTrack"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "UserTrackController.getAll"
+      }
+    },
     "/userinfo": {
       "get": {
         "x-controller-name": "UserController",
@@ -2290,6 +2315,57 @@
         },
         "additionalProperties": false,
         "x-typescript-type": "Partial<TimelineAnalysis>"
+      },
+      "UserTrackAcrion": {
+        "title": "UserTrackAcrion",
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "from",
+          "to"
+        ],
+        "additionalProperties": false
+      },
+      "UserTrackInfo": {
+        "title": "UserTrackInfo",
+        "properties": {
+          "time": {
+            "type": "number"
+          },
+          "action": {
+            "$ref": "#/components/schemas/UserTrackAcrion"
+          }
+        },
+        "required": [
+          "time",
+          "action"
+        ],
+        "additionalProperties": false
+      },
+      "UserTrack": {
+        "title": "UserTrack",
+        "properties": {
+          "user": {
+            "type": "string"
+          },
+          "timeline": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserTrackInfo"
+            }
+          }
+        },
+        "required": [
+          "user",
+          "timeline"
+        ],
+        "additionalProperties": false
       },
       "UserInfo": {
         "title": "UserInfo",

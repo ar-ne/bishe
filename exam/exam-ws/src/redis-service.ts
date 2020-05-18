@@ -1,7 +1,7 @@
 import { strWithPrefixFactory } from './utils';
 import { Redis } from 'ioredis';
 import { DAY, MINUTE } from './utils/constants';
-import { Record, RecordControllerApi, RecordWithRelations } from './generated/openapi';
+import { Record, RecordControllerApi, RecordWithRelations, UserTrack, UserTrackInfo } from './generated/openapi';
 import { apiConfig } from './api-config';
 import { Socket } from 'socket.io';
 import { UserInfoWithToken } from './websocket/types';
@@ -11,7 +11,6 @@ export const EXPIRE = 7 * DAY;
 export const CACHE_EXPIRE = 10 * MINUTE;
 const KEY_FACTORY = {
   USER_TRACKER: strWithPrefixFactory('WS__USER_TRACKER__'),
-  USER_TIMELINE: strWithPrefixFactory('WS__USER_TIMELINE__'),
   SIMPLE_CACHE: strWithPrefixFactory('WS__SIMPLE_CACHE__'),
   USER_RECORD: strWithPrefixFactory('WS__USER_RECORD__'),
   USER_RECORD_LAST_TIME: strWithPrefixFactory('WS__USER_RECORD_LAST_TIME__'),
@@ -65,39 +64,34 @@ export class RedisService {
     const key = KEY_FACTORY.USER_TRACKER(self.user.name);
     const { client } = this;
     return {
-      update: async (dat: UserTracker) => {
-        await client.set(key, JSON.stringify(dat));
+      update: async (dat: UserTrackInfo) => {
+        let current: UserTrackInfo[] = [];
+        if (await client.exists(key)) {
+          current = JSON.parse((await client.get(key))!);
+          current.push(dat);
+        } else {
+          current = [dat];
+        }
+        await client.set(key, JSON.stringify(current));
         await client.expire(key, EXPIRE);
-        await this.Timeline().update(dat);
-      },
-      get: async (): Promise<UserTracker | never> => {
-        const exists = await client.exists(key).then(v => v === 1);
-        if (exists)
-          return client.get(key).then(v => JSON.parse(v!));
-        return Promise.reject(`no UserTracker match given key:${key}`);
       },
     };
   }
 
-  async getAllTracker(): Promise<TrackerTimeline[]> {
-    return this.client.keys(KEY_FACTORY.USER_TRACKER()).then(v => v.map(x => JSON.parse(x)));
-  }
-
-  public Timeline() { //记录用户位置的时间线
-    const self = this;
-    const key = KEY_FACTORY.USER_TIMELINE(self.user.name);
+  async getAllTracker(): Promise<UserTrack[]> {
+    const key_prefix = 'WS__USER_TRACKER__';
     const { client } = this;
-    return {
-      update: async (dat: UserTracker) => {
-        await this.client.rpush(key, JSON.stringify(dat));
-      },
-      get: async (): Promise<TrackerTimeline> => {
-        const len = await client.llen(key);
-        if (len > 0)
-          return client.lrange(key, 0, len).then(v => v.map(x => JSON.parse(x)));
-        return Promise.reject(`no TrackerTimeline match given key:${key}`);
-      },
-    };
+    const keys = await client.keys(key_prefix+"*");
+    const allDataPromises: Promise<UserTrack>[] = keys.map(async (k) => {
+      const dat: UserTrackInfo[] = JSON.parse((await client.get(k))!);
+      return { user: k.substring(key_prefix.length), timeline: dat };
+    });
+    const allData: UserTrack[] = [];
+
+    for (const promise of allDataPromises)
+      allData.push(await promise);
+
+    return allData;
   }
 
   simpleGetCacheProxyFactory<T>(k: string, proxyMethod: () => Promise<T>): () => Promise<T> {
@@ -114,12 +108,3 @@ export class RedisService {
   };
 }
 
-export type TrackerTimeline = UserTracker[]
-
-export interface UserTracker {
-  time: string;
-  action: {
-    from: string;
-    to: string;
-  };
-}

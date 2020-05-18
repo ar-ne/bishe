@@ -1,7 +1,4 @@
-cd exam-front
-start yarn gen
-cd ..
-cd exam-ws
+cd exam-back
 start yarn gen
 cd ..
 cd record-parser

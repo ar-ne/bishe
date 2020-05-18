@@ -29,8 +29,12 @@
         </v-card-subtitle>
         <v-card-text style="height: inherit">
           <v-btn @click="open(`${back}/files/dl/${awr.ans.content}`)">
-            <v-icon>mdi-download</v-icon>
+            <v-icon>mdi-link</v-icon>
             <span>下载项目压缩包</span>
+          </v-btn>
+          <v-btn @click="openEditor(awr.ans.content)">
+            <v-icon>mdi-open-in-new</v-icon>
+            <span>在线查看</span>
           </v-btn>
         </v-card-text>
       </v-card>
@@ -69,8 +73,8 @@
               <v-col cols="4">
                 <v-card elevation="0">
                   <v-card-text>
-                    <v-switch label="全部展开" inset v-model="collapse" style="padding-bottom: 0"/>
-                    <v-switch label="显示原始数据" inset v-model="showRaw"/>
+<!--                    <v-switch label="全部展开" inset v-model="collapse" style="padding-bottom: 0"/>-->
+<!--                    <v-switch label="显示原始数据" inset v-model="showRaw"/>-->
                     <!--                    <v-switch label="显示片段" inset v-model="showRaw"/>-->
                   </v-card-text>
                 </v-card>
@@ -101,12 +105,12 @@
                   <v-divider></v-divider>
                   <v-card-text>
                     <v-list dense>
-                      <v-list-item>
-                        事件: {{item.type}}
-                      </v-list-item>
-                      <v-list-item>
-                        位置: {{item.event.changes?getPos(item.event.changes[0].range):'无'}}
-                      </v-list-item>
+                      <!--                      <v-list-item>-->
+                      <!--                        事件: {{item.type}}-->
+                      <!--                      </v-list-item>-->
+                      <!--                      <v-list-item>-->
+                      <!--                        位置: {{item.event.changes?getPos(item.event.changes[0].range):'无'}}-->
+                      <!--                      </v-list-item>-->
                       <!--                      <v-list-item>-->
                       <!--                        代码片段:-->
                       <!--                        <div class="md" v-html="Renderer(`\`\`\`${item.value}\`\`\``)"></div>-->
@@ -120,7 +124,6 @@
                           open-all
                           :items="tree[i]"/>
                       </v-list-item>
-
                     </v-list>
                   </v-card-text>
                 </div>
@@ -152,7 +155,8 @@
   import getTree, { TreeViewItems } from '~/toTreeView';
   import MonacoEditor from '~/components/MonacoEditor.vue';
   import { editor, IRange } from 'monaco-editor';
-  import { BACKEND_URL } from '~/api-config';
+  import { apiConfig, BACKEND_URL } from '~/api-config';
+  import { WorkspaceControllerApi, WorkspaceSession } from '~/generated/openapi';
   import IStandaloneEditorConstructionOptions = editor.IStandaloneEditorConstructionOptions;
 
   export default Vue.extend({
@@ -164,7 +168,7 @@
       await getModule(Answers, this.$store).fetchOne(this.id);
       this.awr = Object.freeze(await getModule(Answers, this.$store).getAWR(this.id)!);
       this.rec = Object.freeze(this.awr.rec?.timeline.map(v => JSON.parse(v)));
-      this.tree = Object.freeze(this.rec.map((v: any) => getTree(v.event)));
+      this.tree = Object.freeze(this.rec.map((v: any) => getTree(v)));
       this.loading = false;
     },
     computed: {
@@ -201,7 +205,7 @@
         tree: [] as TreeViewItems[],
         getTree: getTree,
         Renderer: Renderer,
-        showRaw: false,
+        showRaw: true,
         loading: true,
         showTimeline: false,
         back: BACKEND_URL,
@@ -209,7 +213,33 @@
         collapse: false,
         id: Number(this.$route.params.id),
         monacoOption: { readOnly: true } as IStandaloneEditorConstructionOptions,
+        workspace: {} as WorkspaceSession,
       };
+    },
+    methods: {
+      async openEditor(archiveName: string) {
+        this.loading = true;
+        this.workspace = await new WorkspaceControllerApi(apiConfig())
+          .workspaceControllerGetContainer(this.$auth.getToken('hydra'), false, archiveName).then(v => v.data);
+        window.open(`${process.env.VUE_APP_CONTAINER_BASE}/${this.workspace.containerID}/`);
+        window.addEventListener('beforeunload', this.destroyWorkspace);
+        this.$once('hook:beforeDestroy', () => {
+          window.removeEventListener('beforeunload', this.destroyWorkspace);
+        });
+        this.loading = false;
+      },
+      destroyWorkspace() {
+        const self = this;
+        new WorkspaceControllerApi(apiConfig()).workspaceControllerDeleteById(this.$auth.getToken('hydra'), this.workspace.containerID).then(() => {
+          self.$toast['success']('成功销毁编辑器容器');
+          window.removeEventListener('beforeunload', this.destroyWorkspace);
+        });
+      },
+    },
+
+    beforeRouteLeave(to, from, next) {
+      this.destroyWorkspace();
+      next();
     },
   });
 </script>

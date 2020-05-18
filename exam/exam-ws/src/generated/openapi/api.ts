@@ -1487,6 +1487,63 @@ export interface UserInfo {
 /**
  * 
  * @export
+ * @interface UserTrack
+ */
+export interface UserTrack {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserTrack
+     */
+    user: string;
+    /**
+     * 
+     * @type {Array<UserTrackInfo>}
+     * @memberof UserTrack
+     */
+    timeline: Array<UserTrackInfo>;
+}
+/**
+ * 
+ * @export
+ * @interface UserTrackAcrion
+ */
+export interface UserTrackAcrion {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserTrackAcrion
+     */
+    from: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserTrackAcrion
+     */
+    to: string;
+}
+/**
+ * 
+ * @export
+ * @interface UserTrackInfo
+ */
+export interface UserTrackInfo {
+    /**
+     * 
+     * @type {number}
+     * @memberof UserTrackInfo
+     */
+    time: number;
+    /**
+     * 
+     * @type {UserTrackAcrion}
+     * @memberof UserTrackInfo
+     */
+    action: UserTrackAcrion;
+}
+/**
+ * 
+ * @export
  * @interface WorkspaceSession
  */
 export interface WorkspaceSession {
@@ -5595,6 +5652,118 @@ export class UserControllerApi extends BaseAPI implements UserControllerApiInter
      */
     public userControllerUserinfo(authorization?: string, options?: any) {
         return UserControllerApiFp(this.configuration).userControllerUserinfo(authorization, options)(this.axios, this.basePath);
+    }
+
+}
+
+
+/**
+ * UserTrackControllerApi - axios parameter creator
+ * @export
+ */
+export const UserTrackControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userTrackControllerGetAll(options: any = {}): RequestArgs {
+            const localVarPath = `/user-tracks`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * UserTrackControllerApi - functional programming interface
+ * @export
+ */
+export const UserTrackControllerApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userTrackControllerGetAll(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserTrack>> {
+            const localVarAxiosArgs = UserTrackControllerApiAxiosParamCreator(configuration).userTrackControllerGetAll(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * UserTrackControllerApi - factory interface
+ * @export
+ */
+export const UserTrackControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userTrackControllerGetAll(options?: any): AxiosPromise<Array<UserTrack>> {
+            return UserTrackControllerApiFp(configuration).userTrackControllerGetAll(options)(axios, basePath);
+        },
+    };
+};
+
+/**
+ * UserTrackControllerApi - interface
+ * @export
+ * @interface UserTrackControllerApi
+ */
+export interface UserTrackControllerApiInterface {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserTrackControllerApiInterface
+     */
+    userTrackControllerGetAll(options?: any): AxiosPromise<Array<UserTrack>>;
+
+}
+
+/**
+ * UserTrackControllerApi - object-oriented interface
+ * @export
+ * @class UserTrackControllerApi
+ * @extends {BaseAPI}
+ */
+export class UserTrackControllerApi extends BaseAPI implements UserTrackControllerApiInterface {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserTrackControllerApi
+     */
+    public userTrackControllerGetAll(options?: any) {
+        return UserTrackControllerApiFp(this.configuration).userTrackControllerGetAll(options)(this.axios, this.basePath);
     }
 
 }

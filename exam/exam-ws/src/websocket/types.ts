@@ -19,3 +19,5 @@ export interface WSCallback_ARG {
   user: UserInfoWithToken;
   socket: Socket;
 }
+
+export type TokenType = string

@@ -1,5 +1,5 @@
 import { WSCallback, WSCallback_ARG } from '../types';
-import { AnswerControllerApi, NewAnswer, NewTemplate, TemplateControllerApi } from '../../generated/openapi';
+import { AnswerControllerApi, TemplateControllerApi } from '../../generated/openapi';
 import { apiConfig } from '../../api-config';
 import { WSClients } from '../ws-utils';
 
@@ -11,33 +11,22 @@ export const CLIENT = (
     callback: async (logger, { file, question }: { file: string; question: number }) => {
       logger('');
       const ans = await new AnswerControllerApi(apiConfig(user.token))
-        .answerControllerCreate(new class implements NewAnswer {
-          question = question;
-          content = file;
-          user = user.name;
-        }).then(v => v.data);
+        .answerControllerCreate({ question, content: file, user: user.name }).then(v => v.data);
 
       const record = await redis.Record().submit(ans.id!, String(new Date().getTime()));
 
       await socket.emit('submit/answer/done', JSON.stringify(ans));
-      await WSClients.FRONT.get(user.token)?.forEach(value => {
-        value.emit('answerSuccess', ans.id);
-      });
+      await WSClients.FRONT.emit(user.token, 'answerSuccess', ans.id);
     },
   }, {
     event: 'submit/template/uploaded',
     callback: async (logger, { file, name }: { file: string; name: string }) => {
       logger('');
       const template = await new TemplateControllerApi(apiConfig(user.token))
-        .templateControllerCreate(new class implements NewTemplate {
-          name = name;
-          content = file;
-        }).then(v => v.data);
+        .templateControllerCreate({ name, content: file }).then(v => v.data);
 
       await socket.emit('submit/template/done', JSON.stringify(template));
-      await WSClients.FRONT.get(user.token)?.forEach(value => {
-        value.emit('templateSuccess', template.name);
-      });
+      await WSClients.FRONT.emit(user.token, 'templateSuccess', template.name);
     },
   },
     ...EditorEvents({ redis, user, socket, record }),

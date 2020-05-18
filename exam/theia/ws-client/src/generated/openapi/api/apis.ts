@@ -14,6 +14,8 @@ export * from './tlAnalysisControllerApi';
 import { TlAnalysisControllerApi } from './tlAnalysisControllerApi';
 export * from './userControllerApi';
 import { UserControllerApi } from './userControllerApi';
+export * from './userTrackControllerApi';
+import { UserTrackControllerApi } from './userTrackControllerApi';
 export * from './workspaceControllerApi';
 import { WorkspaceControllerApi } from './workspaceControllerApi';
 import * as fs from 'fs';
@@ -36,4 +38,4 @@ export interface RequestDetailedFile {
 
 export type RequestFile = string | Buffer | fs.ReadStream | RequestDetailedFile;
 
-export const APIS = [AnswerControllerApi, FileUdControllerApi, PingControllerApi, QuestionControllerApi, RecordControllerApi, TemplateControllerApi, TlAnalysisControllerApi, UserControllerApi, WorkspaceControllerApi];
+export const APIS = [AnswerControllerApi, FileUdControllerApi, PingControllerApi, QuestionControllerApi, RecordControllerApi, TemplateControllerApi, TlAnalysisControllerApi, UserControllerApi, UserTrackControllerApi, WorkspaceControllerApi];

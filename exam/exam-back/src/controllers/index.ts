@@ -6,3 +6,4 @@ export * from './record.controller';
 export * from './tl-analysis.controller';
 export * from './workspace.controller';
 export * from './file-ud.controller';
+export * from './user-track.controller';

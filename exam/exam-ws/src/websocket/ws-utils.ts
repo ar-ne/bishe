@@ -4,7 +4,7 @@ import { apiConfig } from '../api-config';
 import { clog, cookieParser, loggerFactory } from '../utils';
 import { Redis } from 'ioredis';
 import { RedisService } from '../redis-service';
-import { UserInfoWithToken, WSCallback, WSCallback_ARG } from './types';
+import { TokenType, UserInfoWithToken, WSCallback, WSCallback_ARG } from './types';
 
 export const extractUserInfo = async (socket: Socket): Promise<UserInfoWithToken | undefined> => {
   try {
@@ -26,7 +26,7 @@ export const wsInit = async (
     const { record, redis, user } = await connectInit(client, socket);
     wsCallbacks({ record, redis, user, socket }).forEach(value => {
       socket.on(value.event, args => {
-        const logger = loggerFactory(`${user.name}${socket.nsp.name}|${value.event}`);
+        const logger = loggerFactory(`[${user.role}|${user.name}${socket.nsp.name}]=>${value.event}`);
         logger('');
         value.callback(logger, args);
       });
@@ -98,13 +98,27 @@ export class WSClients {
 export class SocketSet {
   private readonly _container: { [token: string]: Socket[] };
 
-  add(token: string, socket: Socket) {
+  emit(to: TokenType, event: string, ...args: any[]) {
+    const { _container: container } = this;
+    if (container.hasOwnProperty(to))
+      container[to].forEach(async (socket) => {
+        socket.emit(event, ...args);
+      });
+  }
+
+  broadcast(event: string, ...args: any[]) {
+    for (const token in this._container) {
+      this.emit(token, event, ...args);
+    }
+  }
+
+  add(token: TokenType, socket: Socket) {
     if (!this._container[token])
       this._container[token] = [];
     this._container[token].push(socket);
   }
 
-  remove(token: string, socket: Socket) {
+  remove(token: TokenType, socket: Socket) {
     if (!this._container[token]) return;
     if (this._container[token].includes(socket))
       this._container[token] = this._container[token].filter(v => v.id !== socket.id);
@@ -112,7 +126,7 @@ export class SocketSet {
       delete this._container[token];
   }
 
-  get(token?: string): Socket[] {
+  get(token?: TokenType): Socket[] {
     if (!token) {
       const all: Socket[] = [];
       Object.keys(this._container).forEach(key => {
