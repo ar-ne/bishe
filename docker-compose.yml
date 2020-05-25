@@ -101,6 +101,8 @@ services:
       - yarn-cache:/usr/local/share/.cache/yarn/v6
       - exam-storage:/exam
       - /var/run/docker.sock:/var/run/docker.sock
+    ports: 
+      - 3336:3336
 
   exam-ws:
     depends_on:
@@ -118,7 +120,9 @@ services:
     environment:
       - VUE_APP_BACKEND_URL=${VUE_APP_BACKEND_URL_INTERNAL}
       - REDIS_HOST=${REDIS_HOST}
-      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED}.
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED}
+    ports: 
+      - 3001:3001
 
   openresty:
     restart: always
