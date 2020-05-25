@@ -9,3 +9,4 @@ node_modules
 .idea/workspace.xml
 .idea/vcs.xml
 *.tsbuildinfo
+/exam/openresty/logs/*.pid
