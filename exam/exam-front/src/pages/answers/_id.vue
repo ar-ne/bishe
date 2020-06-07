@@ -19,16 +19,8 @@
             :disabled="!awr.analysis.finished"
             label="显示时间线"
             v-model="showTimeline"/>
-        </v-card-title>
-        <v-card-subtitle>
-          <span>答题人 {{awr.ans.user}}</span>&nbsp;
-          <nuxt-link :to="`/quests/${awr.ans.question}`">
-            题目&nbsp;{{awr.ans.question}}
-          </nuxt-link>
-          <v-divider/>
-        </v-card-subtitle>
-        <v-card-text style="height: inherit">
-          <v-btn @click="open(`${back}/files/dl/${awr.ans.content}`)">
+            <v-spacer/>
+            <v-btn @click="open(`${back}/files/dl/${awr.ans.content}`)">
             <v-icon>mdi-link</v-icon>
             <span>下载项目压缩包</span>
           </v-btn>
@@ -36,6 +28,26 @@
             <v-icon>mdi-open-in-new</v-icon>
             <span>在线查看</span>
           </v-btn>
+        </v-card-subtitle>
+        </v-card-title>
+        <v-card-subtitle>
+          <span>答题人 {{awr.ans.user}}</span>&nbsp;
+          <nuxt-link :to="`/quests/${awr.ans.question}`">
+            题目&nbsp;{{awr.ans.question}}
+          </nuxt-link>
+          <v-divider/>
+        <v-card-text style="height: inherit">
+                <v-textarea
+                  label="评价"
+                  append-icon="mdi-language-markdown"
+                  auto-grow
+                  counter
+                  outlined>
+                </v-textarea>
+                <v-spacer/>
+                  <v-btn color="primary">
+                    提交
+                  </v-btn>
         </v-card-text>
       </v-card>
     </v-container>

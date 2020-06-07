@@ -91,7 +91,8 @@
         }
         const api = new LoginControllerApi(apiConfig);
 
-        api.loginControllerPostSlash(true, self.form).then((value) => {
+        const userinfo = { ...self.form};
+        api.loginControllerPostSlash(true, userinfo).then((value) => {
           const { success, message, redirect } = value.data;
           if (!success) self.$notification.error(message);
           else window.location.href = redirect;

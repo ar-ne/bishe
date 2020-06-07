@@ -8,7 +8,8 @@
     "install": "yarn submodule && cd script-man && yarn",
     "uninstall": "cd script-man && yarn uninstall",
     "start": "scma dc r dev -b --no-demo",
-    "redis-cli": "docker run -it --network code_redis --rm redis:alpine redis-cli -h redis"
+    "redis-cli": "docker run -it --network code_redis --rm redis:alpine redis-cli -h redis",
+    "build":"docker-compose build"
   },
   "private": true,
   "workspaces": [

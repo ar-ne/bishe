@@ -26,4 +26,6 @@ RUN npm run build
 ENV HOST=0.0.0.0 PORT=3336
 
 EXPOSE ${PORT}
+
+USER root
 CMD [ "node", "." ]
